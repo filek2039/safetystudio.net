@@ -371,6 +371,205 @@
     .pillar.reveal:nth-child(2) { transition-delay: 0.22s; }
     .pillar.reveal:nth-child(3) { transition-delay: 0.34s; }
 
+    /* TOOLS SECTION */
+    .tools {
+      padding: 6rem 4rem;
+      position: relative;
+    }
+    .tools-intro {
+      font-size: 0.95rem; line-height: 1.75; color: var(--text-muted);
+      font-weight: 300; max-width: 520px; margin-top: 1rem;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 780px;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .tool-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+    .tool-card:hover { border-color: rgba(201, 168, 76, 0.4); }
+    .tool-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.4s;
+    }
+    .tool-card:hover::before { transform: scaleX(1); }
+
+    .tool-header {
+      padding: 1.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; user-select: none;
+      gap: 1rem;
+    }
+    .tool-header-left { display: flex; align-items: center; gap: 1rem; }
+    .tool-icon {
+      width: 40px; height: 40px; color: var(--gold); flex-shrink: 0;
+    }
+    .tool-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 400; color: var(--white);
+    }
+    .tool-subtitle {
+      font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;
+    }
+    .tool-chevron {
+      width: 20px; height: 20px; color: var(--gold); flex-shrink: 0;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .tool-card.open .tool-chevron { transform: rotate(180deg); }
+
+    .tool-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                  padding 0.3s ease;
+      padding: 0 2rem;
+    }
+    .tool-card.open .tool-body {
+      max-height: 2200px;
+      padding: 0 2rem 2rem;
+    }
+    .tool-divider {
+      height: 1px; background: rgba(201, 168, 76, 0.12);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Incident Rate Calculator */
+    .ir-top-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .ir-field {
+      display: flex; flex-direction: column; gap: 0.35rem;
+      font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .ir-case-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .ir-field input, .ir-field select {
+      background: var(--navy); color: var(--cream);
+      border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 2px;
+      padding: 0.55rem 0.75rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+    }
+    .ir-field input:focus, .ir-field select:focus { border-color: var(--gold); }
+    .ir-field select { cursor: pointer; }
+    .ir-subtotals {
+      display: flex; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;
+    }
+    .ir-subtotal {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(201, 168, 76, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 2px; padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+    }
+    .ir-subtotal-label {
+      color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.08em; font-size: 0.68rem;
+    }
+    .ir-subtotal-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; color: var(--gold);
+    }
+    .ir-subtotal-formula {
+      font-size: 0.65rem; color: var(--text-muted);
+      margin-left: 0.25rem; font-style: italic;
+    }
+    .ir-results {
+      display: flex; gap: 0.75rem; flex-direction: column;
+      margin-bottom: 1.25rem;
+    }
+    .ir-metric {
+      padding: 0.85rem 1.1rem;
+      background: rgba(201, 168, 76, 0.06);
+      border-left: 3px solid var(--gold); border-radius: 2px;
+    }
+    .ir-metric-label {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.15rem;
+    }
+    .ir-metric-formula {
+      font-size: 0.64rem; color: rgba(138, 154, 181, 0.6);
+      font-style: italic; margin-bottom: 0.25rem;
+    }
+    .ir-metric-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; color: var(--white);
+    }
+    .ir-metric-bench { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+    .ir-metric-cite { font-size: 0.62rem; color: rgba(138,154,181,0.55); margin-top: 0.15rem; font-style: italic; }
+    .ir-targets-section { margin-top: 0.25rem; }
+    .ir-targets-title {
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .ir-targets-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(201, 168, 76, 0.15);
+    }
+    .ir-target-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.6rem; flex-wrap: wrap;
+    }
+    .ir-target-name {
+      font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); width: 48px; flex-shrink: 0;
+    }
+    .ir-target-current {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--white); width: 52px;
+    }
+    .ir-target-arrow { color: var(--text-muted); font-size: 0.75rem; }
+    .ir-target-pct-wrap {
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .ir-target-pct {
+      background: var(--navy); color: var(--cream);
+      border: 1px solid rgba(201, 168, 76, 0.25); border-radius: 2px;
+      padding: 0.3rem 0.4rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem; outline: none; width: 52px;
+      transition: border-color 0.2s; text-align: center;
+    }
+    .ir-target-pct:focus { border-color: var(--gold); }
+    .ir-target-pct-label { font-size: 0.7rem; color: var(--text-muted); }
+    .ir-target-result {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--gold); margin-left: auto;
+    }
+    @media (max-width: 900px) {
+      .ir-top-row, .ir-case-grid { grid-template-columns: 1fr; }
+    }
+
+    /* MVI section divider */
+    .ir-section-sep {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin: 1.5rem 0 1.25rem;
+    }
+    .ir-section-sep-line {
+      flex: 1; height: 1px; background: rgba(201, 168, 76, 0.15);
+    }
+    .ir-section-sep-label {
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); white-space: nowrap;
+    }
+
+    @media (max-width: 900px) {
+      .tools { padding: 4rem 1.5rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+
     /* Gold divider animated line */
     .divider-animated {
       height: 1px;
@@ -413,6 +612,7 @@
   <div class="logo">Safety<span>Studio</span></div>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <a href="#tools">Free Tools</a>
     <a href="#why">About</a>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
@@ -508,6 +708,196 @@
         <span class="tag">Reporting</span>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="divider-animated"></div>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="section-header reveal">
+    <span class="section-tag">Free HSE Tools</span>
+    <h2>Practical <em>Tools</em><br>For Every Safety Team</h2>
+    <p class="tools-intro">Use these tools to quickly assess risks, calculate key safety metrics, and audit your workplace — no sign-up required.</p>
+  </div>
+
+  <div class="tools-grid">
+
+    <!-- Incident Rate Calculator -->
+    <div class="tool-card reveal" id="tool-ir">
+      <div class="tool-header" onclick="toggleTool('tool-ir')">
+        <div class="tool-header-left">
+          <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"/>
+          </svg>
+          <div>
+            <div class="tool-title">Incident Rate Calculator</div>
+            <div class="tool-subtitle">LTIF & TRCF with benchmarks &amp; targets</div>
+          </div>
+        </div>
+        <svg class="tool-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+      <div class="tool-body">
+        <div class="tool-divider"></div>
+
+        <!-- Hours + Base -->
+        <div class="ir-top-row">
+          <label class="ir-field">Hours Worked (period)
+            <input type="number" id="ir-hours" placeholder="e.g. 1000000" min="1" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Base Figure
+            <select id="ir-base" onchange="updateIR()">
+              <option value="1000000" selected>1,000,000 hrs — International</option>
+              <option value="200000">200,000 hrs — US OSHA</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Case type inputs -->
+        <div class="ir-case-grid">
+          <label class="ir-field">Fatality (FAT)
+            <input type="number" id="ir-fat" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Lost Workday Case (LWC)
+            <input type="number" id="ir-lwc" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Restricted Workday Case (RWC)
+            <input type="number" id="ir-rwc" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Medical Treatment Case (MTC)
+            <input type="number" id="ir-mtc" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+        </div>
+
+        <!-- Auto-calculated subtotals -->
+        <div class="ir-subtotals">
+          <div class="ir-subtotal">
+            <span class="ir-subtotal-label">LTI</span>
+            <span class="ir-subtotal-value" id="ir-lti-val">0</span>
+            <span class="ir-subtotal-formula">(LWC + FAT)</span>
+          </div>
+          <div class="ir-subtotal">
+            <span class="ir-subtotal-label">TRC</span>
+            <span class="ir-subtotal-value" id="ir-trc-val">0</span>
+            <span class="ir-subtotal-formula">(LWC + RWC + MTC + FAT)</span>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="ir-results">
+          <div class="ir-metric">
+            <div class="ir-metric-label">LTIF — Lost Time Injury Frequency</div>
+            <div class="ir-metric-formula" id="ir-ltif-formula">Formula: (LTI ÷ Hours) × Base</div>
+            <div class="ir-metric-value" id="ir-ltif">—</div>
+            <div class="ir-metric-bench" id="ir-ltif-bench"></div>
+            <div class="ir-metric-cite" id="ir-ltif-cite"></div>
+          </div>
+          <div class="ir-metric">
+            <div class="ir-metric-label">TRCF — Total Recordable Case Frequency</div>
+            <div class="ir-metric-formula" id="ir-trcf-formula">Formula: (TRC ÷ Hours) × Base</div>
+            <div class="ir-metric-value" id="ir-trcf">—</div>
+            <div class="ir-metric-bench" id="ir-trcf-bench"></div>
+            <div class="ir-metric-cite" id="ir-trcf-cite"></div>
+          </div>
+        </div>
+
+        <!-- Improvement Targets — Injury Rates -->
+        <div class="ir-targets-section">
+          <div class="ir-targets-title">Improvement Targets</div>
+          <div class="ir-target-row">
+            <span class="ir-target-name">LTIF</span>
+            <span class="ir-target-current" id="ir-ltif-cur">—</span>
+            <span class="ir-target-arrow">→</span>
+            <div class="ir-target-pct-wrap">
+              <input class="ir-target-pct" type="number" id="ir-ltif-pct" value="10" min="1" max="99" oninput="updateIR()"/>
+              <span class="ir-target-pct-label">% reduction</span>
+            </div>
+            <span class="ir-target-result" id="ir-ltif-target">—</span>
+          </div>
+          <div class="ir-target-row">
+            <span class="ir-target-name">TRCF</span>
+            <span class="ir-target-current" id="ir-trcf-cur">—</span>
+            <span class="ir-target-arrow">→</span>
+            <div class="ir-target-pct-wrap">
+              <input class="ir-target-pct" type="number" id="ir-trcf-pct" value="20" min="1" max="99" oninput="updateIR()"/>
+              <span class="ir-target-pct-label">% reduction</span>
+            </div>
+            <span class="ir-target-result" id="ir-trcf-target">—</span>
+          </div>
+        </div>
+
+        <!-- MVI Section -->
+        <div class="ir-section-sep">
+          <div class="ir-section-sep-line"></div>
+          <span class="ir-section-sep-label">Motor Vehicle Incidents</span>
+          <div class="ir-section-sep-line"></div>
+        </div>
+
+        <!-- km driven -->
+        <div class="ir-top-row" style="grid-template-columns: 1fr;">
+          <label class="ir-field">Total km Driven (period)
+            <input type="number" id="mvi-km" placeholder="e.g. 5000000" min="1" oninput="updateIR()"/>
+          </label>
+        </div>
+
+        <!-- MVI case types -->
+        <div class="ir-case-grid">
+          <label class="ir-field">Fatal MVI
+            <input type="number" id="mvi-fatal" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Serious MVI (with injury)
+            <input type="number" id="mvi-serious" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field">Minor MVI (property damage)
+            <input type="number" id="mvi-minor" placeholder="0" min="0" value="0" oninput="updateIR()"/>
+          </label>
+          <label class="ir-field" style="align-self:end;">
+            <div class="ir-subtotals" style="margin-bottom:0;">
+              <div class="ir-subtotal" style="flex:1;">
+                <span class="ir-subtotal-label">Total MVI</span>
+                <span class="ir-subtotal-value" id="mvi-total-val">0</span>
+                <span class="ir-subtotal-formula">(all types)</span>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- MVI Results -->
+        <div class="ir-results">
+          <div class="ir-metric">
+            <div class="ir-metric-label">MVIFR — Motor Vehicle Incident Frequency Rate</div>
+            <div class="ir-metric-formula" id="mvi-fr-formula">Formula: (Total MVI ÷ km driven) × 1,000,000</div>
+            <div class="ir-metric-value" id="mvi-fr">—</div>
+            <div class="ir-metric-bench" id="mvi-fr-bench"></div>
+            <div class="ir-metric-cite" id="mvi-fr-cite"></div>
+          </div>
+          <div class="ir-metric">
+            <div class="ir-metric-label">Fatal MVIFR — Fatal Motor Vehicle Incident Rate</div>
+            <div class="ir-metric-formula">Formula: (Fatal MVI ÷ km driven) × 1,000,000</div>
+            <div class="ir-metric-value" id="mvi-fatal-fr">—</div>
+          </div>
+        </div>
+
+        <!-- MVI Improvement Target -->
+        <div class="ir-targets-section">
+          <div class="ir-targets-title">MVI Improvement Target</div>
+          <div class="ir-target-row">
+            <span class="ir-target-name">MVIFR</span>
+            <span class="ir-target-current" id="mvi-fr-cur">—</span>
+            <span class="ir-target-arrow">→</span>
+            <div class="ir-target-pct-wrap">
+              <input class="ir-target-pct" type="number" id="mvi-fr-pct" value="15" min="1" max="99" oninput="updateIR()"/>
+              <span class="ir-target-pct-label">% reduction</span>
+            </div>
+            <span class="ir-target-result" id="mvi-fr-target">—</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -631,6 +1021,122 @@
 
   const heroStats = document.querySelector('.hero-stats');
   if (heroStats) statsObserver.observe(heroStats);
+
+  /* ── Tool Cards Toggle ── */
+  function toggleTool(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  /* ── Incident Rate Calculator ── */
+  function updateIR() {
+    const hours = parseFloat(document.getElementById('ir-hours').value) || 0;
+    const base  = parseFloat(document.getElementById('ir-base').value);
+    const fat   = parseFloat(document.getElementById('ir-fat').value) || 0;
+    const lwc   = parseFloat(document.getElementById('ir-lwc').value) || 0;
+    const rwc   = parseFloat(document.getElementById('ir-rwc').value) || 0;
+    const mtc   = parseFloat(document.getElementById('ir-mtc').value) || 0;
+
+    const lti = lwc + fat;
+    const trc = lwc + rwc + mtc + fat;
+
+    document.getElementById('ir-lti-val').textContent = lti;
+    document.getElementById('ir-trc-val').textContent = trc;
+
+    const isIntl = base === 1000000;
+    const baseLabel = isIntl ? '1,000,000' : '200,000';
+
+    // Update formula display
+    document.getElementById('ir-ltif-formula').textContent =
+      `Formula: (LTI ÷ Hours) × ${baseLabel}`;
+    document.getElementById('ir-trcf-formula').textContent =
+      `Formula: (TRC ÷ Hours) × ${baseLabel}`;
+
+    if (hours === 0) {
+      ['ir-ltif','ir-trcf'].forEach(id => document.getElementById(id).textContent = '—');
+      ['ir-ltif-bench','ir-trcf-bench','ir-ltif-cite','ir-trcf-cite'].forEach(id => document.getElementById(id).textContent = '');
+      ['ir-ltif-cur','ir-trcf-cur','ir-ltif-target','ir-trcf-target'].forEach(id => document.getElementById(id).textContent = '—');
+      return;
+    }
+
+    const ltif = (lti / hours) * base;
+    const trcf = (trc / hours) * base;
+
+    document.getElementById('ir-ltif').textContent = ltif.toFixed(2);
+    document.getElementById('ir-trcf').textContent = trcf.toFixed(2);
+
+    // Benchmarks vary by base figure
+    if (isIntl) {
+      // 1,000,000 hrs — IOGP benchmarks
+      const ltifBench = ltif <= 1.0 ? '✓ Below global avg (≈1.0, oil & gas)' :
+                        ltif <= 2.0 ? '⚠ Above average — improvement recommended' :
+                                      '✗ Significantly above average — urgent review';
+      const trcfBench = trcf <= 4.5 ? '✓ Below industry avg (≈4.5, general)' :
+                        trcf <= 7.0 ? '⚠ Above average — improvement recommended' :
+                                      '✗ Significantly above average — urgent review';
+      document.getElementById('ir-ltif-bench').textContent = ltifBench;
+      document.getElementById('ir-trcf-bench').textContent = trcfBench;
+      document.getElementById('ir-ltif-cite').textContent = 'Source: IOGP 2022 Safety Performance Indicators Report';
+      document.getElementById('ir-trcf-cite').textContent = 'Source: HSE UK Industry-Wide Statistics (non-fatal injuries)';
+    } else {
+      // 200,000 hrs — BLS (US OSHA) benchmarks
+      const ltifBench = ltif <= 1.5 ? '✓ Below industry avg (≈1.5, BLS general industry)' :
+                        ltif <= 2.5 ? '⚠ Above average — improvement recommended' :
+                                      '✗ Significantly above average — urgent review';
+      const trcfBench = trcf <= 3.0 ? '✓ Below industry avg (≈3.0, BLS general industry)' :
+                        trcf <= 5.0 ? '⚠ Above average — improvement recommended' :
+                                      '✗ Significantly above average — urgent review';
+      document.getElementById('ir-ltif-bench').textContent = ltifBench;
+      document.getElementById('ir-trcf-bench').textContent = trcfBench;
+      document.getElementById('ir-ltif-cite').textContent = 'Source: U.S. Bureau of Labor Statistics (BLS), Survey of Occupational Injuries & Illnesses';
+      document.getElementById('ir-trcf-cite').textContent = 'Source: U.S. Bureau of Labor Statistics (BLS), Survey of Occupational Injuries & Illnesses';
+    }
+
+    // Injury rate targets
+    const ltifPct = parseFloat(document.getElementById('ir-ltif-pct').value) || 0;
+    const trcfPct = parseFloat(document.getElementById('ir-trcf-pct').value) || 0;
+    document.getElementById('ir-ltif-cur').textContent = ltif.toFixed(2);
+    document.getElementById('ir-trcf-cur').textContent = trcf.toFixed(2);
+    document.getElementById('ir-ltif-target').textContent = (ltif * (1 - ltifPct / 100)).toFixed(2);
+    document.getElementById('ir-trcf-target').textContent = (trcf * (1 - trcfPct / 100)).toFixed(2);
+
+    // ── MVI Section ──
+    const km       = parseFloat(document.getElementById('mvi-km').value) || 0;
+    const mviFatal = parseFloat(document.getElementById('mvi-fatal').value) || 0;
+    const mviSer   = parseFloat(document.getElementById('mvi-serious').value) || 0;
+    const mviMin   = parseFloat(document.getElementById('mvi-minor').value) || 0;
+    const mviTotal = mviFatal + mviSer + mviMin;
+
+    document.getElementById('mvi-total-val').textContent = mviTotal;
+
+    if (km === 0) {
+      document.getElementById('mvi-fr').textContent = '—';
+      document.getElementById('mvi-fatal-fr').textContent = '—';
+      document.getElementById('mvi-fr-bench').textContent = '';
+      document.getElementById('mvi-fr-cite').textContent = '';
+      document.getElementById('mvi-fr-cur').textContent = '—';
+      document.getElementById('mvi-fr-target').textContent = '—';
+      return;
+    }
+
+    const mvifr      = (mviTotal / km) * 1000000;
+    const mviFatalFr = (mviFatal / km) * 1000000;
+
+    document.getElementById('mvi-fr').textContent = mvifr.toFixed(3);
+    document.getElementById('mvi-fatal-fr').textContent = mviFatalFr.toFixed(3);
+
+    // Benchmark: IOGP 2022 global avg MVIFR ≈ 2.5 per 1M km for road transport
+    const mvifrBench = mvifr <= 2.5 ? '✓ Below global avg (≈2.5 per 1M km, road transport)' :
+                       mvifr <= 5.0 ? '⚠ Above average — driver safety programme recommended' :
+                                      '✗ Significantly above average — immediate road safety review';
+    document.getElementById('mvi-fr-bench').textContent = mvifrBench;
+    document.getElementById('mvi-fr-cite').textContent = 'Source: IOGP 2022 Safety Performance Indicators — Road Transport';
+
+    // MVI target
+    const mviPct = parseFloat(document.getElementById('mvi-fr-pct').value) || 0;
+    document.getElementById('mvi-fr-cur').textContent = mvifr.toFixed(3);
+    document.getElementById('mvi-fr-target').textContent = (mvifr * (1 - mviPct / 100)).toFixed(3);
+  }
 
   /* ── Subtle nav background on scroll ── */
   const nav = document.querySelector('nav');
