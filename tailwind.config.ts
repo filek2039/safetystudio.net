@@ -18,7 +18,7 @@ const config: Config = {
           light: '#e8c96a',
         },
         cream: '#f5f0e8',
-        muted: '#8a9ab5',
+        muted: '#9fb0cc',
       },
       fontFamily: {
         display: ['var(--font-cormorant)', 'Georgia', 'serif'],

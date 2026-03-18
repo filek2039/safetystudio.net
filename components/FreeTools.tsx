@@ -35,6 +35,7 @@ export default function FreeTools() {
           icon={irIcon}
           title="Incident Rate Calculator"
           subtitle="LTIF & TRCF with benchmarks, MVI rates & targets"
+          defaultOpen
         >
           <IncidentRateCalc />
         </ToolCard>

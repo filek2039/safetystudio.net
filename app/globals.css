@@ -9,11 +9,13 @@
   --gold: #c9a84c;
   --gold-light: #e8c96a;
   --cream: #f5f0e8;
-  --muted: #8a9ab5;
+  --muted: #9fb0cc;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

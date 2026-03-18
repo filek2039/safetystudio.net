@@ -1,11 +1,27 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import BackToTop from '@/components/ui/BackToTop'
 
 export const metadata: Metadata = {
   title: 'Understanding SIF: Serious Injury and Fatality — Safety Studio',
   description:
     'Why traditional frequency metrics like LTIF miss the most dangerous events — and how SIF thinking helps organizations identify and manage what could kill someone.',
+  openGraph: {
+    title: 'Understanding SIF: Serious Injury and Fatality',
+    description:
+      'Why traditional frequency metrics like LTIF miss the most dangerous events — and how SIF thinking helps organizations identify and manage what could kill someone.',
+    type: 'article',
+    publishedTime: '2026-03-01T00:00:00Z',
+    authors: ['Safety Studio'],
+    tags: ['SIF', 'LTIF', 'Risk Management', 'HSE'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Understanding SIF: Serious Injury and Fatality',
+    description:
+      'Why traditional frequency metrics like LTIF miss the most dangerous events.',
+  },
 }
 
 function Fn({ n }: { n: number }) {
@@ -27,16 +43,16 @@ export default function SIFArticle() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen">
+      <main id="main-content" className="min-h-screen">
 
         {/* Article header */}
         <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-gold/10">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
-              <a href="/blog/" className="text-muted/60 text-xs tracking-widest uppercase hover:text-gold transition-colors">
-                ← Blog
+              <a href="/blog/" className="text-muted/70 text-xs tracking-widest uppercase hover:text-gold transition-colors">
+                &larr; Blog
               </a>
-              <span className="text-muted/30 text-xs">·</span>
+              <span className="text-muted/40 text-xs">&middot;</span>
               <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
                 Risk Management
               </span>
@@ -46,11 +62,11 @@ export default function SIFArticle() {
               When LTIF Doesn&apos;t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)
             </h1>
 
-            <div className="flex items-center gap-4 text-muted/60 text-xs tracking-wide">
+            <div className="flex items-center gap-4 text-muted/70 text-xs tracking-wide">
               <span>Safety Studio</span>
-              <span className="text-muted/30">·</span>
+              <span className="text-muted/40">&middot;</span>
               <span>March 2026</span>
-              <span className="text-muted/30">·</span>
+              <span className="text-muted/40">&middot;</span>
               <span>7 min read</span>
             </div>
           </div>
@@ -72,7 +88,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               What Is SIF?
             </h2>
 
@@ -93,7 +109,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               The Triangle Has a Problem
             </h2>
 
@@ -123,7 +139,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               SIF Precursors: Where the Real Work Happens
             </h2>
 
@@ -159,7 +175,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               Where SIF Happens Most
             </h2>
 
@@ -180,7 +196,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               Why Good LTIF Numbers Can Mislead You
             </h2>
 
@@ -206,7 +222,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               Practical Steps for SIF Management
             </h2>
 
@@ -249,14 +265,14 @@ export default function SIFArticle() {
                   </span>
                   <div>
                     <div className="text-white font-medium text-sm mb-1">{item.title}</div>
-                    <div className="text-muted/80 text-sm font-light leading-[1.75]">{item.body}</div>
+                    <div className="text-muted text-sm font-light leading-[1.75]">{item.body}</div>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Section */}
-            <h2 className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
               The Bottom Line
             </h2>
 
@@ -329,12 +345,12 @@ export default function SIFArticle() {
                     urlLabel: null,
                   },
                 ].map((fn) => (
-                  <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-muted/70 font-light leading-relaxed">
-                    <a href={`#fnref-${fn.n}`} className="text-gold/60 hover:text-gold transition-colors flex-shrink-0 font-medium">
+                  <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-muted font-light leading-relaxed">
+                    <a href={`#fnref-${fn.n}`} className="text-gold/70 hover:text-gold transition-colors flex-shrink-0 font-medium">
                       [{fn.n}]
                     </a>
                     <span>
-                      {fn.text} <em className="not-italic text-muted/90">{fn.title}</em>. {fn.detail}
+                      {fn.text} <em className="not-italic text-muted">{fn.title}</em>. {fn.detail}
                       {fn.url && (
                         <>
                           {' '}
@@ -342,7 +358,7 @@ export default function SIFArticle() {
                             href={fn.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gold/60 hover:text-gold transition-colors underline underline-offset-2"
+                            className="text-gold/70 hover:text-gold transition-colors underline underline-offset-2"
                           >
                             {fn.urlLabel}
                           </a>
@@ -377,6 +393,37 @@ export default function SIFArticle() {
 
       </main>
       <Footer />
+      <BackToTop />
+
+      {/* Article structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'When LTIF Doesn\'t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)',
+            datePublished: '2026-03-01',
+            dateModified: '2026-03-01',
+            author: {
+              '@type': 'Organization',
+              name: 'Safety Studio',
+              url: 'https://safetystudio.net',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Safety Studio',
+              url: 'https://safetystudio.net',
+            },
+            description:
+              'Why traditional frequency metrics like LTIF miss the most dangerous events — and how SIF thinking helps organizations identify and manage what could kill someone.',
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': 'https://safetystudio.net/blog/sif-serious-injury-fatality/',
+            },
+          }),
+        }}
+      />
     </>
   )
 }

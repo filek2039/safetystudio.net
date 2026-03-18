@@ -73,7 +73,7 @@ export default function SafetyMomentLibrary() {
         </motion.div>
       </AnimatePresence>
 
-      <p className="text-[0.6rem] text-muted/40 italic mt-6 text-center">
+      <p className="text-[0.6rem] text-muted/70 italic mt-6 text-center">
         These safety moments are for training and awareness purposes. Always follow your site-specific procedures and regulations.
       </p>
     </div>

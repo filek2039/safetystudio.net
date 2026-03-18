@@ -24,7 +24,7 @@ export default function BlogIndex() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen">
+      <main id="main-content" className="min-h-screen">
         {/* Header */}
         <section className="pt-36 pb-16 px-16 max-md:px-6">
           <div className="max-w-3xl">
@@ -57,9 +57,9 @@ export default function BlogIndex() {
                   <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
                     {post.tag}
                   </span>
-                  <span className="text-muted/60 text-xs">{post.date}</span>
-                  <span className="text-muted/40 text-xs">·</span>
-                  <span className="text-muted/60 text-xs">{post.readTime}</span>
+                  <span className="text-muted/70 text-xs">{post.date}</span>
+                  <span className="text-muted/50 text-xs">·</span>
+                  <span className="text-muted/70 text-xs">{post.readTime}</span>
                 </div>
                 <h2 className="font-display font-light text-[1.6rem] leading-[1.25] text-white mb-3 group-hover:text-gold/90 transition-colors duration-300">
                   {post.title}

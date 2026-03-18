@@ -7,10 +7,11 @@ interface ToolCardProps {
   title: string
   subtitle: string
   children: React.ReactNode
+  defaultOpen?: boolean
 }
 
-export default function ToolCard({ icon, title, subtitle, children }: ToolCardProps) {
-  const [open, setOpen] = useState(false)
+export default function ToolCard({ icon, title, subtitle, children, defaultOpen = false }: ToolCardProps) {
+  const [open, setOpen] = useState(defaultOpen)
 
   return (
     <div className="relative bg-navy-mid/80 backdrop-blur-sm border border-gold/15 rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold/35">
@@ -18,7 +19,7 @@ export default function ToolCard({ icon, title, subtitle, children }: ToolCardPr
       <motion.div
         className="absolute top-0 left-0 right-0 h-[2px] origin-left"
         style={{ background: 'linear-gradient(90deg, #c9a84c, #e8c96a)' }}
-        initial={{ scaleX: 0 }}
+        initial={{ scaleX: defaultOpen ? 1 : 0 }}
         animate={{ scaleX: open ? 1 : 0 }}
         transition={{ duration: 0.4, ease: "circOut" }}
       />

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 
 const links = [
@@ -13,8 +13,39 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { scrollY } = useScroll()
+  const hamburgerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 60))
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false)
+    hamburgerRef.current?.focus()
+  }, [])
+
+  // Escape key closes mobile menu
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu()
+      // Focus trap
+      if (e.key === 'Tab' && menuRef.current) {
+        const focusable = menuRef.current.querySelectorAll<HTMLElement>('a, button')
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen, closeMenu])
 
   return (
     <motion.nav
@@ -53,9 +84,11 @@ export default function Nav() {
 
       {/* Mobile hamburger */}
       <button
+        ref={hamburgerRef}
         className="md:hidden text-cream p-1"
         onClick={() => setMenuOpen((v) => !v)}
         aria-label="Toggle menu"
+        aria-expanded={menuOpen}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           {menuOpen ? (
@@ -70,19 +103,22 @@ export default function Nav() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={menuRef}
             key="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "circOut" }}
             className="absolute top-full left-0 right-0 bg-navy-mid border-b border-gold/15 overflow-hidden md:hidden"
+            role="dialog"
+            aria-label="Mobile navigation"
           >
             <div className="flex flex-col px-6 py-4 gap-4">
               {links.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="text-muted text-sm tracking-widest uppercase hover:text-gold transition-colors"
                 >
                   {l.label}
@@ -90,7 +126,7 @@ export default function Nav() {
               ))}
               <a
                 href="/#contact"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
                 className="text-gold text-sm tracking-widest uppercase border-t border-gold/20 pt-4"
               >
                 Get in Touch
