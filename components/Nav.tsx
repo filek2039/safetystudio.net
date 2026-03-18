@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 
 const links = [
-  { label: 'Services', href: '#services' },
-  { label: 'Free Tools', href: '#tools' },
-  { label: 'About', href: '#about' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Free Tools', href: '/#tools' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/#about' },
 ]
 
 export default function Nav() {
@@ -25,7 +26,7 @@ export default function Nav() {
       transition={{ duration: 0.3 }}
     >
       {/* Logo */}
-      <a href="#" className="font-display text-2xl font-semibold tracking-[0.04em] text-white">
+      <a href="/" className="font-display text-2xl font-semibold tracking-[0.04em] text-white">
         Safety<span className="text-gold">Studio</span>
       </a>
 
@@ -41,7 +42,7 @@ export default function Nav() {
           </a>
         ))}
         <motion.a
-          href="#contact"
+          href="/#contact"
           className="text-gold text-[0.8rem] font-medium tracking-[0.1em] uppercase border border-gold px-5 py-2 rounded-sm transition-colors duration-300 hover:bg-gold hover:text-navy"
           whileHover={{ y: -1 }}
           transition={{ duration: 0.15 }}
@@ -88,7 +89,7 @@ export default function Nav() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="/#contact"
                 onClick={() => setMenuOpen(false)}
                 className="text-gold text-sm tracking-widest uppercase border-t border-gold/20 pt-4"
               >
