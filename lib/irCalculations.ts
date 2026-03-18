@@ -7,6 +7,10 @@ export interface IRInputs {
   mtc: number
   ltifReductionPct: number
   trcfReductionPct: number
+  // SIF-Potential
+  sifp: number
+  sifpReductionPct: number
+  // MVI
   km: number
   mviFatal: number
   mviSerious: number
@@ -26,6 +30,10 @@ export interface IRResults {
   ltifTarget: number | null
   trcfTarget: number | null
   baseLabel: string
+  // SIF-Potential
+  sifpRate: number | null
+  sifpTarget: number | null
+  // MVI
   mviTotal: number
   mvifr: number | null
   mviFatalFr: number | null
@@ -43,6 +51,8 @@ export const defaultInputs: IRInputs = {
   mtc: 0,
   ltifReductionPct: 10,
   trcfReductionPct: 20,
+  sifp: 0,
+  sifpReductionPct: 10,
   km: 0,
   mviFatal: 0,
   mviSerious: 0,
@@ -54,6 +64,7 @@ export function calculateIR(inputs: IRInputs): IRResults {
   const {
     hours, base, fat, lwc, rwc, mtc,
     ltifReductionPct, trcfReductionPct,
+    sifp, sifpReductionPct,
     km, mviFatal, mviSerious, mviMinor, mviReductionPct,
   } = inputs
 
@@ -89,12 +100,15 @@ export function calculateIR(inputs: IRInputs): IRResults {
       ltif: null, trcf: null,
       ltifBench: '', trcfBench: '', ltifCite: '', trcfCite: '',
       ltifTarget: null, trcfTarget: null, baseLabel,
+      sifpRate: null, sifpTarget: null,
       mviTotal, mvifr, mviFatalFr, mvifrBench, mvifrCite, mvifrTarget,
     }
   }
 
   const ltif = (lti / hours) * base
   const trcf = (trc / hours) * base
+  const sifpRate = (sifp / hours) * base
+  const sifpTarget = sifpRate * (1 - sifpReductionPct / 100)
 
   let ltifBench: string
   let trcfBench: string
@@ -142,6 +156,7 @@ export function calculateIR(inputs: IRInputs): IRResults {
     lti, trc, ltif, trcf,
     ltifBench, trcfBench, ltifCite, trcfCite,
     ltifTarget, trcfTarget, baseLabel,
+    sifpRate, sifpTarget,
     mviTotal, mvifr, mviFatalFr, mvifrBench, mvifrCite, mvifrTarget,
   }
 }

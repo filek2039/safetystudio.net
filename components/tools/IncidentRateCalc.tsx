@@ -169,6 +169,59 @@ export default function IncidentRateCalc() {
         ))}
       </div>
 
+      {/* SIF-Potential Section */}
+      <SectionSep label="SIF-Potential Events" />
+
+      {/* SIFp input */}
+      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 items-end">
+        <Field label="SIF-Potential Events (SIFp)">
+          <input
+            type="number"
+            value={inputs.sifp || ''}
+            onChange={update('sifp')}
+            placeholder="0"
+            min="0"
+          />
+        </Field>
+        <div className="text-[0.65rem] text-muted/60 font-light leading-relaxed pb-1">
+          Count of events that, under slightly different circumstances, could have resulted in a
+          fatality or permanently disabling injury — regardless of actual outcome.
+        </div>
+      </div>
+
+      {/* SIFpR Result */}
+      <MetricCard
+        label="SIFpR — SIF-Potential Frequency Rate"
+        formula={`(SIFp ÷ Hours) × ${results.baseLabel}`}
+        value={fmt(results.sifpRate)}
+        bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
+        cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
+      />
+
+      {/* SIFp Improvement Target */}
+      <div className="border border-gold/12 rounded-sm px-5 py-4">
+        <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+          SIFp Improvement Target
+        </div>
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-xs text-muted w-14">SIFpR</span>
+          <span className="font-display text-base text-white w-14">{fmt(results.sifpRate)}</span>
+          <span className="text-gold/50 text-xs">→</span>
+          <div className="flex items-center gap-1.5">
+            <input
+              type="number"
+              value={inputs.sifpReductionPct || ''}
+              onChange={update('sifpReductionPct')}
+              min={1}
+              max={99}
+              className="!w-14 !px-2 text-center"
+            />
+            <span className="text-[0.65rem] text-muted">% reduction</span>
+          </div>
+          <span className="font-display text-lg text-gold ml-auto">{fmt(results.sifpTarget)}</span>
+        </div>
+      </div>
+
       {/* MVI Section */}
       <SectionSep label="Motor Vehicle Incidents" />
 
