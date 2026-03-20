@@ -73,12 +73,12 @@ export default function Services() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
-            className="group relative bg-navy-mid/70 backdrop-blur-sm border border-gold/12 rounded-sm p-8 overflow-hidden transition-colors duration-300 hover:border-gold/35"
+            className="group relative bg-navy-mid/70 backdrop-blur-sm border border-gold/12 rounded-sm p-8 overflow-hidden transition-colors duration-300 hover:border-gold/35 card-depth"
           >
             {/* Hover gold line */}
             <motion.div
               className="absolute top-0 left-0 right-0 h-[2px] origin-left"
-              style={{ background: 'linear-gradient(90deg, #c9a84c, #e8c96a)' }}
+              style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-gold-light))' }}
               initial={{ scaleX: 0 }}
               whileHover={{ scaleX: 1 }}
               transition={{ duration: 0.4, ease: "circOut" }}
@@ -94,7 +94,7 @@ export default function Services() {
             >
               {s.icon}
             </svg>
-            <h3 className="text-white font-medium text-lg mb-3 tracking-wide">{s.title}</h3>
+            <h3 className="text-cream font-medium text-lg mb-3 tracking-wide">{s.title}</h3>
             <p className="text-muted text-sm font-light leading-[1.8] mb-5">{s.desc}</p>
             <div className="flex flex-wrap gap-2">
               {s.tags.map((t) => (

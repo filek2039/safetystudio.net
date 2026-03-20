@@ -6,7 +6,7 @@ export default function GoldDivider() {
     <motion.div
       className="h-px mx-16 max-md:mx-6"
       style={{
-        background: 'linear-gradient(90deg, transparent, #c9a84c, transparent)',
+        background: 'linear-gradient(90deg, transparent, var(--color-gold), transparent)',
       }}
       initial={{ scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 0.3 }}

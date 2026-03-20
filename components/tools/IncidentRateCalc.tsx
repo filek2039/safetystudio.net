@@ -37,7 +37,7 @@ function MetricCard({
     <div className="bg-navy/60 border border-gold/12 rounded-sm px-5 py-4">
       <div className="text-[0.68rem] tracking-[0.12em] uppercase text-muted mb-1 font-medium">{label}</div>
       <div className="text-[0.62rem] text-muted/70 mb-2 italic">{formula}</div>
-      <div className="font-display font-light text-3xl text-white mb-2">{value}</div>
+      <div className="font-display font-light text-3xl text-cream mb-2">{value}</div>
       {bench && <div className={`text-xs font-light ${benchColor} mb-1`}>{bench}</div>}
       {cite && <div className="text-[0.6rem] text-muted/70 italic">{cite}</div>}
     </div>
@@ -48,7 +48,7 @@ function Subtotal({ label, value, formula }: { label: string; value: number; for
   return (
     <div className="flex items-baseline gap-2">
       <span className="text-[0.68rem] tracking-[0.15em] uppercase text-gold font-medium">{label}</span>
-      <span className="font-display text-2xl text-white font-light">{value}</span>
+      <span className="font-display text-2xl text-cream font-light">{value}</span>
       <span className="text-[0.62rem] text-muted/70 italic">{formula}</span>
     </div>
   )
@@ -217,7 +217,7 @@ export default function IncidentRateCalc() {
         ].map((row) => (
           <div key={row.label} className="flex items-center gap-3 flex-wrap mb-3 last:mb-0">
             <span className="text-xs text-muted w-12">{row.label}</span>
-            <span className="font-display text-base text-white w-14">{fmt(row.current)}</span>
+            <span className="font-display text-base text-cream w-14">{fmt(row.current)}</span>
             <span className="text-gold/50 text-xs">&rarr;</span>
             <div className="flex items-center gap-1.5">
               <input
@@ -272,7 +272,7 @@ export default function IncidentRateCalc() {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <span className="text-xs text-muted w-14">SIFpR</span>
-          <span className="font-display text-base text-white w-14">{fmt(results.sifpRate)}</span>
+          <span className="font-display text-base text-cream w-14">{fmt(results.sifpRate)}</span>
           <span className="text-gold/50 text-xs">&rarr;</span>
           <div className="flex items-center gap-1.5">
             <input
@@ -347,7 +347,7 @@ export default function IncidentRateCalc() {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <span className="text-xs text-muted w-14">MVIFR</span>
-          <span className="font-display text-base text-white w-16">{fmt(results.mvifr, 3)}</span>
+          <span className="font-display text-base text-cream w-16">{fmt(results.mvifr, 3)}</span>
           <span className="text-gold/50 text-xs">&rarr;</span>
           <div className="flex items-center gap-1.5">
             <input

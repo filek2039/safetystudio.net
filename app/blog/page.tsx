@@ -31,7 +31,7 @@ export default function BlogIndex() {
             <span className="inline-block text-[0.68rem] tracking-[0.22em] uppercase text-gold font-medium mb-4">
               HSE Insights
             </span>
-            <h1 className="font-display font-light text-[clamp(2.4rem,5vw,4rem)] leading-[1.1] text-white mb-4">
+            <h1 className="font-display font-light text-[clamp(2.4rem,5vw,4rem)] leading-[1.1] text-cream mb-4">
               Practical Safety<br />
               <em className="not-italic text-gold">Knowledge</em>
             </h1>
@@ -51,7 +51,7 @@ export default function BlogIndex() {
               <a
                 key={post.slug}
                 href={`/blog/${post.slug}/`}
-                className="group block bg-navy-mid/60 border border-gold/12 rounded-sm p-8 hover:border-gold/35 transition-colors duration-300"
+                className="group block bg-navy-mid/60 border border-gold/12 rounded-sm p-8 hover:border-gold/35 transition-colors duration-300 card-depth"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
@@ -61,7 +61,7 @@ export default function BlogIndex() {
                   <span className="text-muted/50 text-xs">·</span>
                   <span className="text-muted/70 text-xs">{post.readTime}</span>
                 </div>
-                <h2 className="font-display font-light text-[1.6rem] leading-[1.25] text-white mb-3 group-hover:text-gold/90 transition-colors duration-300">
+                <h2 className="font-display font-light text-[1.6rem] leading-[1.25] text-cream mb-3 group-hover:text-gold/90 transition-colors duration-300">
                   {post.title}
                 </h2>
                 <p className="text-muted font-light text-sm leading-[1.75]">{post.excerpt}</p>

@@ -14,11 +14,11 @@ export default function ToolCard({ icon, title, subtitle, children, defaultOpen 
   const [open, setOpen] = useState(defaultOpen)
 
   return (
-    <div className="relative bg-navy-mid/80 backdrop-blur-sm border border-gold/15 rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold/35">
+    <div className="relative bg-navy-mid/80 backdrop-blur-sm border border-gold/15 rounded-sm overflow-hidden transition-colors duration-300 hover:border-gold/35 card-depth">
       {/* Gold top line */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-[2px] origin-left"
-        style={{ background: 'linear-gradient(90deg, #c9a84c, #e8c96a)' }}
+        style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-gold-light))' }}
         initial={{ scaleX: defaultOpen ? 1 : 0 }}
         animate={{ scaleX: open ? 1 : 0 }}
         transition={{ duration: 0.4, ease: "circOut" }}
@@ -33,7 +33,7 @@ export default function ToolCard({ icon, title, subtitle, children, defaultOpen 
         <div className="flex items-center gap-4">
           <div className="text-gold w-8 h-8 flex-shrink-0">{icon}</div>
           <div>
-            <div className="text-white font-medium text-base tracking-wide">{title}</div>
+            <div className="text-cream font-medium text-base tracking-wide">{title}</div>
             <div className="text-muted text-xs mt-0.5">{subtitle}</div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export default function CounterStat({ value, suffix = '', label }: CounterStatPr
 
   return (
     <div ref={ref} className="text-left">
-      <div className="font-display font-light text-[clamp(2.2rem,4vw,3.2rem)] leading-none text-white">
+      <div className="font-display font-light text-[clamp(2.2rem,4vw,3.2rem)] leading-none text-cream">
         {displayed}
         <span className="text-gold">{suffix}</span>
       </div>

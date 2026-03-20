@@ -25,7 +25,7 @@ export default function Contact() {
             <span className="inline-block text-[0.68rem] tracking-[0.2em] uppercase text-gold mb-4 font-medium">
               Get Started
             </span>
-            <h2 className="font-display font-light text-[clamp(1.8rem,3.5vw,2.8rem)] text-white leading-[1.2] mb-4">
+            <h2 className="font-display font-light text-[clamp(1.8rem,3.5vw,2.8rem)] text-cream leading-[1.2] mb-4">
               Ready to Build a<br />
               <em className="not-italic text-gold">Safer</em> Workplace?
             </h2>

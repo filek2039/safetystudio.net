@@ -51,6 +51,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+      {/* Anti-flash: read stored theme before first paint */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="bg-navy text-cream font-sans antialiased">
         {/* Skip to content link */}
         <a

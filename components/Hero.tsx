@@ -25,7 +25,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 60% 40%, rgba(29,52,97,0.55) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%)',
+            'radial-gradient(ellipse 80% 60% at 60% 40%, rgb(var(--navy-light) / 0.45) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgb(var(--gold) / 0.06) 0%, transparent 60%)',
         }}
       />
 
@@ -35,7 +35,7 @@ export default function Hero() {
         style={{
           y: gridY,
           backgroundImage:
-            'linear-gradient(#c9a84c 1px, transparent 1px), linear-gradient(90deg, #c9a84c 1px, transparent 1px)',
+            'linear-gradient(var(--color-gold) 1px, transparent 1px), linear-gradient(90deg, var(--color-gold) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
@@ -56,7 +56,7 @@ export default function Hero() {
 
         <motion.h1
           variants={item}
-          className="font-display font-light text-[clamp(3rem,6vw,5.5rem)] leading-[1.08] text-white mb-6"
+          className="font-display font-light text-[clamp(3rem,6vw,5.5rem)] leading-[1.08] text-cream mb-6"
         >
           Where Safety<br />
           Meets <em className="not-italic text-gold">Expertise</em>

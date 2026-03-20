@@ -53,7 +53,7 @@ export default function About() {
             >
               <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
               <div>
-                <div className="text-white font-medium text-sm mb-0.5">{p.title}</div>
+                <div className="text-cream font-medium text-sm mb-0.5">{p.title}</div>
                 <div className="text-muted text-sm font-light leading-relaxed">{p.desc}</div>
               </div>
             </motion.div>
@@ -70,16 +70,16 @@ export default function About() {
         transition={{ duration: 0.8, ease: "circOut" }}
       >
         {/* Main box */}
-        <div className="absolute inset-0 bg-navy-light border border-gold/20 rounded-sm flex flex-col items-center justify-center text-center p-10">
+        <div className="absolute inset-0 bg-navy-light border border-gold/20 rounded-sm flex flex-col items-center justify-center text-center p-10 card-depth">
           <div className="text-[0.65rem] tracking-[0.25em] uppercase text-gold mb-4 font-medium">
             Our Mission
           </div>
-          <div className="font-display font-light text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.2]">
+          <div className="font-display font-light text-[clamp(1.8rem,3vw,2.4rem)] text-cream leading-[1.2]">
             Zero harm.<br />Every workplace.
           </div>
         </div>
         {/* Overlay quote */}
-        <div className="absolute bottom-0 right-0 -mb-6 max-md:-mb-4 translate-x-6 max-md:translate-x-3 bg-navy-mid border border-gold/25 rounded-sm px-6 py-4 max-w-[220px] shadow-xl">
+        <div className="absolute bottom-0 right-0 -mb-6 max-md:-mb-4 translate-x-6 max-md:translate-x-3 bg-navy-mid border border-gold/25 rounded-sm px-6 py-4 max-w-[220px] shadow-xl card-depth-lg">
           <p className="text-cream text-xs font-light leading-relaxed italic">
             "Safety is not a priority —<br />it is a <strong className="text-gold not-italic font-medium">value</strong>."
           </p>

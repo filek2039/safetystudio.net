@@ -10,7 +10,7 @@ export default function NotFound() {
           <div className="text-[0.68rem] tracking-[0.25em] uppercase text-gold mb-6 font-medium">
             Page Not Found
           </div>
-          <h1 className="font-display font-light text-[clamp(3rem,6vw,5rem)] leading-[1.1] text-white mb-6">
+          <h1 className="font-display font-light text-[clamp(3rem,6vw,5rem)] leading-[1.1] text-cream mb-6">
             404
           </h1>
           <p className="text-muted font-light leading-[1.85] text-base max-w-[400px] mx-auto mb-10">

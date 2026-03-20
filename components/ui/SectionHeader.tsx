@@ -35,7 +35,7 @@ export default function SectionHeader({ tag, headline, intro, center = false }: 
       </motion.span>
       <motion.h2
         variants={item}
-        className="font-display font-light text-[clamp(2rem,4vw,3rem)] leading-[1.15] text-white"
+        className="font-display font-light text-[clamp(2rem,4vw,3rem)] leading-[1.15] text-cream"
       >
         {headline}
       </motion.h2>

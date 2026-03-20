@@ -12,7 +12,7 @@ export default function Footer() {
       <div className="grid grid-cols-3 max-md:grid-cols-1 gap-8 max-md:gap-6">
         {/* Brand */}
         <div>
-          <a href="/" className="font-display text-xl font-semibold tracking-[0.04em] text-white">
+          <a href="/" className="font-display text-xl font-semibold tracking-[0.04em] text-cream">
             Safety<span className="text-gold">Studio</span>
           </a>
           <p className="text-muted text-xs font-light leading-relaxed mt-2 max-w-[260px]">

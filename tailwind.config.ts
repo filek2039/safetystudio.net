@@ -9,16 +9,16 @@ const config: Config = {
     extend: {
       colors: {
         navy: {
-          DEFAULT: '#0a1628',
-          mid: '#112240',
-          light: '#1d3461',
+          DEFAULT: 'rgb(var(--navy) / <alpha-value>)',
+          mid: 'rgb(var(--navy-mid) / <alpha-value>)',
+          light: 'rgb(var(--navy-light) / <alpha-value>)',
         },
         gold: {
-          DEFAULT: '#c9a84c',
-          light: '#e8c96a',
+          DEFAULT: 'rgb(var(--gold) / <alpha-value>)',
+          light: 'rgb(var(--gold-light) / <alpha-value>)',
         },
-        cream: '#f5f0e8',
-        muted: '#9fb0cc',
+        cream: 'rgb(var(--cream) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
       },
       fontFamily: {
         display: ['var(--font-cormorant)', 'Georgia', 'serif'],

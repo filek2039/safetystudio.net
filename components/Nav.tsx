@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
+import ThemeToggle from './ThemeToggle'
 
 const links = [
   { label: 'Services', href: '/#services' },
@@ -12,11 +13,23 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isDark, setIsDark] = useState(true)
   const { scrollY } = useScroll()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 60))
+
+  // Keep track of theme for nav background
+  useEffect(() => {
+    const update = () => {
+      setIsDark(document.documentElement.getAttribute('data-theme') !== 'light')
+    }
+    update()
+    const observer = new MutationObserver(update)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => observer.disconnect()
+  }, [])
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false)
@@ -47,22 +60,25 @@ export default function Nav() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen, closeMenu])
 
+  const navBgScrolled = isDark ? 'rgba(10,22,40,0.97)' : 'rgba(248,245,240,0.97)'
+  const navBgTop = isDark ? 'rgba(10,22,40,0.82)' : 'rgba(248,245,240,0.82)'
+
   return (
     <motion.nav
       className="fixed top-0 left-0 right-0 z-50 px-16 max-md:px-6 py-5 flex justify-between items-center border-b border-gold/[0.12] backdrop-blur-md transition-shadow duration-300"
       animate={{
-        backgroundColor: scrolled ? 'rgba(10,22,40,0.97)' : 'rgba(10,22,40,0.82)',
-        boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.35)' : 'none',
+        backgroundColor: scrolled ? navBgScrolled : navBgTop,
+        boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.12)' : 'none',
       }}
       transition={{ duration: 0.3 }}
     >
       {/* Logo */}
-      <a href="/" className="font-display text-2xl font-semibold tracking-[0.04em] text-white">
+      <a href="/" className="font-display text-2xl font-semibold tracking-[0.04em] text-cream">
         Safety<span className="text-gold">Studio</span>
       </a>
 
       {/* Desktop nav */}
-      <div className="hidden md:flex items-center gap-10">
+      <div className="hidden md:flex items-center gap-8">
         {links.map((l) => (
           <a
             key={l.href}
@@ -72,6 +88,7 @@ export default function Nav() {
             {l.label}
           </a>
         ))}
+        <ThemeToggle />
         <motion.a
           href="/#contact"
           className="text-gold text-[0.8rem] font-medium tracking-[0.1em] uppercase border border-gold px-5 py-2 rounded-sm transition-colors duration-300 hover:bg-gold hover:text-navy"
@@ -82,22 +99,25 @@ export default function Nav() {
         </motion.a>
       </div>
 
-      {/* Mobile hamburger */}
-      <button
-        ref={hamburgerRef}
-        className="md:hidden text-cream p-1"
-        onClick={() => setMenuOpen((v) => !v)}
-        aria-label="Toggle menu"
-        aria-expanded={menuOpen}
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          {menuOpen ? (
-            <path d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </button>
+      {/* Mobile: theme toggle + hamburger */}
+      <div className="md:hidden flex items-center gap-2">
+        <ThemeToggle />
+        <button
+          ref={hamburgerRef}
+          className="text-cream p-1"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            {menuOpen ? (
+              <path d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>

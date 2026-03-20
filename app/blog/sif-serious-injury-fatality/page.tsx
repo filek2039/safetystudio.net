@@ -58,7 +58,7 @@ export default function SIFArticle() {
               </span>
             </div>
 
-            <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-white mb-5">
+            <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-cream mb-5">
               When LTIF Doesn&apos;t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)
             </h1>
 
@@ -88,7 +88,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               What Is SIF?
             </h2>
 
@@ -109,7 +109,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               The Triangle Has a Problem
             </h2>
 
@@ -139,7 +139,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               SIF Precursors: Where the Real Work Happens
             </h2>
 
@@ -175,7 +175,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               Where SIF Happens Most
             </h2>
 
@@ -196,7 +196,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               Why Good LTIF Numbers Can Mislead You
             </h2>
 
@@ -222,7 +222,7 @@ export default function SIFArticle() {
             </p>
 
             {/* Section */}
-            <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               Practical Steps for SIF Management
             </h2>
 
@@ -264,7 +264,7 @@ export default function SIFArticle() {
                     {item.n}
                   </span>
                   <div>
-                    <div className="text-white font-medium text-sm mb-1">{item.title}</div>
+                    <div className="text-cream font-medium text-sm mb-1">{item.title}</div>
                     <div className="text-muted text-sm font-light leading-[1.75]">{item.body}</div>
                   </div>
                 </div>
@@ -272,7 +272,7 @@ export default function SIFArticle() {
             </div>
 
             {/* Section */}
-            <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-white mt-12 mb-2 leading-[1.2]">
+            <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
               The Bottom Line
             </h2>
 
@@ -377,7 +377,7 @@ export default function SIFArticle() {
         <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
           <div className="border border-gold/15 rounded-sm px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-navy-mid/40">
             <div>
-              <div className="text-white font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
+              <div className="text-cream font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
               <div className="text-muted text-xs font-light">
                 Use our free Incident Rate Calculator to benchmark your LTIF &amp; TRCF against industry averages.
               </div>
