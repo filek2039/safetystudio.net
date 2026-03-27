@@ -83,7 +83,7 @@ export default function Nav() {
           <a
             key={l.href}
             href={l.href}
-            className="text-muted text-[0.8rem] font-medium tracking-[0.1em] uppercase hover:text-gold transition-colors duration-300"
+            className="text-muted text-sm font-medium tracking-[0.1em] uppercase hover:text-gold transition-colors duration-300"
           >
             {l.label}
           </a>
@@ -91,7 +91,7 @@ export default function Nav() {
         <ThemeToggle />
         <motion.a
           href="/#contact"
-          className="text-gold text-[0.8rem] font-medium tracking-[0.1em] uppercase border border-gold px-5 py-2 rounded-sm transition-colors duration-300 hover:bg-gold hover:text-navy"
+          className="text-gold text-sm font-medium tracking-[0.1em] uppercase border border-gold px-5 py-2 rounded-sm transition-colors duration-300 hover:bg-gold hover:text-navy"
           whileHover={{ y: -1 }}
           transition={{ duration: 0.15 }}
         >
