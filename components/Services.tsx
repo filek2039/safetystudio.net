@@ -102,7 +102,6 @@ export default function Services() {
               transition={{ duration: 0.4, ease: "circOut" }}
             />
 
-            <div className="text-[0.65rem] tracking-[0.2em] text-gold/60 mb-5 font-medium">{s.num}</div>
             <svg
               className="w-7 h-7 text-gold mb-5"
               viewBox="0 0 24 24"
