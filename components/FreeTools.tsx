@@ -41,6 +41,7 @@ export default function FreeTools() {
         </ToolCard>
 
         <ToolCard
+          id="safety-moment-library"
           icon={smIcon}
           title="Safety Moment Library"
           subtitle="10 categories · 30 ready-to-use safety moments"

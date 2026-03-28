@@ -10,6 +10,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: 'human-performance-improvement',
+    tag: 'Human Factors',
+    date: 'April 2026',
+    readTime: '8 min read',
+    title: 'Stop Blaming the Worker: What Human Performance Improvement Actually Means for Your Site',
+    excerpt:
+      'Most incident investigations conclude with "human error" — and stop there. HPI asks the more useful question: what made error the predictable outcome? Here is what that shift looks like in practice.',
+  },
+  {
     slug: 'sif-serious-injury-fatality',
     tag: 'Risk Management',
     date: 'March 2026',

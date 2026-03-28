@@ -10,17 +10,27 @@ import Contact from '@/components/Contact'
 
 type Section = 'home' | 'services' | 'tools' | 'about'
 
-function getSection(hash: string): Section {
-  switch (hash) {
-    case '#services': return 'services'
-    case '#tools':    return 'tools'
-    case '#about':
-    case '#contact':  return 'about'
-    default:          return 'home'
-  }
+/**
+ * Maps URL hash values to their corresponding section.
+ * Tool-specific deep-link hashes (e.g. `#safety-moment-library`) map to their
+ * parent tab so `TabbedContent` shows the right section before the tool auto-opens.
+ */
+const HASH_SECTION_MAP: Record<string, Section> = {
+  '#services': 'services',
+  '#tools': 'tools',
+  '#safety-moment-library': 'tools',
+  '#about': 'about',
+  '#contact': 'about',
 }
 
-const sectionContent: Record<Section, React.ReactNode> = {
+/** Resolves a URL hash to its section; unrecognised hashes default to 'home'. */
+function getSection(hash: string): Section {
+  return HASH_SECTION_MAP[hash] ?? 'home'
+}
+
+const TRANSITION = { duration: 0.25, ease: 'easeOut' } as const
+
+const SECTION_CONTENT: Record<Section, React.ReactNode> = {
   home: <Hero />,
   services: <Services />,
   tools: <FreeTools />,
@@ -32,19 +42,22 @@ const sectionContent: Record<Section, React.ReactNode> = {
   ),
 }
 
+/**
+ * Hash-driven tab router that swaps homepage sections without a full-page navigation.
+ * Listens for `hashchange` events and scrolls to the top on each transition.
+ */
 export default function TabbedContent() {
   const [active, setActive] = useState<Section>('home')
 
   useEffect(() => {
-    setActive(getSection(window.location.hash))
-
-    const onHashChange = () => {
+    const handleHashChange = () => {
       setActive(getSection(window.location.hash))
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    setActive(getSection(window.location.hash))
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
   return (
@@ -54,9 +67,9 @@ export default function TabbedContent() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.25, ease: 'easeOut' }}
+        transition={TRANSITION}
       >
-        {sectionContent[active]}
+        {SECTION_CONTENT[active]}
         {active !== 'home' && <GoldDivider />}
       </motion.div>
     </AnimatePresence>
