@@ -5,6 +5,24 @@ import SectionHeader from './ui/SectionHeader'
 const services = [
   {
     num: '01',
+    title: 'AI Safety Intelligence',
+    desc: 'Harnessing machine learning and operational data analytics to identify risk patterns, predict incident likelihood, and surface leading indicators before incidents occur — shifting your safety programme from reactive to intelligence-driven.',
+    tags: ['Predictive Analytics', 'Risk Modelling', 'Leading Indicators'],
+    icon: (
+      <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21a48.25 48.25 0 01-8.135-.687c-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+    ),
+  },
+  {
+    num: '02',
+    title: 'Digital HSE Transformation',
+    desc: 'Integrating AI-powered tools, automated workflows, and smart management systems into your HSE operations — reducing administrative overhead while improving accuracy, traceability, and decision speed across your organisation.',
+    tags: ['Automation', 'HSE Systems', 'Digital Strategy'],
+    icon: (
+      <path d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" />
+    ),
+  },
+  {
+    num: '03',
     title: 'Training & Education',
     desc: 'Tailored HSE training programs that equip your workforce with the knowledge and skills to operate safely and confidently in any environment.',
     tags: ['On-site', 'Online', 'Certified'],
@@ -13,7 +31,7 @@ const services = [
     ),
   },
   {
-    num: '02',
+    num: '04',
     title: 'HSE Consultancy',
     desc: 'Strategic advisory services to help you design, implement, and continuously improve your health, safety, and environmental management systems.',
     tags: ['ISO 45001', 'ISO 14001', 'Strategy'],
@@ -22,7 +40,7 @@ const services = [
     ),
   },
   {
-    num: '03',
+    num: '05',
     title: 'Risk Analysis',
     desc: 'Systematic identification, assessment, and mitigation of workplace hazards — protecting your people, assets, and reputation before incidents occur.',
     tags: ['HAZOP', 'FMEA', 'Bow-Tie'],
@@ -31,7 +49,7 @@ const services = [
     ),
   },
   {
-    num: '04',
+    num: '06',
     title: 'Audit & Inspection',
     desc: 'Independent, thorough HSE audits that deliver clear, actionable findings — ensuring regulatory compliance and driving continuous performance improvement.',
     tags: ['Compliance', 'Gap Analysis', 'Reporting'],
