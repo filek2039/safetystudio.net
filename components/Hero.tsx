@@ -1,7 +1,6 @@
 'use client'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
-import CounterStat from './ui/CounterStat'
 import Button from './ui/Button'
 
 const container = {
@@ -17,21 +16,35 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const gridY = useTransform(scrollYProgress, [0, 1], [0, -60])
+  const shouldReduce = useReducedMotion()
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center px-16 max-md:px-6 pt-28 pb-20 overflow-hidden">
-      {/* Radial background */}
+      {/* Background video */}
+      {!shouldReduce && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          src="/videos/refinery.mp4"
+        />
+      )}
+
+      {/* Dark overlay — ensures text contrast over video */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 60% 40%, rgb(var(--navy-light) / 0.45) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgb(var(--gold) / 0.06) 0%, transparent 60%)',
+            'linear-gradient(to right, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.55) 50%, rgba(10,22,40,0.35) 100%), linear-gradient(to top, rgba(10,22,40,0.45) 0%, transparent 40%)',
         }}
       />
 
       {/* Parallax grid */}
       <motion.div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           y: gridY,
           backgroundImage:
@@ -76,17 +89,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Stats */}
-      <motion.div
-        className="absolute right-16 bottom-16 max-md:static max-md:mt-12 flex flex-col max-md:flex-row gap-10 max-md:gap-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.9, duration: 0.8 }}
-      >
-        <CounterStat value={100} suffix="+" label="Projects Completed" />
-        <CounterStat value={15} suffix="+" label="Years of Experience" />
-        <CounterStat value={0} label="Compromise on Safety" />
-      </motion.div>
     </section>
   )
 }
