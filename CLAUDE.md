@@ -175,12 +175,17 @@ Yeni bir blog yazısı eklemek için şu adımları takip et:
 app/blog/[yazi-slug]/page.tsx
 ```
 
-**2. `page.tsx` yapısı:**
+**2. `page.tsx` yapısı — `BlogArticleLayout` kullan:**
+
+`BlogArticleLayout` (`components/blog/BlogArticleLayout.tsx`) tüm blog yazıları için ortak chrome'u sağlar:
+- ReadingProgress bar (altın renk, sayfanın üstünde)
+- Nav + Footer + BackToTop
+- Sticky TableOfContents sidebar (xl: 1280px+ ekranlarda)
+- JSON-LD script injection
+
 ```tsx
 import type { Metadata } from 'next'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
-import BackToTop from '@/components/ui/BackToTop'
+import BlogArticleLayout from '@/components/blog/BlogArticleLayout'
 
 export const metadata: Metadata = {
   title: 'Başlık — Safety Studio',
@@ -193,19 +198,35 @@ export const metadata: Metadata = {
   },
 }
 
+const header = (
+  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-gold/10">
+    {/* tag, h1, meta satırı */}
+  </header>
+)
+
+const cta = (
+  <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
+    {/* CTA strip */}
+  </div>
+)
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', /* ... */ })
+
 export default function ArticlePage() {
   return (
-    <>
-      <Nav />
-      <main id="main-content" className="min-h-screen">
-        {/* İçerik */}
-      </main>
-      <Footer />
-      <BackToTop />
-    </>
+    <BlogArticleLayout header={header} cta={cta} jsonLd={jsonLd}>
+      {/* Sadece makale gövdesi — <article> ve flex wrapper BlogArticleLayout tarafından sağlanır */}
+      <h2 id="section-id" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+        Bölüm Başlığı
+      </h2>
+      <p>...</p>
+    </BlogArticleLayout>
   )
 }
 ```
+
+> ⚠️ **Kritik:** ToC'nin çalışması için tüm `<h2>` başlıklarının `id` attribute'u olmalı.
+> `BlogArticleLayout`'u import etmeyi unutma — `Nav`, `Footer`, `BackToTop` ayrıca import etme.
 
 **3. Blog index'e yazıyı ekle (`app/blog/page.tsx`):**
 `posts` dizisine yeni obje ekle: `{ slug, tag, date, readTime, title, excerpt }`
