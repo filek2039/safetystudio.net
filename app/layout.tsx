@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
+
+declare global {
+  interface Window {
+    gtag: (...args: unknown[]) => void
+    dataLayer: unknown[]
+  }
+}
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -69,6 +77,20 @@ export default function RootLayout({
         </a>
 
         {children}
+
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-5PZMFRT2XF"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5PZMFRT2XF');
+          `}
+        </Script>
 
         {/* Organization structured data */}
         <script

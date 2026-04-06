@@ -14,6 +14,12 @@ export default function SafetyMomentLibrary() {
       await navigator.clipboard.writeText(body)
       setCopied(id)
       setTimeout(() => setCopied(null), 2000)
+      window.gtag?.('event', 'tool_used', {
+        tool_name: 'safety_moment_library',
+        action: 'copy_moment',
+        moment_id: id,
+        category: activeCat,
+      })
     } catch {
       // clipboard not available
     }
@@ -26,7 +32,14 @@ export default function SafetyMomentLibrary() {
         {SM_CATEGORIES.map((cat) => (
           <button
             key={cat.id}
-            onClick={() => setActiveCat(cat.id)}
+            onClick={() => {
+              setActiveCat(cat.id)
+              window.gtag?.('event', 'tool_used', {
+                tool_name: 'safety_moment_library',
+                action: 'category_switch',
+                category: cat.id,
+              })
+            }}
             className={`text-[0.68rem] tracking-[0.1em] uppercase px-3.5 py-1.5 rounded-sm transition-all duration-200 whitespace-nowrap ${
               activeCat === cat.id
                 ? 'text-gold border border-gold/50 bg-gold/8'

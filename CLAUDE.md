@@ -45,7 +45,8 @@ SafetyStudio.net/
 │   ├── Nav.tsx                  # Navbar (mobil focus-trap, ARIA, Escape key)
 │   ├── Hero.tsx                 # Hero/banner bölümü
 │   ├── Services.tsx             # Hizmetler bölümü
-│   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı
+│   ├── FreeTools.tsx            # Ücretsiz araçlar (yalnızca Incident Rate Calculator)
+│   ├── Library.tsx              # Safety Moment Library bölümü (/#library)
 │   ├── About.tsx                # Hakkımızda bölümü
 │   ├── Contact.tsx              # İletişim bölümü (mailto CTA)
 │   ├── Footer.tsx               # 3-kolonlu footer
@@ -112,13 +113,19 @@ import Hero from '../components/Hero'         // ✗ relative path kullanma
 
 ## Ana Sayfa Bölüm Sırası
 
-`app/page.tsx`'te bölümler şu sırayla dizilir:
+`app/page.tsx` artık `TabbedContent` ile hash-driven tab router kullanır. Aktif sekmeye göre bölümler şunlardır:
 
-```
-Nav → Hero → GoldDivider → Services → GoldDivider → FreeTools → GoldDivider → About → Contact → Footer → BackToTop
-```
+| Hash | Bölüm |
+|------|-------|
+| (boş) | Hero |
+| `#services` | Services |
+| `#tools` | FreeTools (yalnızca Incident Rate Calculator) |
+| `#library` | Library (Safety Moment Library) |
+| `#about` / `#contact` | About + Contact |
 
-Yeni bir bölüm eklenirse bu sırayı ve `GoldDivider` yerleşimini güncelle.
+Nav linkleri: **Services · Free Tools · Library · Blog · About · Get in Touch**
+
+Yeni bir sekme eklenirken `TabbedContent.tsx` içindeki `Section` tipini, `HASH_SECTION_MAP`'i ve `SECTION_CONTENT`'i güncelle. Aynı zamanda `Nav.tsx`'teki `links` dizisine yeni linki ekle.
 
 ---
 
@@ -287,7 +294,6 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 
 | Görev | Dosyalar | Öncelik |
 |-------|----------|---------|
-| Blog ToC + Reading Progress | `components/blog/TableOfContents.tsx`, `ReadingProgress.tsx` | Yüksek |
 | Framer Motion reduced-motion | Tüm animasyonlu bileşenler | Orta |
 | FAQ bölümü | `components/FAQ.tsx` + `FAQPage` JSON-LD | Orta |
 | Blog içerik genişletme | `app/blog/[slug]/page.tsx` | Düşük |

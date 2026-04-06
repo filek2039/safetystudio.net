@@ -138,6 +138,10 @@ export default function IncidentRateCalc() {
       await navigator.clipboard.writeText(lines.filter(Boolean).join('\n'))
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+      window.gtag?.('event', 'tool_used', {
+        tool_name: 'incident_rate_calculator',
+        action: 'copy_results',
+      })
     } catch {
       // clipboard not available
     }

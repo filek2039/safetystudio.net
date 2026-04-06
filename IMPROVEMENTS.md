@@ -17,6 +17,8 @@
 - [x] **Calculator input accessibility** — Explicit `id`/`htmlFor` on all inputs.
 - [x] **Back-to-top button** — Floating button after 500px scroll, on homepage + blog article.
 - [x] **Blog article h2 IDs** — All headings have IDs for future ToC integration.
+- [x] **Google Analytics 4** — GA4 script added to `app/layout.tsx` (`G-5PZMFRT2XF`). Custom `tool_used` events fire on: calculator copy results (`IncidentRateCalc.tsx`), safety moment category switch and copy (`SafetyMomentLibrary.tsx`).
+- [x] **Library tab** — New "Library" nav link (`/#library`) and section added to `TabbedContent.tsx`. Safety Moment Library moved from Free Tools into dedicated `components/Library.tsx`. Free Tools now contains only the Incident Rate Calculator.
 
 ---
 

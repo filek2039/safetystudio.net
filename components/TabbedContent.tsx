@@ -5,10 +5,11 @@ import Hero from '@/components/Hero'
 import GoldDivider from '@/components/ui/GoldDivider'
 import Services from '@/components/Services'
 import FreeTools from '@/components/FreeTools'
+import Library from '@/components/Library'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
 
-type Section = 'home' | 'services' | 'tools' | 'about'
+type Section = 'home' | 'services' | 'tools' | 'library' | 'about'
 
 /**
  * Maps URL hash values to their corresponding section.
@@ -18,7 +19,8 @@ type Section = 'home' | 'services' | 'tools' | 'about'
 const HASH_SECTION_MAP: Record<string, Section> = {
   '#services': 'services',
   '#tools': 'tools',
-  '#safety-moment-library': 'tools',
+  '#library': 'library',
+  '#safety-moment-library': 'library',
   '#about': 'about',
   '#contact': 'about',
 }
@@ -34,6 +36,7 @@ const SECTION_CONTENT: Record<Section, React.ReactNode> = {
   home: <Hero />,
   services: <Services />,
   tools: <FreeTools />,
+  library: <Library />,
   about: (
     <>
       <About />
