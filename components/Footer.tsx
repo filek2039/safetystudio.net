@@ -63,9 +63,12 @@ export default function Footer() {
         <p className="text-muted/70 text-xs font-light">
           &copy; 2026 Safety Studio. All rights reserved.
         </p>
-        <p className="text-muted/50 text-xs font-light">
-          safetystudio.net
-        </p>
+        <a
+          href="/privacy/"
+          className="text-muted/50 text-xs font-light hover:text-gold transition-colors duration-200"
+        >
+          Privacy Policy
+        </a>
       </div>
     </footer>
   )
