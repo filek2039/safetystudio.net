@@ -25,11 +25,10 @@
 ## Remaining (Not Yet Implemented)
 
 ### Tier 2
-- [ ] **Blog Table of Contents + Reading Progress** — Sticky sidebar ToC on `lg:` screens using IntersectionObserver. Reading progress bar using `useScroll` + `useTransform`.
-  - Files: `components/blog/TableOfContents.tsx`, `components/blog/ReadingProgress.tsx`, update blog article layout.
+- [x] **Blog Table of Contents + Reading Progress** — Sticky sidebar ToC on `lg:` screens using IntersectionObserver. Reading progress bar using `useScroll` + `useTransform`. `BlogArticleLayout.tsx` wraps all articles with shared chrome (Nav, Footer, BackToTop, ToC, ReadingProgress).
 
 ### Tier 3: Nice to Have
-- [ ] **More blog content** — Blog index has only 1 post. Suggested next articles:
+- [ ] **More blog content** — Blog index has 3 posts (SIF, HPI, Chronic Unease & Complacency). Remaining suggested articles:
   - "How to Run an Effective Safety Moment" (cross-links Safety Moment Library)
   - "Understanding HAZOP: A Practical Guide" (cross-links consultancy service)
   - "LTIF vs TRCF: What's the Difference?" (cross-links calculator)

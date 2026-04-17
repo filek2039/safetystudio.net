@@ -39,20 +39,27 @@ export default function BlogArticleLayout({
 
         {header}
 
-        {/* Article body + sticky ToC sidebar */}
-        <div className="flex">
-          <article className="px-16 max-md:px-6 py-14 max-w-2xl prose-custom flex-shrink-0">
-            <div className="space-y-6 text-cream/85 font-light leading-[1.85] text-[0.975rem]">
+        {/* Article body + sticky ToC sidebar
+            Left ghost spacer mirrors ToC width so the article column sits in the true
+            horizontal centre of the page on xl screens. */}
+        <div className="flex justify-center gap-12 px-8 max-md:px-6">
+
+          {/* Ghost spacer — mirrors ToC, keeps article centred */}
+          <div className="hidden xl:block w-56 flex-shrink-0" aria-hidden="true" />
+
+          <article className="py-14 w-full max-w-2xl min-w-0 prose-custom">
+            <div className="space-y-6 text-cream/85 font-light leading-[1.85] text-[1.0625rem]">
               {children}
             </div>
           </article>
 
           {/* ToC sidebar — desktop only (xl: 1280px+) */}
-          <aside className="hidden xl:block w-56 flex-shrink-0 pt-14 pl-8 pr-4">
+          <aside className="hidden xl:block w-56 flex-shrink-0 pt-14">
             <div className="sticky top-28">
               <TableOfContents />
             </div>
           </aside>
+
         </div>
 
         {cta}

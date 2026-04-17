@@ -38,8 +38,8 @@ function Fn({ n }: { n: number }) {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-gold/10">
-    <div className="max-w-2xl">
+  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-gold/10">
+    <div className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <a href="/blog/" className="text-muted/70 text-xs tracking-widest uppercase hover:text-gold transition-colors">
           &larr; Blog
@@ -66,7 +66,7 @@ const header = (
 )
 
 const cta = (
-  <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
+  <div className="pb-24 w-full max-w-2xl mx-auto px-8 max-md:px-6">
     <div className="border border-gold/15 rounded-sm px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-navy-mid/40">
       <div>
         <div className="text-cream font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>

@@ -10,6 +10,15 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    slug: 'chronic-unease-and-complacency',
+    tag: 'Safety Culture',
+    date: 'April 2026',
+    readTime: '9 min read',
+    title: 'Chronic Unease and Complacency: Why Safety Success Can Become a Hazard',
+    excerpt:
+      'Prolonged periods without a major incident do not mean an organisation is safe — they can signal the onset of complacency. Chronic unease is the antidote. Here is what it looks like in practice.',
+  },
+  {
     slug: 'human-performance-improvement',
     tag: 'Human Factors',
     date: 'April 2026',
