@@ -45,7 +45,7 @@ export default function BlogIndex() {
       <main id="main-content" className="min-h-screen">
         {/* Header */}
         <section className="pt-36 pb-16 px-16 max-md:px-6">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto">
             <span className="inline-block text-[0.68rem] tracking-[0.22em] uppercase text-gold font-medium mb-4">
               HSE Insights
             </span>
@@ -64,7 +64,7 @@ export default function BlogIndex() {
 
         {/* Posts */}
         <section className="px-16 max-md:px-6 pb-24">
-          <div className="max-w-3xl flex flex-col gap-8">
+          <div className="max-w-3xl mx-auto flex flex-col gap-8">
             {posts.map((post) => (
               <a
                 key={post.slug}

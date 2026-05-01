@@ -25,11 +25,11 @@ function MetricCard({
   cite?: string
 }) {
   const benchColor =
-    bench?.startsWith('\u2713')
+    bench?.startsWith('✓')
       ? 'text-emerald-400'
-      : bench?.startsWith('\u26A0')
+      : bench?.startsWith('⚠')
       ? 'text-amber-400'
-      : bench?.startsWith('\u2717')
+      : bench?.startsWith('✗')
       ? 'text-red-400'
       : 'text-muted'
 
@@ -54,12 +54,15 @@ function Subtotal({ label, value, formula }: { label: string; value: number; for
   )
 }
 
-function SectionSep({ label }: { label: string }) {
+function CalcFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3 my-6">
-      <div className="flex-1 h-px bg-gold/12" />
-      <span className="text-[0.65rem] tracking-[0.18em] uppercase text-gold whitespace-nowrap">{label}</span>
-      <div className="flex-1 h-px bg-gold/12" />
+    <div className="border border-gold/20 rounded-sm bg-navy-mid/30">
+      <div className="px-5 py-3.5 border-b border-gold/15 bg-navy-mid/50">
+        <h3 className="text-[0.72rem] tracking-[0.2em] uppercase text-gold font-medium">{title}</h3>
+      </div>
+      <div className="px-5 py-6 space-y-5">
+        {children}
+      </div>
     </div>
   )
 }
@@ -77,7 +80,7 @@ export default function IncidentRateCalc() {
     }
 
   const fmt = (n: number | null, decimals = 2) =>
-    n !== null ? n.toFixed(decimals) : '\u2014'
+    n !== null ? n.toFixed(decimals) : '—'
 
   const handleCopyResults = async () => {
     const lines: string[] = [
@@ -149,224 +152,216 @@ export default function IncidentRateCalc() {
 
   return (
     <div className="space-y-6">
-      {/* Hours + Base */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-        <Field label="Hours Worked (period)" id="ir-hours">
-          <input
-            id="ir-hours"
-            type="number"
-            value={inputs.hours || ''}
-            onChange={update('hours')}
-            placeholder="e.g. 1000000"
-            min="0"
-          />
-        </Field>
-        <Field label="Base Figure" id="ir-base">
-          <select id="ir-base" value={inputs.base} onChange={update('base')}>
-            <option value={1000000}>1,000,000 hrs — International</option>
-            <option value={200000}>200,000 hrs — US OSHA</option>
-          </select>
-        </Field>
-      </div>
 
-      {/* Case types */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-        <Field label="Fatality (FAT)" id="ir-fat">
-          <input id="ir-fat" type="number" value={inputs.fat || ''} onChange={update('fat')} placeholder="0" min="0" />
-        </Field>
-        <Field label="Lost Workday Case (LWC)" id="ir-lwc">
-          <input id="ir-lwc" type="number" value={inputs.lwc || ''} onChange={update('lwc')} placeholder="0" min="0" />
-        </Field>
-        <Field label="Restricted Workday Case (RWC)" id="ir-rwc">
-          <input id="ir-rwc" type="number" value={inputs.rwc || ''} onChange={update('rwc')} placeholder="0" min="0" />
-        </Field>
-        <Field label="Medical Treatment Case (MTC)" id="ir-mtc">
-          <input id="ir-mtc" type="number" value={inputs.mtc || ''} onChange={update('mtc')} placeholder="0" min="0" />
-        </Field>
-      </div>
-
-      {/* Subtotals */}
-      <div className="flex flex-wrap gap-6 bg-navy/40 border border-gold/10 rounded-sm px-5 py-3.5">
-        <Subtotal label="LTI" value={results.lti} formula="(LWC + FAT)" />
-        <div className="w-px h-8 bg-gold/15 self-center hidden sm:block" />
-        <Subtotal label="TRC" value={results.trc} formula="(LWC + RWC + MTC + FAT)" />
-      </div>
-
-      {/* Results */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-        <MetricCard
-          label="LTIF — Lost Time Injury Frequency"
-          formula={`(LTI \u00F7 Hours) \u00D7 ${results.baseLabel}`}
-          value={fmt(results.ltif)}
-          bench={results.ltifBench}
-          cite={results.ltifCite}
-        />
-        <MetricCard
-          label="TRCF — Total Recordable Case Frequency"
-          formula={`(TRC \u00F7 Hours) \u00D7 ${results.baseLabel}`}
-          value={fmt(results.trcf)}
-          bench={results.trcfBench}
-          cite={results.trcfCite}
-        />
-      </div>
-
-      {/* Improvement Targets */}
-      <div className="border border-gold/12 rounded-sm px-5 py-4">
-        <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
-          Improvement Targets
+      {/* Frame 1: Personal Injury Incident Rate Calculator */}
+      <CalcFrame title="Personal Injury Incident Rate Calculator">
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+          <Field label="Hours Worked (period)" id="ir-hours">
+            <input
+              id="ir-hours"
+              type="number"
+              value={inputs.hours || ''}
+              onChange={update('hours')}
+              placeholder="e.g. 1000000"
+              min="0"
+            />
+          </Field>
+          <Field label="Base Figure" id="ir-base">
+            <select id="ir-base" value={inputs.base} onChange={update('base')}>
+              <option value={1000000}>1,000,000 hrs — International</option>
+              <option value={200000}>200,000 hrs — US OSHA</option>
+            </select>
+          </Field>
         </div>
-        {[
-          { key: 'ltifReductionPct' as const, label: 'LTIF', current: results.ltif, target: results.ltifTarget },
-          { key: 'trcfReductionPct' as const, label: 'TRCF', current: results.trcf, target: results.trcfTarget },
-        ].map((row) => (
-          <div key={row.label} className="flex items-center gap-3 flex-wrap mb-3 last:mb-0">
-            <span className="text-xs text-muted w-12">{row.label}</span>
-            <span className="font-display text-base text-cream w-14">{fmt(row.current)}</span>
+
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+          <Field label="Fatality (FAT)" id="ir-fat">
+            <input id="ir-fat" type="number" value={inputs.fat || ''} onChange={update('fat')} placeholder="0" min="0" />
+          </Field>
+          <Field label="Lost Workday Case (LWC)" id="ir-lwc">
+            <input id="ir-lwc" type="number" value={inputs.lwc || ''} onChange={update('lwc')} placeholder="0" min="0" />
+          </Field>
+          <Field label="Restricted Workday Case (RWC)" id="ir-rwc">
+            <input id="ir-rwc" type="number" value={inputs.rwc || ''} onChange={update('rwc')} placeholder="0" min="0" />
+          </Field>
+          <Field label="Medical Treatment Case (MTC)" id="ir-mtc">
+            <input id="ir-mtc" type="number" value={inputs.mtc || ''} onChange={update('mtc')} placeholder="0" min="0" />
+          </Field>
+        </div>
+
+        <div className="flex flex-wrap gap-6 bg-navy/40 border border-gold/10 rounded-sm px-5 py-3.5">
+          <Subtotal label="LTI" value={results.lti} formula="(LWC + FAT)" />
+          <div className="w-px h-8 bg-gold/15 self-center hidden sm:block" />
+          <Subtotal label="TRC" value={results.trc} formula="(LWC + RWC + MTC + FAT)" />
+        </div>
+
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+          <MetricCard
+            label="LTIF — Lost Time Injury Frequency"
+            formula={`(LTI ÷ Hours) × ${results.baseLabel}`}
+            value={fmt(results.ltif)}
+            bench={results.ltifBench}
+            cite={results.ltifCite}
+          />
+          <MetricCard
+            label="TRCF — Total Recordable Case Frequency"
+            formula={`(TRC ÷ Hours) × ${results.baseLabel}`}
+            value={fmt(results.trcf)}
+            bench={results.trcfBench}
+            cite={results.trcfCite}
+          />
+        </div>
+
+        <div className="border border-gold/12 rounded-sm px-5 py-4">
+          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+            Improvement Targets
+          </div>
+          {[
+            { key: 'ltifReductionPct' as const, label: 'LTIF', current: results.ltif, target: results.ltifTarget },
+            { key: 'trcfReductionPct' as const, label: 'TRCF', current: results.trcf, target: results.trcfTarget },
+          ].map((row) => (
+            <div key={row.label} className="flex items-center gap-3 flex-wrap mb-3 last:mb-0">
+              <span className="text-xs text-muted w-12">{row.label}</span>
+              <span className="font-display text-base text-cream w-14">{fmt(row.current)}</span>
+              <span className="text-gold/50 text-xs">&rarr;</span>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="number"
+                  value={inputs[row.key] || ''}
+                  onChange={update(row.key)}
+                  min={1}
+                  max={99}
+                  className="!w-14 !px-2 text-center"
+                />
+                <span className="text-[0.65rem] text-muted">% reduction</span>
+              </div>
+              <span className="font-display text-lg text-gold ml-auto">{fmt(row.target)}</span>
+            </div>
+          ))}
+        </div>
+      </CalcFrame>
+
+      {/* Frame 2: SIF Potential Events */}
+      <CalcFrame title="SIF Potential Events">
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 items-end">
+          <Field label="SIF-Potential Events (SIFp)" id="ir-sifp">
+            <input
+              id="ir-sifp"
+              type="number"
+              value={inputs.sifp || ''}
+              onChange={update('sifp')}
+              placeholder="0"
+              min="0"
+            />
+          </Field>
+          <div className="text-[0.65rem] text-muted/70 font-light leading-relaxed pb-1">
+            Count of events that, under slightly different circumstances, could have resulted in a
+            fatality or permanently disabling injury — regardless of actual outcome.
+          </div>
+        </div>
+
+        <MetricCard
+          label="SIFpR — SIF-Potential Frequency Rate"
+          formula={`(SIFp ÷ Hours) × ${results.baseLabel}`}
+          value={fmt(results.sifpRate)}
+          bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
+          cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
+        />
+
+        <div className="border border-gold/12 rounded-sm px-5 py-4">
+          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+            SIFp Improvement Target
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-xs text-muted w-14">SIFpR</span>
+            <span className="font-display text-base text-cream w-14">{fmt(results.sifpRate)}</span>
             <span className="text-gold/50 text-xs">&rarr;</span>
             <div className="flex items-center gap-1.5">
               <input
                 type="number"
-                value={inputs[row.key] || ''}
-                onChange={update(row.key)}
+                value={inputs.sifpReductionPct || ''}
+                onChange={update('sifpReductionPct')}
                 min={1}
                 max={99}
                 className="!w-14 !px-2 text-center"
               />
               <span className="text-[0.65rem] text-muted">% reduction</span>
             </div>
-            <span className="font-display text-lg text-gold ml-auto">{fmt(row.target)}</span>
+            <span className="font-display text-lg text-gold ml-auto">{fmt(results.sifpTarget)}</span>
           </div>
-        ))}
-      </div>
-
-      {/* SIF-Potential Section */}
-      <SectionSep label="SIF-Potential Events" />
-
-      {/* SIFp input */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 items-end">
-        <Field label="SIF-Potential Events (SIFp)" id="ir-sifp">
-          <input
-            id="ir-sifp"
-            type="number"
-            value={inputs.sifp || ''}
-            onChange={update('sifp')}
-            placeholder="0"
-            min="0"
-          />
-        </Field>
-        <div className="text-[0.65rem] text-muted/70 font-light leading-relaxed pb-1">
-          Count of events that, under slightly different circumstances, could have resulted in a
-          fatality or permanently disabling injury — regardless of actual outcome.
         </div>
-      </div>
+      </CalcFrame>
 
-      {/* SIFpR Result */}
-      <MetricCard
-        label="SIFpR — SIF-Potential Frequency Rate"
-        formula={`(SIFp \u00F7 Hours) \u00D7 ${results.baseLabel}`}
-        value={fmt(results.sifpRate)}
-        bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
-        cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
-      />
-
-      {/* SIFp Improvement Target */}
-      <div className="border border-gold/12 rounded-sm px-5 py-4">
-        <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
-          SIFp Improvement Target
-        </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-xs text-muted w-14">SIFpR</span>
-          <span className="font-display text-base text-cream w-14">{fmt(results.sifpRate)}</span>
-          <span className="text-gold/50 text-xs">&rarr;</span>
-          <div className="flex items-center gap-1.5">
+      {/* Frame 3: Motor Vehicle Incidents */}
+      <CalcFrame title="Motor Vehicle Incidents">
+        <div className="grid grid-cols-1 max-w-xs">
+          <Field label="Total km Driven (period)" id="ir-km">
             <input
+              id="ir-km"
               type="number"
-              value={inputs.sifpReductionPct || ''}
-              onChange={update('sifpReductionPct')}
-              min={1}
-              max={99}
-              className="!w-14 !px-2 text-center"
+              value={inputs.km || ''}
+              onChange={update('km')}
+              placeholder="e.g. 5000000"
+              min="0"
             />
-            <span className="text-[0.65rem] text-muted">% reduction</span>
-          </div>
-          <span className="font-display text-lg text-gold ml-auto">{fmt(results.sifpTarget)}</span>
+          </Field>
         </div>
-      </div>
 
-      {/* MVI Section */}
-      <SectionSep label="Motor Vehicle Incidents" />
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+          <Field label="Fatal MVI" id="ir-mvi-fatal">
+            <input id="ir-mvi-fatal" type="number" value={inputs.mviFatal || ''} onChange={update('mviFatal')} placeholder="0" min="0" />
+          </Field>
+          <Field label="Serious MVI (with injury)" id="ir-mvi-serious">
+            <input id="ir-mvi-serious" type="number" value={inputs.mviSerious || ''} onChange={update('mviSerious')} placeholder="0" min="0" />
+          </Field>
+          <Field label="Minor MVI (property damage)" id="ir-mvi-minor">
+            <input id="ir-mvi-minor" type="number" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
+          </Field>
+          <div className="flex items-end">
+            <div className="flex items-baseline gap-2 bg-navy/40 border border-gold/10 rounded-sm px-4 py-3 w-full">
+              <Subtotal label="Total MVI" value={results.mviTotal} formula="(all types)" />
+            </div>
+          </div>
+        </div>
 
-      {/* km driven */}
-      <div className="grid grid-cols-1 max-w-xs">
-        <Field label="Total km Driven (period)" id="ir-km">
-          <input
-            id="ir-km"
-            type="number"
-            value={inputs.km || ''}
-            onChange={update('km')}
-            placeholder="e.g. 5000000"
-            min="0"
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+          <MetricCard
+            label="MVIFR — Motor Vehicle Incident Frequency Rate"
+            formula={`(Total MVI ÷ km) × 1,000,000`}
+            value={fmt(results.mvifr, 3)}
+            bench={results.mvifrBench}
+            cite={results.mvifrCite}
           />
-        </Field>
-      </div>
+          <MetricCard
+            label="Fatal MVIFR — Fatal Motor Vehicle Incident Rate"
+            formula={`(Fatal MVI ÷ km) × 1,000,000`}
+            value={fmt(results.mviFatalFr, 3)}
+          />
+        </div>
 
-      {/* MVI case types */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-        <Field label="Fatal MVI" id="ir-mvi-fatal">
-          <input id="ir-mvi-fatal" type="number" value={inputs.mviFatal || ''} onChange={update('mviFatal')} placeholder="0" min="0" />
-        </Field>
-        <Field label="Serious MVI (with injury)" id="ir-mvi-serious">
-          <input id="ir-mvi-serious" type="number" value={inputs.mviSerious || ''} onChange={update('mviSerious')} placeholder="0" min="0" />
-        </Field>
-        <Field label="Minor MVI (property damage)" id="ir-mvi-minor">
-          <input id="ir-mvi-minor" type="number" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
-        </Field>
-        <div className="flex items-end">
-          <div className="flex items-baseline gap-2 bg-navy/40 border border-gold/10 rounded-sm px-4 py-3 w-full">
-            <Subtotal label="Total MVI" value={results.mviTotal} formula="(all types)" />
+        <div className="border border-gold/12 rounded-sm px-5 py-4">
+          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+            MVI Improvement Target
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-xs text-muted w-14">MVIFR</span>
+            <span className="font-display text-base text-cream w-16">{fmt(results.mvifr, 3)}</span>
+            <span className="text-gold/50 text-xs">&rarr;</span>
+            <div className="flex items-center gap-1.5">
+              <input
+                type="number"
+                value={inputs.mviReductionPct || ''}
+                onChange={update('mviReductionPct')}
+                min={1}
+                max={99}
+                className="!w-14 !px-2 text-center"
+              />
+              <span className="text-[0.65rem] text-muted">% reduction</span>
+            </div>
+            <span className="font-display text-lg text-gold ml-auto">{fmt(results.mvifrTarget, 3)}</span>
           </div>
         </div>
-      </div>
-
-      {/* MVI Results */}
-      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-        <MetricCard
-          label="MVIFR — Motor Vehicle Incident Frequency Rate"
-          formula={`(Total MVI \u00F7 km) \u00D7 1,000,000`}
-          value={fmt(results.mvifr, 3)}
-          bench={results.mvifrBench}
-          cite={results.mvifrCite}
-        />
-        <MetricCard
-          label="Fatal MVIFR — Fatal Motor Vehicle Incident Rate"
-          formula={`(Fatal MVI \u00F7 km) \u00D7 1,000,000`}
-          value={fmt(results.mviFatalFr, 3)}
-        />
-      </div>
-
-      {/* MVI Target */}
-      <div className="border border-gold/12 rounded-sm px-5 py-4">
-        <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
-          MVI Improvement Target
-        </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-xs text-muted w-14">MVIFR</span>
-          <span className="font-display text-base text-cream w-16">{fmt(results.mvifr, 3)}</span>
-          <span className="text-gold/50 text-xs">&rarr;</span>
-          <div className="flex items-center gap-1.5">
-            <input
-              type="number"
-              value={inputs.mviReductionPct || ''}
-              onChange={update('mviReductionPct')}
-              min={1}
-              max={99}
-              className="!w-14 !px-2 text-center"
-            />
-            <span className="text-[0.65rem] text-muted">% reduction</span>
-          </div>
-          <span className="font-display text-lg text-gold ml-auto">{fmt(results.mvifrTarget, 3)}</span>
-        </div>
-      </div>
+      </CalcFrame>
 
       {/* Copy Results */}
       <div className="flex justify-end pt-2">
@@ -378,7 +373,7 @@ export default function IncidentRateCalc() {
               : 'text-muted border-muted/25 hover:text-gold hover:border-gold/40'
           }`}
         >
-          {copied ? 'Copied to clipboard \u2713' : 'Copy all results'}
+          {copied ? 'Copied to clipboard ✓' : 'Copy all results'}
         </button>
       </div>
     </div>

@@ -45,13 +45,13 @@ SafetyStudio.net/
 │   ├── Nav.tsx                  # Navbar (mobil focus-trap, ARIA, Escape key)
 │   ├── Hero.tsx                 # Hero/banner bölümü
 │   ├── Services.tsx             # Hizmetler bölümü
-│   ├── FreeTools.tsx            # Ücretsiz araçlar (yalnızca Incident Rate Calculator)
-│   ├── Library.tsx              # Safety Moment Library bölümü (/#library)
+│   ├── FreeTools.tsx            # Ücretsiz araçlar — max-w-3xl mx-auto, IncidentRateCalc'ı doğrudan render eder (ToolCard kaldırıldı)
+│   ├── Library.tsx              # Safety Moment Library bölümü (/#library) — max-w-3xl mx-auto
 │   ├── About.tsx                # Hakkımızda bölümü
 │   ├── Contact.tsx              # İletişim bölümü (mailto CTA)
 │   ├── Footer.tsx               # 3-kolonlu footer
 │   ├── tools/                   # Etkileşimli araç bileşenleri
-│   │   ├── IncidentRateCalc.tsx # Incident Rate hesaplayıcı
+│   │   ├── IncidentRateCalc.tsx # 3 CalcFrame bölümü: Personal Injury / SIF Potential Events / Motor Vehicle Incidents
 │   │   └── SafetyMomentLibrary.tsx # Safety moment kütüphanesi
 │   └── ui/                      # Atomik / paylaşımlı UI bileşenleri
 │       ├── BackToTop.tsx        # Scroll-triggered geri-dön butonu
@@ -119,7 +119,7 @@ import Hero from '../components/Hero'         // ✗ relative path kullanma
 |------|-------|
 | (boş) | Hero |
 | `#services` | Services |
-| `#tools` | FreeTools (yalnızca Incident Rate Calculator) |
+| `#tools` | FreeTools — 3 CalcFrame: Personal Injury Calculator · SIF Potential Events · Motor Vehicle Incidents |
 | `#library` | Library (Safety Moment Library) |
 | `#about` / `#contact` | About + Contact |
 

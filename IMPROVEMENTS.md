@@ -26,6 +26,8 @@
 
 ### Tier 2
 - [x] **Blog Table of Contents + Reading Progress** — Sticky sidebar ToC on `lg:` screens using IntersectionObserver. Reading progress bar using `useScroll` + `useTransform`. `BlogArticleLayout.tsx` wraps all articles with shared chrome (Nav, Footer, BackToTop, ToC, ReadingProgress).
+- [x] **Section centering** — Free Tools, Library, and Blog index content centered with `max-w-3xl mx-auto` (was left-aligned).
+- [x] **Calculator frames** — `IncidentRateCalc` split into 3 named `CalcFrame` sections: Personal Injury Incident Rate Calculator, SIF Potential Events, Motor Vehicle Incidents. `ToolCard` wrapper removed from `FreeTools.tsx`.
 
 ### Tier 3: Nice to Have
 - [ ] **More blog content** — Blog index has 3 posts (SIF, HPI, Chronic Unease & Complacency). Remaining suggested articles:
