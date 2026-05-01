@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface SectionHeaderProps {
   tag: string
@@ -8,17 +8,19 @@ interface SectionHeaderProps {
   center?: boolean
 }
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
-}
-
 export default function SectionHeader({ tag, headline, intro, center = false }: SectionHeaderProps) {
+  const shouldReduce = useReducedMotion()
+
+  const container = {
+    hidden: {},
+    show: { transition: shouldReduce ? {} : { staggerChildren: 0.12 } },
+  }
+
+  const item = {
+    hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+  }
+
   return (
     <motion.div
       className={`mb-12 ${center ? 'text-center' : ''}`}

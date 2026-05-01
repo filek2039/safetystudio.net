@@ -12,8 +12,8 @@ interface ButtonProps {
 export default function Button({ variant = 'primary', href, onClick, children, className = '' }: ButtonProps) {
   const base =
     variant === 'primary'
-      ? 'inline-block px-8 py-3.5 bg-gold text-navy text-sm font-medium tracking-widest uppercase rounded-sm transition-colors duration-300 hover:bg-gold-light'
-      : 'inline-block px-8 py-3.5 border border-gold/60 text-cream text-sm font-medium tracking-widest uppercase rounded-sm transition-colors duration-300 hover:border-gold hover:text-gold'
+      ? 'inline-block px-8 py-3.5 bg-gold text-navy text-sm font-medium tracking-widest uppercase rounded-sm transition-colors duration-300 hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy'
+      : 'inline-block px-8 py-3.5 border border-gold/60 text-cream text-sm font-medium tracking-widest uppercase rounded-sm transition-colors duration-300 hover:border-gold hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy'
 
   const combined = `${base} ${className}`
 

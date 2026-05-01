@@ -37,7 +37,7 @@ function MetricCard({
     <div className="bg-navy/60 border border-gold/12 rounded-sm px-5 py-4">
       <div className="text-[0.68rem] tracking-[0.12em] uppercase text-muted mb-1 font-medium">{label}</div>
       <div className="text-[0.62rem] text-muted/70 mb-2 italic">{formula}</div>
-      <div className="font-display font-light text-3xl text-cream mb-2">{value}</div>
+      <div className="font-display font-light text-3xl text-cream mb-2" style={{ fontVariantNumeric: 'tabular-nums' }}>{value}</div>
       {bench && <div className={`text-xs font-light ${benchColor} mb-1`}>{bench}</div>}
       {cite && <div className="text-[0.6rem] text-muted/70 italic">{cite}</div>}
     </div>
@@ -159,7 +159,9 @@ export default function IncidentRateCalc() {
           <Field label="Hours Worked (period)" id="ir-hours">
             <input
               id="ir-hours"
+              name="hours"
               type="number"
+              autoComplete="off"
               value={inputs.hours || ''}
               onChange={update('hours')}
               placeholder="e.g. 1000000"
@@ -167,7 +169,7 @@ export default function IncidentRateCalc() {
             />
           </Field>
           <Field label="Base Figure" id="ir-base">
-            <select id="ir-base" value={inputs.base} onChange={update('base')}>
+            <select id="ir-base" name="base" autoComplete="off" value={inputs.base} onChange={update('base')}>
               <option value={1000000}>1,000,000 hrs — International</option>
               <option value={200000}>200,000 hrs — US OSHA</option>
             </select>
@@ -176,16 +178,16 @@ export default function IncidentRateCalc() {
 
         <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
           <Field label="Fatality (FAT)" id="ir-fat">
-            <input id="ir-fat" type="number" value={inputs.fat || ''} onChange={update('fat')} placeholder="0" min="0" />
+            <input id="ir-fat" name="fat" type="number" autoComplete="off" value={inputs.fat || ''} onChange={update('fat')} placeholder="0" min="0" />
           </Field>
           <Field label="Lost Workday Case (LWC)" id="ir-lwc">
-            <input id="ir-lwc" type="number" value={inputs.lwc || ''} onChange={update('lwc')} placeholder="0" min="0" />
+            <input id="ir-lwc" name="lwc" type="number" autoComplete="off" value={inputs.lwc || ''} onChange={update('lwc')} placeholder="0" min="0" />
           </Field>
           <Field label="Restricted Workday Case (RWC)" id="ir-rwc">
-            <input id="ir-rwc" type="number" value={inputs.rwc || ''} onChange={update('rwc')} placeholder="0" min="0" />
+            <input id="ir-rwc" name="rwc" type="number" autoComplete="off" value={inputs.rwc || ''} onChange={update('rwc')} placeholder="0" min="0" />
           </Field>
           <Field label="Medical Treatment Case (MTC)" id="ir-mtc">
-            <input id="ir-mtc" type="number" value={inputs.mtc || ''} onChange={update('mtc')} placeholder="0" min="0" />
+            <input id="ir-mtc" name="mtc" type="number" autoComplete="off" value={inputs.mtc || ''} onChange={update('mtc')} placeholder="0" min="0" />
           </Field>
         </div>
 
@@ -247,7 +249,9 @@ export default function IncidentRateCalc() {
           <Field label="SIF-Potential Events (SIFp)" id="ir-sifp">
             <input
               id="ir-sifp"
+              name="sifp"
               type="number"
+              autoComplete="off"
               value={inputs.sifp || ''}
               onChange={update('sifp')}
               placeholder="0"
@@ -298,7 +302,9 @@ export default function IncidentRateCalc() {
           <Field label="Total km Driven (period)" id="ir-km">
             <input
               id="ir-km"
+              name="km"
               type="number"
+              autoComplete="off"
               value={inputs.km || ''}
               onChange={update('km')}
               placeholder="e.g. 5000000"
@@ -309,13 +315,13 @@ export default function IncidentRateCalc() {
 
         <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
           <Field label="Fatal MVI" id="ir-mvi-fatal">
-            <input id="ir-mvi-fatal" type="number" value={inputs.mviFatal || ''} onChange={update('mviFatal')} placeholder="0" min="0" />
+            <input id="ir-mvi-fatal" name="mviFatal" type="number" autoComplete="off" value={inputs.mviFatal || ''} onChange={update('mviFatal')} placeholder="0" min="0" />
           </Field>
           <Field label="Serious MVI (with injury)" id="ir-mvi-serious">
-            <input id="ir-mvi-serious" type="number" value={inputs.mviSerious || ''} onChange={update('mviSerious')} placeholder="0" min="0" />
+            <input id="ir-mvi-serious" name="mviSerious" type="number" autoComplete="off" value={inputs.mviSerious || ''} onChange={update('mviSerious')} placeholder="0" min="0" />
           </Field>
           <Field label="Minor MVI (property damage)" id="ir-mvi-minor">
-            <input id="ir-mvi-minor" type="number" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
+            <input id="ir-mvi-minor" name="mviMinor" type="number" autoComplete="off" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
           </Field>
           <div className="flex items-end">
             <div className="flex items-baseline gap-2 bg-navy/40 border border-gold/10 rounded-sm px-4 py-3 w-full">

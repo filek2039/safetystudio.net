@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import SectionHeader from './ui/SectionHeader'
 
 const services = [
@@ -59,16 +59,18 @@ const services = [
   },
 ]
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: i * 0.1 },
-  }),
-}
-
 export default function Services() {
+  const shouldReduce = useReducedMotion()
+
+  const cardVariants = {
+    hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 40 },
+    show: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, delay: shouldReduce ? 0 : i * 0.1 },
+    }),
+  }
+
   return (
     <section id="services" className="px-16 max-md:px-6 py-24">
       <SectionHeader

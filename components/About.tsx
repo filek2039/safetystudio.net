@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import SectionHeader from './ui/SectionHeader'
 
 const pillars = [
@@ -18,11 +18,13 @@ const pillars = [
 ]
 
 export default function About() {
+  const shouldReduce = useReducedMotion()
+
   return (
     <section id="about" className="px-16 max-md:px-6 py-24 grid grid-cols-2 max-lg:grid-cols-1 gap-20 items-center">
       {/* Left */}
       <motion.div
-        initial={{ opacity: 0, x: -40 }}
+        initial={{ opacity: shouldReduce ? 1 : 0, x: shouldReduce ? 0 : -40 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: "circOut" }}
@@ -46,10 +48,10 @@ export default function About() {
             <motion.div
               key={p.title}
               className="flex gap-4 items-start"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: shouldReduce ? 1 : 0, x: shouldReduce ? 0 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: "circOut" }}
+              transition={{ duration: 0.6, delay: shouldReduce ? 0 : i * 0.1, ease: "circOut" }}
             >
               <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 flex-shrink-0" />
               <div>
@@ -64,7 +66,7 @@ export default function About() {
       {/* Right visual */}
       <motion.div
         className="relative h-[360px] max-md:h-[260px]"
-        initial={{ opacity: 0, x: 40 }}
+        initial={{ opacity: shouldReduce ? 1 : 0, x: shouldReduce ? 0 : 40 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: "circOut" }}
