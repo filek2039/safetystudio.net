@@ -1,6 +1,6 @@
-# CLAUDE.md — SafetyStudio.net
+# AGENTS.md — SafetyStudio.net
 
-Bu dosya Claude'a proje hakkında bağlam sağlar ve her oturumda otomatik okunur.
+Bu dosya Codex'a proje hakkında bağlam sağlar ve her oturumda otomatik okunur.
 
 ---
 

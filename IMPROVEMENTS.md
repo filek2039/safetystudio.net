@@ -19,15 +19,14 @@
 - [x] **Blog article h2 IDs** — All headings have IDs for future ToC integration.
 - [x] **Google Analytics 4** — GA4 script added to `app/layout.tsx` (`G-5PZMFRT2XF`). Custom `tool_used` events fire on: calculator copy results (`IncidentRateCalc.tsx`), safety moment category switch and copy (`SafetyMomentLibrary.tsx`).
 - [x] **Library tab** — New "Library" nav link (`/#library`) and section added to `TabbedContent.tsx`. Safety Moment Library moved from Free Tools into dedicated `components/Library.tsx`. Free Tools now contains only the Incident Rate Calculator.
+- [x] **Blog Table of Contents + Reading Progress** — Sticky sidebar ToC on `lg:` screens using IntersectionObserver. Reading progress bar using `useScroll` + `useTransform`. `BlogArticleLayout.tsx` wraps all articles with shared chrome (Nav, Footer, BackToTop, ToC, ReadingProgress).
+- [x] **Section centering** — Free Tools, Library, and Blog index content centered with `max-w-3xl mx-auto` (was left-aligned).
+- [x] **Calculator frames** — `IncidentRateCalc` split into 3 named `CalcFrame` sections: Personal Injury Incident Rate Calculator, SIF Potential Events, Motor Vehicle Incidents. `ToolCard` wrapper removed from `FreeTools.tsx`.
+- [x] **Web design guidelines review** — Applied Vercel web-design-guidelines fixes: `touch-action: manipulation` on `button, a`; `text-wrap: balance` on `h1/h2/h3`; `font-variant-numeric: tabular-nums` on MetricCard values; `focus-visible` ring on all inputs and Button variants; `useReducedMotion()` applied to SectionHeader, Services, and About animations; trailing slash fix on Blog links in Nav and Footer.
 
 ---
 
 ## Remaining (Not Yet Implemented)
-
-### Tier 2
-- [x] **Blog Table of Contents + Reading Progress** — Sticky sidebar ToC on `lg:` screens using IntersectionObserver. Reading progress bar using `useScroll` + `useTransform`. `BlogArticleLayout.tsx` wraps all articles with shared chrome (Nav, Footer, BackToTop, ToC, ReadingProgress).
-- [x] **Section centering** — Free Tools, Library, and Blog index content centered with `max-w-3xl mx-auto` (was left-aligned).
-- [x] **Calculator frames** — `IncidentRateCalc` split into 3 named `CalcFrame` sections: Personal Injury Incident Rate Calculator, SIF Potential Events, Motor Vehicle Incidents. `ToolCard` wrapper removed from `FreeTools.tsx`.
 
 ### Tier 3: Nice to Have
 - [ ] **More blog content** — Blog index has 3 posts (SIF, HPI, Chronic Unease & Complacency). Remaining suggested articles:
