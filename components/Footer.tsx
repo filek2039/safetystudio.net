@@ -59,7 +59,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="mt-10 pt-6 border-t border-gold/8 flex flex-wrap justify-between items-center gap-4">
+      <div className="mt-10 pt-6 border-t border-gold/[0.08] flex flex-wrap justify-between items-center gap-4">
         <p className="text-muted/70 text-xs font-light">
           &copy; 2026 Safety Studio. All rights reserved.
         </p>

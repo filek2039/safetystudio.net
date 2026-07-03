@@ -42,7 +42,7 @@ export default function SafetyMomentLibrary() {
             }}
             className={`text-[0.68rem] tracking-[0.1em] uppercase px-3.5 py-1.5 rounded-sm transition-all duration-200 whitespace-nowrap ${
               activeCat === cat.id
-                ? 'text-gold border border-gold/50 bg-gold/8'
+                ? 'text-gold border border-gold/50 bg-gold/[0.08]'
                 : 'text-muted border border-transparent hover:text-cream hover:border-gold/20'
             }`}
           >

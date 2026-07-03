@@ -28,14 +28,14 @@ export default function Hero() {
           loop
           playsInline
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className="hero-video-layer absolute inset-0 w-full h-full object-cover pointer-events-none"
           src="/videos/refinery.mp4"
         />
       )}
 
       {/* Dark overlay — ensures text contrast over video */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="hero-video-layer absolute inset-0 pointer-events-none"
         style={{
           background:
             'linear-gradient(to right, rgba(10,22,40,0.78) 0%, rgba(10,22,40,0.55) 50%, rgba(10,22,40,0.35) 100%), linear-gradient(to top, rgba(10,22,40,0.45) 0%, transparent 40%)',

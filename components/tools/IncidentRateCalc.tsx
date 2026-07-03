@@ -34,7 +34,7 @@ function MetricCard({
       : 'text-muted'
 
   return (
-    <div className="bg-navy/60 border border-gold/12 rounded-sm px-5 py-4">
+    <div className="bg-navy/60 border border-gold/[0.12] rounded-sm px-5 py-4">
       <div className="text-[0.68rem] tracking-[0.12em] uppercase text-muted mb-1 font-medium">{label}</div>
       <div className="text-[0.62rem] text-muted/70 mb-2 italic">{formula}</div>
       <div className="font-display font-light text-3xl text-cream mb-2" style={{ fontVariantNumeric: 'tabular-nums' }}>{value}</div>
@@ -214,7 +214,7 @@ export default function IncidentRateCalc() {
           />
         </div>
 
-        <div className="border border-gold/12 rounded-sm px-5 py-4">
+        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
           <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
             Improvement Targets
           </div>
@@ -272,7 +272,7 @@ export default function IncidentRateCalc() {
           cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
         />
 
-        <div className="border border-gold/12 rounded-sm px-5 py-4">
+        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
           <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
             SIFp Improvement Target
           </div>
@@ -345,7 +345,7 @@ export default function IncidentRateCalc() {
           />
         </div>
 
-        <div className="border border-gold/12 rounded-sm px-5 py-4">
+        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
           <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
             MVI Improvement Target
           </div>

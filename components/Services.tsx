@@ -93,7 +93,7 @@ export default function Services() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
-            className="group relative bg-navy-mid/70 backdrop-blur-sm border border-gold/12 rounded-sm p-8 overflow-hidden transition-colors duration-300 hover:border-gold/35 card-depth"
+            className="group relative bg-navy-mid/70 backdrop-blur-sm border border-gold/[0.12] rounded-sm p-8 overflow-hidden transition-colors duration-300 hover:border-gold/35 card-depth"
           >
             {/* Hover gold line */}
             <motion.div
