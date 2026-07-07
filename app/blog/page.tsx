@@ -1,11 +1,16 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import BackToTop from '@/components/ui/BackToTop'
+import Container from '@/components/ui/Container'
+import ClauseTag from '@/components/ui/ClauseTag'
+import DimensionRule from '@/components/ui/DimensionRule'
 
 export const metadata: Metadata = {
   title: 'HSE Insights — Safety Studio Blog',
   description:
     'Practical articles on health, safety & environment — written for HSE professionals in oil & gas, construction, and industry.',
+  alternates: { canonical: 'https://safetystudio.net/blog/' },
 }
 
 const posts = [
@@ -42,59 +47,68 @@ export default function BlogIndex() {
   return (
     <>
       <Nav />
-      <main id="main-content" className="min-h-screen">
+      <main id="main-content" className="min-h-screen bg-paper">
         {/* Header */}
-        <section className="pt-36 pb-16 px-16 max-md:px-6">
-          <div className="max-w-3xl mx-auto">
-            <span className="inline-block text-[0.68rem] tracking-[0.22em] uppercase text-gold font-medium mb-4">
-              HSE Insights
-            </span>
-            <h1 className="font-display font-light text-[clamp(2.4rem,5vw,4rem)] leading-[1.1] text-cream mb-4">
-              Practical Safety<br />
-              <em className="not-italic text-gold">Knowledge</em>
+        <section className="pt-36 pb-16">
+          <Container className="max-w-3xl">
+            <ClauseTag num="07" label="HSE Insights" className="mb-6" />
+            <h1 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,3.6rem)] leading-[0.98] tracking-tight text-ink mb-4">
+              Practical Safety{' '}
+              <span className="relative inline-block">
+                Knowledge
+                <span className="absolute left-0 right-0 -bottom-1 h-[0.1em] bg-signal" aria-hidden="true" />
+              </span>
             </h1>
-            <p className="text-muted font-light leading-[1.8] text-sm max-w-[480px]">
+            <p className="font-body text-ink-soft leading-[1.8] text-sm max-w-[480px]">
               Articles on HSE management, risk analysis, and safety culture — written for
               professionals working in oil &amp; gas, construction, and industry. No fluff.
             </p>
-          </div>
+          </Container>
         </section>
 
-        <div className="h-px mx-16 max-md:mx-6 bg-gradient-to-r from-transparent via-gold/25 to-transparent mb-16" />
+        <Container className="max-w-3xl mb-4">
+          <DimensionRule label={`Articles · ${posts.length}`} />
+        </Container>
 
         {/* Posts */}
-        <section className="px-16 max-md:px-6 pb-24">
-          <div className="max-w-3xl mx-auto flex flex-col gap-8">
-            {posts.map((post) => (
+        <section className="pb-24">
+          <Container className="max-w-3xl">
+            {posts.map((post, i) => (
               <a
                 key={post.slug}
                 href={`/blog/${post.slug}/`}
-                className="group block bg-navy-mid/60 border border-gold/[0.12] rounded-sm p-8 hover:border-gold/35 transition-colors duration-300 card-depth"
+                className="group grid grid-cols-[auto_1fr] gap-x-6 gap-y-3 items-start py-8 border-b border-line transition-colors duration-300 hover:bg-paper-raised px-4 -mx-4"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
-                    {post.tag}
-                  </span>
-                  <span className="text-muted/70 text-xs">{post.date}</span>
-                  <span className="text-muted/50 text-xs">·</span>
-                  <span className="text-muted/70 text-xs">{post.readTime}</span>
-                </div>
-                <h2 className="font-display font-light text-[1.6rem] leading-[1.25] text-cream mb-3 group-hover:text-gold/90 transition-colors duration-300">
-                  {post.title}
-                </h2>
-                <p className="text-muted font-light text-sm leading-[1.75]">{post.excerpt}</p>
-                <div className="mt-5 flex items-center gap-2 text-gold text-xs tracking-widest uppercase font-medium">
-                  Read article
-                  <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
+                <span className="font-data text-3xl text-ink-soft group-hover:text-signal transition-colors duration-300 tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <div className="flex items-center gap-3 mb-3 flex-wrap">
+                    <span className="font-data text-[0.62rem] tracking-[0.1em] uppercase text-signal border border-signal/30 px-2.5 py-0.5">
+                      {post.tag}
+                    </span>
+                    <span className="font-data text-ink-soft text-xs">{post.date}</span>
+                    <span className="font-data text-ink-soft/50 text-xs">·</span>
+                    <span className="font-data text-ink-soft text-xs">{post.readTime}</span>
+                  </div>
+                  <h2 className="font-head font-bold text-xl text-ink mb-3 group-hover:text-signal transition-colors duration-300">
+                    {post.title}
+                  </h2>
+                  <p className="font-body text-ink-soft text-sm leading-[1.75] mb-4">{post.excerpt}</p>
+                  <div className="flex items-center gap-2 font-data text-signal text-xs uppercase tracking-[0.08em]">
+                    Read article
+                    <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                  </div>
                 </div>
               </a>
             ))}
-          </div>
+          </Container>
         </section>
       </main>
       <Footer />
+      <BackToTop />
     </>
   )
 }

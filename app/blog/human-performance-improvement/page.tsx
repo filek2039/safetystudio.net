@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description:
       'Most incident investigations stop at "human error." HPI asks what made error the predictable outcome.',
   },
+  alternates: { canonical: 'https://safetystudio.net/blog/human-performance-improvement/' },
 }
 
 // ---------------------------------------------------------------------------
@@ -131,7 +132,7 @@ function Fn({ n }: { n: number }) {
       <a
         href={`#fn-${n}`}
         id={`fnref-${n}`}
-        className="text-gold hover:text-gold-light transition-colors text-[0.7em] font-medium ml-0.5"
+        className="text-signal hover:text-signal transition-colors text-[0.7em] font-medium ml-0.5"
         aria-label={`Footnote ${n}`}
       >
         [{n}]
@@ -142,13 +143,13 @@ function Fn({ n }: { n: number }) {
 
 function NumberedCard({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="flex gap-5 border-l-2 border-gold/25 pl-5 py-1">
-      <span className="font-display text-gold/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+    <div className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
+      <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
         {n}
       </span>
       <div>
-        <div className="text-cream font-medium text-sm mb-1">{title}</div>
-        <div className="text-muted text-sm font-light leading-[1.75]">{body}</div>
+        <div className="text-ink font-medium text-sm mb-1">{title}</div>
+        <div className="text-ink-soft text-sm font-light leading-[1.75]">{body}</div>
       </div>
     </div>
   )
@@ -157,7 +158,7 @@ function NumberedCard({ n, title, body }: { n: string; title: string; body: stri
 function BulletItem({ text }: { text: string }) {
   return (
     <li className="flex gap-3 items-start">
-      <span className="w-1 h-1 rounded-full bg-gold mt-[0.7em] flex-shrink-0" />
+      <span className="w-1 h-1 rounded-full bg-signal mt-[0.7em] flex-shrink-0" />
       <span>{text}</span>
     </li>
   )
@@ -167,7 +168,7 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
   return (
     <h2
       id={id}
-      className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]"
+      className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]"
     >
       {children}
     </h2>
@@ -179,30 +180,30 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
 // ---------------------------------------------------------------------------
 
 const header = (
-  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-gold/10">
+  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-signal/10">
     <div className="max-w-2xl">
       <div className="flex items-center gap-3 mb-6">
         <a
           href="/blog/"
-          className="text-muted/70 text-xs tracking-widest uppercase hover:text-gold transition-colors"
+          className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors"
         >
           &larr; Blog
         </a>
-        <span className="text-muted/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
+        <span className="text-ink-soft/40 text-xs">&middot;</span>
+        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
           Human Factors
         </span>
       </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-cream mb-5">
+      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
         Stop Blaming the Worker: What Human Performance Improvement Actually Means for Your Site
       </h1>
 
-      <div className="flex items-center gap-4 text-muted/70 text-xs tracking-wide">
+      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
         <span>Safety Studio</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>April 2026</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>8 min read</span>
       </div>
     </div>
@@ -211,19 +212,19 @@ const header = (
 
 const cta = (
   <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
-    <div className="border border-gold/15 rounded-sm px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-navy-mid/40">
+    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
       <div>
-        <div className="text-cream font-medium text-sm mb-1">
+        <div className="text-ink font-medium text-sm mb-1">
           Run an HPI-informed safety moment with your team
         </div>
-        <div className="text-muted text-xs font-light">
+        <div className="text-ink-soft text-xs font-light">
           Use our free Safety Moment Library for ready-to-use pre-task topics covering human
           factors, critical step management, and error traps.
         </div>
       </div>
       <a
-        href="/#safety-moment-library"
-        className="text-gold text-[0.75rem] tracking-widest uppercase border border-gold/50 px-5 py-2.5 rounded-sm hover:bg-gold hover:text-navy transition-colors duration-300 whitespace-nowrap"
+        href="/library/#safety-moment-library"
+        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
       >
         Open Library
       </a>
@@ -321,10 +322,10 @@ export default function HPIArticle() {
       </SectionHeading>
 
       <p>
-        An <em className="text-cream not-italic font-normal">error precursor</em> is any
+        An <em className="text-ink not-italic font-normal">error precursor</em> is any
         condition — in the task, the environment, or the individual — that increases the
         probability of a mistake during a specific job. HPI calls these{' '}
-        <em className="text-cream not-italic font-normal">Performance Influencing Factors</em>{' '}
+        <em className="text-ink not-italic font-normal">Performance Influencing Factors</em>{' '}
         (PIFs). They are not excuses for errors; they are predictive signals that certain
         combinations of circumstances make a particular task more dangerous than it would
         otherwise be.<Fn n={2} />
@@ -354,7 +355,7 @@ export default function HPIArticle() {
       </p>
 
       <p>
-        <strong className="text-cream font-medium">STAR (Stop-Think-Act-Review)</strong> is the
+        <strong className="text-ink font-medium">STAR (Stop-Think-Act-Review)</strong> is the
         simplest HPI tool and arguably the most effective for preventing critical-step errors.
         Before a high-consequence action: stop and focus, think through what you expect to happen
         and verify the step you are about to take, act, then review whether the outcome matched
@@ -363,7 +364,7 @@ export default function HPIArticle() {
       </p>
 
       <p>
-        <strong className="text-cream font-medium">HPI-informed pre-task briefings</strong> go
+        <strong className="text-ink font-medium">HPI-informed pre-task briefings</strong> go
         beyond a standard JSA review. Rather than confirming that workers have read the hazard
         list, they ask: which steps in today&apos;s work carry the highest error potential?
         What error precursors are present for this crew right now? What will we do if something
@@ -372,7 +373,7 @@ export default function HPIArticle() {
       </p>
 
       <p>
-        <strong className="text-cream font-medium">Field Level Hazard Assessments (FLHAs)</strong>{' '}
+        <strong className="text-ink font-medium">Field Level Hazard Assessments (FLHAs)</strong>{' '}
         as error precursor checks extend the standard FLHA to explicitly name human factors
         alongside physical hazards — fatigue, task complexity, distractions, unfamiliarity.
         Most sites already do FLHAs; adding a single question about the crew&apos;s human
@@ -380,7 +381,7 @@ export default function HPIArticle() {
       </p>
 
       <p>
-        <strong className="text-cream font-medium">Coaching conversations</strong> differ from
+        <strong className="text-ink font-medium">Coaching conversations</strong> differ from
         behavioural observations. An observation tells you what someone did; a coaching
         conversation asks what they were thinking, what felt uncertain, where they sensed
         pressure. The latter surfaces the error precursors that will produce the next event —
@@ -399,7 +400,7 @@ export default function HPIArticle() {
       </p>
 
       <p>
-        <em className="text-cream not-italic font-normal">Just culture</em> is not &ldquo;no
+        <em className="text-ink not-italic font-normal">Just culture</em> is not &ldquo;no
         consequences culture.&rdquo; It draws a deliberate distinction between three categories:
         an unintentional error in good-faith work (system response: fix the conditions that made
         error likely); at-risk behaviour where the person did not perceive the risk clearly
@@ -478,10 +479,10 @@ export default function HPIArticle() {
         place than one where everyone says everything is fine right up until it isn&apos;t.
       </p>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent my-14" />
+      <div className="h-px bg-gradient-to-r from-transparent via-signal/20 to-transparent my-14" />
 
       <section aria-label="Footnotes">
-        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-gold font-medium mb-5">
+        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-signal font-medium mb-5">
           References
         </h3>
         <ol className="space-y-3 list-none pl-0">
@@ -489,17 +490,17 @@ export default function HPIArticle() {
             <li
               key={ref.n}
               id={`fn-${ref.n}`}
-              className="flex gap-3 text-xs text-muted font-light leading-relaxed"
+              className="flex gap-3 text-xs text-ink-soft font-light leading-relaxed"
             >
               <a
                 href={`#fnref-${ref.n}`}
-                className="text-gold/70 hover:text-gold transition-colors flex-shrink-0 font-medium"
+                className="text-signal/70 hover:text-signal transition-colors flex-shrink-0 font-medium"
               >
                 [{ref.n}]
               </a>
               <span>
                 {ref.text}{' '}
-                <em className="not-italic text-muted">{ref.title}</em>. {ref.detail}
+                <em className="not-italic text-ink-soft">{ref.title}</em>. {ref.detail}
                 {ref.url && (
                   <>
                     {' '}
@@ -507,7 +508,7 @@ export default function HPIArticle() {
                       href={ref.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gold/70 hover:text-gold transition-colors underline underline-offset-2"
+                      className="text-signal/70 hover:text-signal transition-colors underline underline-offset-2"
                     >
                       {ref.urlLabel}
                     </a>

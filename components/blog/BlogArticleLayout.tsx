@@ -35,7 +35,7 @@ export default function BlogArticleLayout({
     <>
       <ReadingProgress />
       <Nav />
-      <main id="main-content" className="min-h-screen">
+      <main id="main-content" className="min-h-screen bg-paper">
 
         {header}
 
@@ -48,7 +48,7 @@ export default function BlogArticleLayout({
           <div className="hidden xl:block w-56 flex-shrink-0" aria-hidden="true" />
 
           <article className="py-14 w-full max-w-2xl min-w-0 prose-custom">
-            <div className="space-y-6 text-cream/85 font-light leading-[1.85] text-[1.0625rem]">
+            <div className="space-y-6 text-ink/90 font-body font-normal leading-[1.85] text-[1.0625rem]">
               {children}
             </div>
           </article>

@@ -1,11 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useReducedMotion } from 'framer-motion'
 
 export default function ReadingProgress() {
   const [progress, setProgress] = useState(0)
-  const shouldReduce = useReducedMotion()
+  const [shouldReduce, setShouldReduce] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setShouldReduce(mq.matches)
+    const update = (e: MediaQueryListEvent) => setShouldReduce(e.matches)
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
     const update = () => {
@@ -23,7 +30,7 @@ export default function ReadingProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 z-[60] h-[2px] bg-gold transition-none"
+      className="fixed top-0 left-0 z-[60] h-[2px] bg-signal transition-none"
       style={{ width: `${progress}%` }}
       role="progressbar"
       aria-valuenow={Math.round(progress)}

@@ -40,7 +40,7 @@ export default function TableOfContents() {
 
   return (
     <nav aria-label="Table of contents">
-      <div className="text-[0.6rem] tracking-[0.2em] uppercase text-gold font-medium mb-4">
+      <div className="font-data text-[0.6rem] tracking-[0.2em] uppercase text-ink-soft mb-4">
         Contents
       </div>
       <ol className="space-y-2.5 list-none pl-0">
@@ -48,10 +48,10 @@ export default function TableOfContents() {
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className={`block text-[0.73rem] font-light leading-snug transition-colors duration-200 ${
+              className={`block font-body text-[0.73rem] leading-snug transition-colors duration-200 ${
                 activeId === item.id
-                  ? 'text-gold'
-                  : 'text-muted/70 hover:text-cream'
+                  ? 'text-signal'
+                  : 'text-ink-soft hover:text-ink'
               }`}
             >
               {item.text}

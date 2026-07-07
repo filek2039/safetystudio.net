@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description:
       'Prolonged periods without a major incident do not mean an organisation is safe — they can signal the onset of complacency.',
   },
+  alternates: { canonical: 'https://safetystudio.net/blog/chronic-unease-and-complacency/' },
 }
 
 function Fn({ n }: { n: number }) {
@@ -28,7 +29,7 @@ function Fn({ n }: { n: number }) {
       <a
         href={`#fn-${n}`}
         id={`fnref-${n}`}
-        className="text-gold hover:text-gold-light transition-colors text-[0.7em] font-medium ml-0.5"
+        className="text-signal hover:text-signal transition-colors text-[0.7em] font-medium ml-0.5"
         aria-label={`Footnote ${n}`}
       >
         [{n}]
@@ -38,28 +39,28 @@ function Fn({ n }: { n: number }) {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-gold/10">
+  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-signal/10">
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <a href="/blog/" className="text-muted/70 text-xs tracking-widest uppercase hover:text-gold transition-colors">
+        <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
           &larr; Blog
         </a>
-        <span className="text-muted/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
+        <span className="text-ink-soft/40 text-xs">&middot;</span>
+        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
           Safety Culture
         </span>
       </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-cream mb-5">
+      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
         Chronic Unease and Complacency:<br />
         Why Safety Success Can Become a Hazard
       </h1>
 
-      <div className="flex items-center gap-4 text-muted/70 text-xs tracking-wide">
+      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
         <span>Safety Studio</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>April 2026</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>9 min read</span>
       </div>
     </div>
@@ -68,16 +69,16 @@ const header = (
 
 const cta = (
   <div className="pb-24 w-full max-w-2xl mx-auto px-8 max-md:px-6">
-    <div className="border border-gold/15 rounded-sm px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-navy-mid/40">
+    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
       <div>
-        <div className="text-cream font-medium text-sm mb-1">Assess your organisation&apos;s safety culture</div>
-        <div className="text-muted text-xs font-light">
+        <div className="text-ink font-medium text-sm mb-1">Assess your organisation&apos;s safety culture</div>
+        <div className="text-ink-soft text-xs font-light">
           Safety Studio provides safety culture assessments and leadership advisory for high-hazard industries.
         </div>
       </div>
       <a
-        href="/#contact"
-        className="text-gold text-[0.75rem] tracking-widest uppercase border border-gold/50 px-5 py-2.5 rounded-sm hover:bg-gold hover:text-navy transition-colors duration-300 whitespace-nowrap"
+        href="/about/#contact"
+        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
       >
         Get in Touch
       </a>
@@ -121,10 +122,10 @@ export default function ChronicUneaseArticle() {
 
       <p>
         This is the complacency trap. And the concept developed to counter it is called
-        <strong className="text-cream font-medium"> chronic unease</strong>.
+        <strong className="text-ink font-medium"> chronic unease</strong>.
       </p>
 
-      <h2 id="what-is-chronic-unease" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-is-chronic-unease" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         What Is Chronic Unease?
       </h2>
 
@@ -145,10 +146,10 @@ export default function ChronicUneaseArticle() {
 
       <p>
         Chronic unease asks the question that comfortable organisations stop asking:
-        &ldquo;<em className="text-cream not-italic">Is what I am being told actually true?</em>&rdquo;
+        &ldquo;<em className="text-ink not-italic">Is what I am being told actually true?</em>&rdquo;
       </p>
 
-      <h2 id="how-complacency-develops" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="how-complacency-develops" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         How Complacency Develops
       </h2>
 
@@ -169,7 +170,7 @@ export default function ChronicUneaseArticle() {
 
       <p>
         Sociologist Diane Vaughan, in her landmark study of the Space Shuttle Challenger disaster,
-        called this process the <strong className="text-cream font-medium">normalisation of
+        called this process the <strong className="text-ink font-medium">normalisation of
         deviance</strong>.<Fn n={3} /> Engineers at NASA had observed anomalies in the O-ring
         seals on previous flights. Each time, the shuttle had returned safely. The anomaly was
         not eliminated — it was reclassified as an acceptable risk. On 28 January 1986, it was
@@ -186,7 +187,7 @@ export default function ChronicUneaseArticle() {
         a tank overflowed, there was no last line of defence.
       </p>
 
-      <h2 id="success-as-a-hazard" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="success-as-a-hazard" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Success as a Hazard
       </h2>
 
@@ -214,7 +215,7 @@ export default function ChronicUneaseArticle() {
         exactly the space in which major accidents form.
       </p>
 
-      <h2 id="deepwater-horizon" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="deepwater-horizon" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Deepwater Horizon: A Case in Complacency
       </h2>
 
@@ -241,7 +242,7 @@ export default function ChronicUneaseArticle() {
         drift in the threshold at which those hazards register as requiring action.
       </p>
 
-      <h2 id="what-chronic-unease-looks-like" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-chronic-unease-looks-like" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         What Chronic Unease Looks Like in Practice
       </h2>
 
@@ -279,19 +280,19 @@ export default function ChronicUneaseArticle() {
             body: 'This is perhaps the most important shift. A long run without incidents is welcome. It is not, by itself, evidence that hazards are controlled. Chronic unease means continuing to ask whether the barriers between the current state and a major event are real, verified, and functioning — regardless of how many days have passed since the last recordable.',
           },
         ].map((item) => (
-          <div key={item.n} className="flex gap-5 border-l-2 border-gold/25 pl-5 py-1">
-            <span className="font-display text-gold/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+          <div key={item.n} className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
+            <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
               {item.n}
             </span>
             <div>
-              <div className="text-cream font-medium text-sm mb-1">{item.title}</div>
-              <div className="text-muted text-sm font-light leading-[1.75]">{item.body}</div>
+              <div className="text-ink font-medium text-sm mb-1">{item.title}</div>
+              <div className="text-ink-soft text-sm font-light leading-[1.75]">{item.body}</div>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 id="the-leadership-dimension" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-leadership-dimension" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         The Leadership Dimension
       </h2>
 
@@ -311,7 +312,7 @@ export default function ChronicUneaseArticle() {
 
       <p>
         The UK Health and Safety Executive, in its guidance on safety leadership, frames this as
-        the difference between <em className="text-cream not-italic">visible felt leadership</em>
+        the difference between <em className="text-ink not-italic">visible felt leadership</em>
         — leaders who are present in the field, engage authentically with the workforce, and
         demonstrate genuine interest in what could go wrong — and leaders who treat safety as
         a compliance function to be managed at a distance.<Fn n={7} />
@@ -323,7 +324,7 @@ export default function ChronicUneaseArticle() {
         with the numbers. Comfort, in a high-hazard environment, is a warning sign in itself.
       </p>
 
-      <h2 id="practical-starting-points" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="practical-starting-points" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Practical Starting Points
       </h2>
 
@@ -342,7 +343,7 @@ export default function ChronicUneaseArticle() {
           'When did a frontline worker last raise a concern that changed a decision at management level?',
         ].map((item) => (
           <li key={item} className="flex gap-3 items-start">
-            <span className="w-1 h-1 rounded-full bg-gold mt-[0.7em] flex-shrink-0" />
+            <span className="w-1 h-1 rounded-full bg-signal mt-[0.7em] flex-shrink-0" />
             <span>{item}</span>
           </li>
         ))}
@@ -352,7 +353,7 @@ export default function ChronicUneaseArticle() {
         These are not comfortable questions. That is precisely the point.
       </p>
 
-      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         The Bottom Line
       </h2>
 
@@ -376,10 +377,10 @@ export default function ChronicUneaseArticle() {
         — at every level — still feels uneasy enough to keep looking.
       </p>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent my-14" />
+      <div className="h-px bg-gradient-to-r from-transparent via-signal/20 to-transparent my-14" />
 
       <section aria-label="Footnotes">
-        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-gold font-medium mb-5">
+        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-signal font-medium mb-5">
           References
         </h3>
         <ol className="space-y-3 list-none pl-0">
@@ -441,12 +442,12 @@ export default function ChronicUneaseArticle() {
               urlLabel: 'hse.gov.uk/pubns/indg417.pdf',
             },
           ].map((fn) => (
-            <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-muted font-light leading-relaxed">
-              <a href={`#fnref-${fn.n}`} className="text-gold/70 hover:text-gold transition-colors flex-shrink-0 font-medium">
+            <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-ink-soft font-light leading-relaxed">
+              <a href={`#fnref-${fn.n}`} className="text-signal/70 hover:text-signal transition-colors flex-shrink-0 font-medium">
                 [{fn.n}]
               </a>
               <span>
-                {fn.text} <em className="not-italic text-muted">{fn.title}</em>. {fn.detail}
+                {fn.text} <em className="not-italic text-ink-soft">{fn.title}</em>. {fn.detail}
                 {fn.url && (
                   <>
                     {' '}
@@ -454,7 +455,7 @@ export default function ChronicUneaseArticle() {
                       href={fn.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gold/70 hover:text-gold transition-colors underline underline-offset-2"
+                      className="text-signal/70 hover:text-signal transition-colors underline underline-offset-2"
                     >
                       {fn.urlLabel}
                     </a>

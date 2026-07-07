@@ -5,7 +5,7 @@ import { calculateIR, defaultInputs, IRInputs } from '@/lib/irCalculations'
 function Field({ label, id, children }: { label: string; id?: string; children: React.ReactNode }) {
   return (
     <label htmlFor={id} className="flex flex-col gap-1.5">
-      <span className="text-[0.7rem] tracking-[0.12em] uppercase text-muted font-medium">{label}</span>
+      <span className="font-data text-[0.7rem] tracking-[0.1em] uppercase text-ink-soft">{label}</span>
       {children}
     </label>
   )
@@ -15,31 +15,37 @@ function MetricCard({
   label,
   formula,
   value,
+  emptyHint,
   bench,
   cite,
 }: {
   label: string
   formula: string
-  value: string
+  value: string | null
+  emptyHint: string
   bench?: string
   cite?: string
 }) {
   const benchColor =
     bench?.startsWith('✓')
-      ? 'text-emerald-400'
+      ? 'text-ok'
       : bench?.startsWith('⚠')
-      ? 'text-amber-400'
+      ? 'text-warn'
       : bench?.startsWith('✗')
-      ? 'text-red-400'
-      : 'text-muted'
+      ? 'text-danger'
+      : 'text-ink-soft'
 
   return (
-    <div className="bg-navy/60 border border-gold/[0.12] rounded-sm px-5 py-4">
-      <div className="text-[0.68rem] tracking-[0.12em] uppercase text-muted mb-1 font-medium">{label}</div>
-      <div className="text-[0.62rem] text-muted/70 mb-2 italic">{formula}</div>
-      <div className="font-display font-light text-3xl text-cream mb-2" style={{ fontVariantNumeric: 'tabular-nums' }}>{value}</div>
-      {bench && <div className={`text-xs font-light ${benchColor} mb-1`}>{bench}</div>}
-      {cite && <div className="text-[0.6rem] text-muted/70 italic">{cite}</div>}
+    <div className="bg-paper-raised border border-line px-5 py-4">
+      <div className="font-data text-[0.68rem] tracking-[0.1em] uppercase text-ink-soft mb-1">{label}</div>
+      <div className="font-data text-[0.62rem] text-ink-soft/70 mb-2">{formula}</div>
+      {value !== null ? (
+        <div className="font-head font-bold text-3xl text-ink mb-2 tabular-nums">{value}</div>
+      ) : (
+        <div className="font-body text-sm text-ink-soft italic mb-2">{emptyHint}</div>
+      )}
+      {value !== null && bench && <div className={`font-data text-xs ${benchColor} mb-1`}>{bench}</div>}
+      {value !== null && cite && <div className="font-data text-[0.6rem] text-ink-soft/70">{cite}</div>}
     </div>
   )
 }
@@ -47,22 +53,59 @@ function MetricCard({
 function Subtotal({ label, value, formula }: { label: string; value: number; formula: string }) {
   return (
     <div className="flex items-baseline gap-2">
-      <span className="text-[0.68rem] tracking-[0.15em] uppercase text-gold font-medium">{label}</span>
-      <span className="font-display text-2xl text-cream font-light">{value}</span>
-      <span className="text-[0.62rem] text-muted/70 italic">{formula}</span>
+      <span className="font-data text-[0.68rem] tracking-[0.1em] uppercase text-signal">{label}</span>
+      <span className="font-head font-bold text-2xl text-ink">{value}</span>
+      <span className="font-data text-[0.62rem] text-ink-soft/70">{formula}</span>
     </div>
   )
 }
 
 function CalcFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border border-gold/20 rounded-sm bg-navy-mid/30">
-      <div className="px-5 py-3.5 border-b border-gold/15 bg-navy-mid/50">
-        <h3 className="text-[0.72rem] tracking-[0.2em] uppercase text-gold font-medium">{title}</h3>
+    <div className="border border-line bg-paper">
+      <div className="px-5 py-3.5 border-b border-line bg-paper-raised">
+        <h3 className="font-data text-[0.72rem] tracking-[0.15em] uppercase text-ink-soft">{title}</h3>
       </div>
       <div className="px-5 py-6 space-y-5">
         {children}
       </div>
+    </div>
+  )
+}
+
+function TargetRow({
+  label,
+  current,
+  target,
+  reductionPct,
+  onReductionChange,
+  decimals = 2,
+}: {
+  label: string
+  current: number | null
+  target: number | null
+  reductionPct: number
+  onReductionChange: (e: ChangeEvent<HTMLInputElement>) => void
+  decimals?: number
+}) {
+  const fmt = (n: number | null) => (n !== null ? n.toFixed(decimals) : '—')
+  return (
+    <div className="flex items-center gap-3 flex-wrap mb-3 last:mb-0">
+      <span className="font-data text-xs text-ink-soft w-14">{label}</span>
+      <span className="font-head font-bold text-base text-ink w-14">{fmt(current)}</span>
+      <span className="text-signal text-xs">&rarr;</span>
+      <div className="flex items-center gap-1.5">
+        <input
+          type="number"
+          value={reductionPct || ''}
+          onChange={onReductionChange}
+          min={1}
+          max={99}
+          className="!w-14 !px-2 text-center"
+        />
+        <span className="font-data text-[0.65rem] text-ink-soft">% reduction</span>
+      </div>
+      <span className="font-head font-bold text-lg text-signal ml-auto">{fmt(target)}</span>
     </div>
   )
 }
@@ -151,7 +194,7 @@ export default function IncidentRateCalc() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print-calc">
 
       {/* Frame 1: Personal Injury Incident Rate Calculator */}
       <CalcFrame title="Personal Injury Incident Rate Calculator">
@@ -191,9 +234,9 @@ export default function IncidentRateCalc() {
           </Field>
         </div>
 
-        <div className="flex flex-wrap gap-6 bg-navy/40 border border-gold/10 rounded-sm px-5 py-3.5">
+        <div className="flex flex-wrap gap-6 bg-paper-raised border border-line px-5 py-3.5">
           <Subtotal label="LTI" value={results.lti} formula="(LWC + FAT)" />
-          <div className="w-px h-8 bg-gold/15 self-center hidden sm:block" />
+          <div className="w-px h-8 bg-line self-center hidden sm:block" />
           <Subtotal label="TRC" value={results.trc} formula="(LWC + RWC + MTC + FAT)" />
         </div>
 
@@ -201,45 +244,39 @@ export default function IncidentRateCalc() {
           <MetricCard
             label="LTIF — Lost Time Injury Frequency"
             formula={`(LTI ÷ Hours) × ${results.baseLabel}`}
-            value={fmt(results.ltif)}
+            value={results.ltif !== null ? fmt(results.ltif) : null}
+            emptyHint="Enter hours worked to calculate"
             bench={results.ltifBench}
             cite={results.ltifCite}
           />
           <MetricCard
             label="TRCF — Total Recordable Case Frequency"
             formula={`(TRC ÷ Hours) × ${results.baseLabel}`}
-            value={fmt(results.trcf)}
+            value={results.trcf !== null ? fmt(results.trcf) : null}
+            emptyHint="Enter hours worked to calculate"
             bench={results.trcfBench}
             cite={results.trcfCite}
           />
         </div>
 
-        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
-          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+        <div className="border border-line px-5 py-4">
+          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
             Improvement Targets
           </div>
-          {[
-            { key: 'ltifReductionPct' as const, label: 'LTIF', current: results.ltif, target: results.ltifTarget },
-            { key: 'trcfReductionPct' as const, label: 'TRCF', current: results.trcf, target: results.trcfTarget },
-          ].map((row) => (
-            <div key={row.label} className="flex items-center gap-3 flex-wrap mb-3 last:mb-0">
-              <span className="text-xs text-muted w-12">{row.label}</span>
-              <span className="font-display text-base text-cream w-14">{fmt(row.current)}</span>
-              <span className="text-gold/50 text-xs">&rarr;</span>
-              <div className="flex items-center gap-1.5">
-                <input
-                  type="number"
-                  value={inputs[row.key] || ''}
-                  onChange={update(row.key)}
-                  min={1}
-                  max={99}
-                  className="!w-14 !px-2 text-center"
-                />
-                <span className="text-[0.65rem] text-muted">% reduction</span>
-              </div>
-              <span className="font-display text-lg text-gold ml-auto">{fmt(row.target)}</span>
-            </div>
-          ))}
+          <TargetRow
+            label="LTIF"
+            current={results.ltif}
+            target={results.ltifTarget}
+            reductionPct={inputs.ltifReductionPct}
+            onReductionChange={update('ltifReductionPct')}
+          />
+          <TargetRow
+            label="TRCF"
+            current={results.trcf}
+            target={results.trcfTarget}
+            reductionPct={inputs.trcfReductionPct}
+            onReductionChange={update('trcfReductionPct')}
+          />
         </div>
       </CalcFrame>
 
@@ -258,7 +295,7 @@ export default function IncidentRateCalc() {
               min="0"
             />
           </Field>
-          <div className="text-[0.65rem] text-muted/70 font-light leading-relaxed pb-1">
+          <div className="font-body text-[0.65rem] text-ink-soft leading-relaxed pb-1">
             Count of events that, under slightly different circumstances, could have resulted in a
             fatality or permanently disabling injury — regardless of actual outcome.
           </div>
@@ -267,32 +304,23 @@ export default function IncidentRateCalc() {
         <MetricCard
           label="SIFpR — SIF-Potential Frequency Rate"
           formula={`(SIFp ÷ Hours) × ${results.baseLabel}`}
-          value={fmt(results.sifpRate)}
+          value={results.sifpRate !== null ? fmt(results.sifpRate) : null}
+          emptyHint="Enter hours worked to calculate"
           bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
           cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
         />
 
-        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
-          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+        <div className="border border-line px-5 py-4">
+          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
             SIFp Improvement Target
           </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-xs text-muted w-14">SIFpR</span>
-            <span className="font-display text-base text-cream w-14">{fmt(results.sifpRate)}</span>
-            <span className="text-gold/50 text-xs">&rarr;</span>
-            <div className="flex items-center gap-1.5">
-              <input
-                type="number"
-                value={inputs.sifpReductionPct || ''}
-                onChange={update('sifpReductionPct')}
-                min={1}
-                max={99}
-                className="!w-14 !px-2 text-center"
-              />
-              <span className="text-[0.65rem] text-muted">% reduction</span>
-            </div>
-            <span className="font-display text-lg text-gold ml-auto">{fmt(results.sifpTarget)}</span>
-          </div>
+          <TargetRow
+            label="SIFpR"
+            current={results.sifpRate}
+            target={results.sifpTarget}
+            reductionPct={inputs.sifpReductionPct}
+            onReductionChange={update('sifpReductionPct')}
+          />
         </div>
       </CalcFrame>
 
@@ -324,7 +352,7 @@ export default function IncidentRateCalc() {
             <input id="ir-mvi-minor" name="mviMinor" type="number" autoComplete="off" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
           </Field>
           <div className="flex items-end">
-            <div className="flex items-baseline gap-2 bg-navy/40 border border-gold/10 rounded-sm px-4 py-3 w-full">
+            <div className="flex items-baseline gap-2 bg-paper-raised border border-line px-4 py-3 w-full">
               <Subtotal label="Total MVI" value={results.mviTotal} formula="(all types)" />
             </div>
           </div>
@@ -334,49 +362,42 @@ export default function IncidentRateCalc() {
           <MetricCard
             label="MVIFR — Motor Vehicle Incident Frequency Rate"
             formula={`(Total MVI ÷ km) × 1,000,000`}
-            value={fmt(results.mvifr, 3)}
+            value={results.mvifr !== null ? fmt(results.mvifr, 3) : null}
+            emptyHint="Enter km driven to calculate"
             bench={results.mvifrBench}
             cite={results.mvifrCite}
           />
           <MetricCard
             label="Fatal MVIFR — Fatal Motor Vehicle Incident Rate"
             formula={`(Fatal MVI ÷ km) × 1,000,000`}
-            value={fmt(results.mviFatalFr, 3)}
+            value={results.mviFatalFr !== null ? fmt(results.mviFatalFr, 3) : null}
+            emptyHint="Enter km driven to calculate"
           />
         </div>
 
-        <div className="border border-gold/[0.12] rounded-sm px-5 py-4">
-          <div className="text-[0.68rem] tracking-[0.18em] uppercase text-gold mb-4 font-medium">
+        <div className="border border-line px-5 py-4">
+          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
             MVI Improvement Target
           </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-xs text-muted w-14">MVIFR</span>
-            <span className="font-display text-base text-cream w-16">{fmt(results.mvifr, 3)}</span>
-            <span className="text-gold/50 text-xs">&rarr;</span>
-            <div className="flex items-center gap-1.5">
-              <input
-                type="number"
-                value={inputs.mviReductionPct || ''}
-                onChange={update('mviReductionPct')}
-                min={1}
-                max={99}
-                className="!w-14 !px-2 text-center"
-              />
-              <span className="text-[0.65rem] text-muted">% reduction</span>
-            </div>
-            <span className="font-display text-lg text-gold ml-auto">{fmt(results.mvifrTarget, 3)}</span>
-          </div>
+          <TargetRow
+            label="MVIFR"
+            current={results.mvifr}
+            target={results.mvifrTarget}
+            reductionPct={inputs.mviReductionPct}
+            onReductionChange={update('mviReductionPct')}
+            decimals={3}
+          />
         </div>
       </CalcFrame>
 
       {/* Copy Results */}
-      <div className="flex justify-end pt-2">
+      <div className="flex justify-end pt-2 no-print">
         <button
           onClick={handleCopyResults}
-          className={`text-[0.68rem] tracking-[0.12em] uppercase px-4 py-2 rounded-sm border transition-all duration-200 ${
+          className={`font-data text-[0.68rem] tracking-[0.1em] uppercase px-4 py-2 border transition-all duration-200 ${
             copied
-              ? 'text-emerald-400 border-emerald-400/40'
-              : 'text-muted border-muted/25 hover:text-gold hover:border-gold/40'
+              ? 'text-ok border-ok/40'
+              : 'text-ink-soft border-line hover:text-signal hover:border-signal/40'
           }`}
         >
           {copied ? 'Copied to clipboard ✓' : 'Copy all results'}

@@ -1,36 +1,26 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
 
 const links = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Free Tools', href: '/#tools' },
-  { label: 'Library', href: '/#library' },
+  { label: 'Services', href: '/services/' },
+  { label: 'Free Tools', href: '/tools/' },
+  { label: 'Library', href: '/library/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'About', href: '/#about' },
+  { label: 'About', href: '/about/' },
 ]
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isDark, setIsDark] = useState(true)
   const { scrollY } = useScroll()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 60))
-
-  // Keep track of theme for nav background
-  useEffect(() => {
-    const update = () => {
-      setIsDark(document.documentElement.getAttribute('data-theme') !== 'light')
-    }
-    update()
-    const observer = new MutationObserver(update)
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
-    return () => observer.disconnect()
-  }, [])
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false)
@@ -61,43 +51,43 @@ export default function Nav() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen, closeMenu])
 
-  const navBgScrolled = isDark ? 'rgba(10,22,40,0.97)' : 'rgba(248,245,240,0.97)'
-  const navBgTop = isDark ? 'rgba(10,22,40,0.82)' : 'rgba(248,245,240,0.82)'
+  const isActive = (href: string) => pathname === href
 
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 px-16 max-md:px-6 py-5 flex justify-between items-center border-b border-gold/[0.12] backdrop-blur-md transition-shadow duration-300"
-      animate={{
-        backgroundColor: scrolled ? navBgScrolled : navBgTop,
-        boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.12)' : 'none',
-      }}
-      transition={{ duration: 0.3 }}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-8 lg:px-16 py-5 flex justify-between items-center bg-paper border-b border-line transition-shadow duration-300 ${
+        scrolled ? 'shadow-[0_1px_24px_rgba(0,0,0,0.08)]' : ''
+      }`}
     >
       {/* Logo */}
-      <a href="/" className="font-display text-2xl font-semibold tracking-[0.04em] text-cream">
-        Safety<span className="text-gold">Studio</span>
+      <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink flex items-baseline gap-2">
+        Safety<span className="text-signal">Studio</span>
+        <span className="hidden lg:inline font-data text-[0.6rem] tracking-[0.15em] text-ink-soft normal-case">/ HSE</span>
       </a>
 
       {/* Desktop nav */}
-      <div className="hidden md:flex items-center gap-8">
+      <div className="hidden md:flex items-center gap-4 lg:gap-8">
         {links.map((l) => (
           <a
             key={l.href}
             href={l.href}
-            className="text-muted text-sm font-medium tracking-[0.1em] uppercase hover:text-gold transition-colors duration-300"
+            aria-current={isActive(l.href) ? 'page' : undefined}
+            className={`font-body text-sm transition-colors duration-200 pb-0.5 border-b-2 ${
+              isActive(l.href)
+                ? 'text-ink border-signal'
+                : 'text-ink-soft border-transparent hover:text-ink'
+            }`}
           >
             {l.label}
           </a>
         ))}
         <ThemeToggle />
-        <motion.a
-          href="/#contact"
-          className="text-gold text-sm font-medium tracking-[0.1em] uppercase border border-gold px-5 py-2 rounded-sm transition-colors duration-300 hover:bg-gold hover:text-navy"
-          whileHover={{ y: -1 }}
-          transition={{ duration: 0.15 }}
+        <a
+          href="/about/#contact"
+          className="bg-signal text-paper font-data text-sm font-medium px-5 py-2 transition-opacity duration-200 hover:opacity-90"
         >
           Get in Touch
-        </motion.a>
+        </a>
       </div>
 
       {/* Mobile: theme toggle + hamburger */}
@@ -105,7 +95,7 @@ export default function Nav() {
         <ThemeToggle />
         <button
           ref={hamburgerRef}
-          className="text-cream p-1"
+          className="text-ink p-1"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
@@ -130,7 +120,7 @@ export default function Nav() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "circOut" }}
-            className="absolute top-full left-0 right-0 bg-navy-mid border-b border-gold/15 overflow-hidden md:hidden"
+            className="absolute top-full left-0 right-0 bg-paper border-b border-line overflow-hidden md:hidden"
             role="dialog"
             aria-label="Mobile navigation"
           >
@@ -140,15 +130,18 @@ export default function Nav() {
                   key={l.href}
                   href={l.href}
                   onClick={closeMenu}
-                  className="text-muted text-sm tracking-widest uppercase hover:text-gold transition-colors"
+                  aria-current={isActive(l.href) ? 'page' : undefined}
+                  className={`font-body text-sm transition-colors ${
+                    isActive(l.href) ? 'text-signal' : 'text-ink-soft hover:text-ink'
+                  }`}
                 >
                   {l.label}
                 </a>
               ))}
               <a
-                href="/#contact"
+                href="/about/#contact"
                 onClick={closeMenu}
-                className="text-gold text-sm tracking-widest uppercase border-t border-gold/20 pt-4"
+                className="font-data text-signal text-sm border-t border-line pt-4"
               >
                 Get in Touch
               </a>
@@ -156,6 +149,6 @@ export default function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   )
 }

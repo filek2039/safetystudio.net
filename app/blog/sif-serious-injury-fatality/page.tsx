@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description:
       'Why traditional frequency metrics like LTIF miss the most dangerous events.',
   },
+  alternates: { canonical: 'https://safetystudio.net/blog/sif-serious-injury-fatality/' },
 }
 
 function Fn({ n }: { n: number }) {
@@ -28,7 +29,7 @@ function Fn({ n }: { n: number }) {
       <a
         href={`#fn-${n}`}
         id={`fnref-${n}`}
-        className="text-gold hover:text-gold-light transition-colors text-[0.7em] font-medium ml-0.5"
+        className="text-signal hover:text-signal transition-colors text-[0.7em] font-medium ml-0.5"
         aria-label={`Footnote ${n}`}
       >
         [{n}]
@@ -38,27 +39,27 @@ function Fn({ n }: { n: number }) {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-gold/10">
+  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-signal/10">
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <a href="/blog/" className="text-muted/70 text-xs tracking-widest uppercase hover:text-gold transition-colors">
+        <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
           &larr; Blog
         </a>
-        <span className="text-muted/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-gold font-medium border border-gold/30 px-2.5 py-0.5 rounded-sm">
+        <span className="text-ink-soft/40 text-xs">&middot;</span>
+        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
           Risk Management
         </span>
       </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-cream mb-5">
+      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
         When LTIF Doesn&apos;t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)
       </h1>
 
-      <div className="flex items-center gap-4 text-muted/70 text-xs tracking-wide">
+      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
         <span>Safety Studio</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>March 2026</span>
-        <span className="text-muted/40">&middot;</span>
+        <span className="text-ink-soft/40">&middot;</span>
         <span>7 min read</span>
       </div>
     </div>
@@ -67,16 +68,16 @@ const header = (
 
 const cta = (
   <div className="pb-24 w-full max-w-2xl mx-auto px-8 max-md:px-6">
-    <div className="border border-gold/15 rounded-sm px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-navy-mid/40">
+    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
       <div>
-        <div className="text-cream font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
-        <div className="text-muted text-xs font-light">
+        <div className="text-ink font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
+        <div className="text-ink-soft text-xs font-light">
           Use our free Incident Rate Calculator to benchmark your LTIF &amp; TRCF against industry averages.
         </div>
       </div>
       <a
-        href="/#tools"
-        className="text-gold text-[0.75rem] tracking-widest uppercase border border-gold/50 px-5 py-2.5 rounded-sm hover:bg-gold hover:text-navy transition-colors duration-300 whitespace-nowrap"
+        href="/tools/"
+        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
       >
         Open Calculator
       </a>
@@ -115,14 +116,14 @@ export default function SIFArticle() {
         That is where SIF comes in.
       </p>
 
-      <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         What Is SIF?
       </h2>
 
       <p>
         SIF stands for Serious Injury and Fatality. It describes workplace events that either
         resulted in — or had the genuine potential to result in — a fatality or a permanently
-        disabling injury. The key word is <em className="text-cream not-italic font-normal">potential</em>.
+        disabling injury. The key word is <em className="text-ink not-italic font-normal">potential</em>.
         SIF is not only about outcomes; it is about energy and exposure.
       </p>
 
@@ -135,7 +136,7 @@ export default function SIFArticle() {
         someone?&rdquo;
       </p>
 
-      <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         The Triangle Has a Problem
       </h2>
 
@@ -164,13 +165,13 @@ export default function SIFArticle() {
         numbers mean the organisation is safe from catastrophic events.
       </p>
 
-      <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         SIF Precursors: Where the Real Work Happens
       </h2>
 
       <p>
         If SIF events do not follow the same logic as minor incidents, how do you identify
-        them before they happen? The answer is the <strong className="text-cream font-medium">SIF
+        them before they happen? The answer is the <strong className="text-ink font-medium">SIF
         precursor</strong> — an event, condition, or combination of circumstances that, with a
         slightly different outcome, would have resulted in a fatality or permanent disability.
       </p>
@@ -186,7 +187,7 @@ export default function SIFArticle() {
           'Safety-critical controls that have been overridden or bypassed to maintain production',
         ].map((item) => (
           <li key={item} className="flex gap-3 items-start">
-            <span className="w-1 h-1 rounded-full bg-gold mt-[0.7em] flex-shrink-0" />
+            <span className="w-1 h-1 rounded-full bg-signal mt-[0.7em] flex-shrink-0" />
             <span>{item}</span>
           </li>
         ))}
@@ -199,7 +200,7 @@ export default function SIFArticle() {
         means auditing these combinations — not counting recordable incidents.
       </p>
 
-      <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Where SIF Happens Most
       </h2>
 
@@ -219,7 +220,7 @@ export default function SIFArticle() {
         thing that changed was the outcome.
       </p>
 
-      <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Why Good LTIF Numbers Can Mislead You
       </h2>
 
@@ -244,7 +245,7 @@ export default function SIFArticle() {
         outcomes is one of the more subtle — and dangerous — misreadings of safety data.
       </p>
 
-      <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Practical Steps for SIF Management
       </h2>
 
@@ -281,19 +282,19 @@ export default function SIFArticle() {
             body: 'The people closest to the work know which shortcuts have become normalised and which tasks feel genuinely dangerous. A regular conversation about what could cause a fatality today is more valuable than any spreadsheet metric.',
           },
         ].map((item) => (
-          <div key={item.n} className="flex gap-5 border-l-2 border-gold/25 pl-5 py-1">
-            <span className="font-display text-gold/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+          <div key={item.n} className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
+            <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
               {item.n}
             </span>
             <div>
-              <div className="text-cream font-medium text-sm mb-1">{item.title}</div>
-              <div className="text-muted text-sm font-light leading-[1.75]">{item.body}</div>
+              <div className="text-ink font-medium text-sm mb-1">{item.title}</div>
+              <div className="text-ink-soft text-sm font-light leading-[1.75]">{item.body}</div>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         The Bottom Line
       </h2>
 
@@ -315,10 +316,10 @@ export default function SIFArticle() {
         to the next fatality. Both matter — but they are answering very different questions.
       </p>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent my-14" />
+      <div className="h-px bg-gradient-to-r from-transparent via-signal/20 to-transparent my-14" />
 
       <section aria-label="Footnotes">
-        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-gold font-medium mb-5">
+        <h3 className="text-[0.65rem] tracking-[0.2em] uppercase text-signal font-medium mb-5">
           References
         </h3>
         <ol className="space-y-3 list-none pl-0">
@@ -364,12 +365,12 @@ export default function SIFArticle() {
               urlLabel: null,
             },
           ].map((fn) => (
-            <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-muted font-light leading-relaxed">
-              <a href={`#fnref-${fn.n}`} className="text-gold/70 hover:text-gold transition-colors flex-shrink-0 font-medium">
+            <li key={fn.n} id={`fn-${fn.n}`} className="flex gap-3 text-xs text-ink-soft font-light leading-relaxed">
+              <a href={`#fnref-${fn.n}`} className="text-signal/70 hover:text-signal transition-colors flex-shrink-0 font-medium">
                 [{fn.n}]
               </a>
               <span>
-                {fn.text} <em className="not-italic text-muted">{fn.title}</em>. {fn.detail}
+                {fn.text} <em className="not-italic text-ink-soft">{fn.title}</em>. {fn.detail}
                 {fn.url && (
                   <>
                     {' '}
@@ -377,7 +378,7 @@ export default function SIFArticle() {
                       href={fn.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gold/70 hover:text-gold transition-colors underline underline-offset-2"
+                      className="text-signal/70 hover:text-signal transition-colors underline underline-offset-2"
                     >
                       {fn.urlLabel}
                     </a>

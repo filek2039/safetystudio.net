@@ -26,9 +26,9 @@ export default function SafetyMomentLibrary() {
   }
 
   return (
-    <div>
+    <div id="safety-moment-library">
       {/* Category tabs */}
-      <div className="flex gap-2 flex-wrap pb-2 mb-6 border-b border-gold/10">
+      <div className="flex gap-2 flex-wrap pb-2 mb-6 border-b border-line">
         {SM_CATEGORIES.map((cat) => (
           <button
             key={cat.id}
@@ -40,10 +40,10 @@ export default function SafetyMomentLibrary() {
                 category: cat.id,
               })
             }}
-            className={`text-[0.68rem] tracking-[0.1em] uppercase px-3.5 py-1.5 rounded-sm transition-all duration-200 whitespace-nowrap ${
+            className={`font-data text-[0.68rem] tracking-[0.08em] uppercase px-3.5 py-1.5 transition-all duration-200 whitespace-nowrap border ${
               activeCat === cat.id
-                ? 'text-gold border border-gold/50 bg-gold/[0.08]'
-                : 'text-muted border border-transparent hover:text-cream hover:border-gold/20'
+                ? 'text-signal border-signal/50 bg-paper-raised'
+                : 'text-ink-soft border-transparent hover:text-ink hover:border-line'
             }`}
           >
             {cat.label}
@@ -61,32 +61,34 @@ export default function SafetyMomentLibrary() {
           transition={{ duration: 0.25, ease: 'easeOut' }}
           className="flex flex-col gap-4"
         >
-          {category.moments.map((moment) => (
+          {category.moments.map((moment, i) => (
             <div
               key={moment.id}
-              className="relative bg-navy/60 border-l-2 border-gold/40 pl-5 pr-5 py-4 rounded-r-sm"
+              className="relative bg-paper-raised border border-line pl-5 pr-5 py-4"
             >
               <button
                 onClick={() => handleCopy(moment.id, moment.body)}
-                className={`absolute top-3 right-3 text-[0.62rem] tracking-[0.12em] uppercase px-2.5 py-1 rounded-sm border transition-all duration-200 ${
+                className={`absolute top-3 right-3 font-data text-[0.62rem] tracking-[0.1em] uppercase px-2.5 py-1 border transition-all duration-200 ${
                   copied === moment.id
-                    ? 'text-emerald-400 border-emerald-400/40'
-                    : 'text-muted border-muted/20 hover:text-gold hover:border-gold/30'
+                    ? 'text-ok border-ok/40'
+                    : 'text-ink-soft border-line hover:text-signal hover:border-signal/40'
                 }`}
                 title="Copy to clipboard"
               >
                 {copied === moment.id ? 'Copied ✓' : 'Copy'}
               </button>
-              <div className="text-[0.65rem] tracking-[0.18em] uppercase text-gold mb-2 font-medium pr-16">
+              <div className="font-data text-[0.65rem] tracking-[0.1em] uppercase text-ink-soft mb-2 pr-16">
+                <span className="text-signal">{String(i + 1).padStart(2, '0')}</span>
+                <span aria-hidden="true"> — </span>
                 {moment.title}
               </div>
-              <p className="text-cream/85 text-sm font-light leading-[1.8] pr-10">{moment.body}</p>
+              <p className="font-body text-ink text-sm leading-[1.8] pr-10">{moment.body}</p>
             </div>
           ))}
         </motion.div>
       </AnimatePresence>
 
-      <p className="text-[0.6rem] text-muted/70 italic mt-6 text-center">
+      <p className="font-data text-[0.6rem] text-ink-soft mt-6 text-center">
         These safety moments are for training and awareness purposes. Always follow your site-specific procedures and regulations.
       </p>
     </div>
