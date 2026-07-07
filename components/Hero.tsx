@@ -1,7 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
 import SignalButton from './ui/SignalButton'
-import ClauseTag from './ui/ClauseTag'
 
 const container = {
   hidden: {},
@@ -22,10 +21,6 @@ export default function Hero() {
         initial="hidden"
         animate="show"
       >
-        <motion.div variants={item} className="mb-8">
-          <ClauseTag label="Health · Safety · Environment" />
-        </motion.div>
-
         <motion.h1
           variants={item}
           className="font-head font-extrabold uppercase text-[clamp(3rem,8vw,7rem)] leading-[0.98] tracking-tight text-ink mb-6"
