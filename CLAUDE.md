@@ -30,36 +30,41 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 ```
 SafetyStudio.net/
 ├── app/                         # YALNIZCA Next.js routing dosyaları
-│   ├── layout.tsx               # Root layout — fontlar, OG meta, JSON-LD, skip-link
-│   ├── page.tsx                 # Ana sayfa — section bileşenlerini sıralar
-│   ├── globals.css              # Global stiller, Tailwind directives
+│   ├── layout.tsx               # Root layout — fontlar (5 adet), OG meta, anti-flash theme script, skip-link
+│   ├── page.tsx                 # Ana sayfa — yalnızca Hero + LegacyHashRedirect
+│   ├── globals.css              # Global stiller, tema tokenleri, drafting-grid, print stylesheet
 │   ├── sitemap.ts               # Otomatik sitemap.xml üretimi
 │   ├── not-found.tsx            # Özel 404 sayfası
+│   ├── services/page.tsx        # Hizmetler sayfası (kendi metadata + canonical)
+│   ├── tools/page.tsx           # Ücretsiz araçlar sayfası
+│   ├── library/page.tsx         # Safety Moment Library sayfası
+│   ├── about/page.tsx           # Hakkımızda + İletişim sayfası (#contact anchor)
+│   ├── privacy/page.tsx         # Gizlilik politikası
 │   └── blog/
 │       ├── page.tsx             # Blog index sayfası
-│       ├── sif-serious-injury-fatality/
-│       │   └── page.tsx         # Mevcut makale (SIF analizi)
 │       └── [yeni-slug]/
 │           └── page.tsx         # Yeni blog makaleleri bu şekilde eklenir
 ├── components/                  # Tüm UI bileşenleri burada
-│   ├── Nav.tsx                  # Navbar (mobil focus-trap, ARIA, Escape key)
-│   ├── Hero.tsx                 # Hero/banner bölümü
-│   ├── Services.tsx             # Hizmetler bölümü
-│   ├── FreeTools.tsx            # Ücretsiz araçlar — max-w-3xl mx-auto, IncidentRateCalc'ı doğrudan render eder (ToolCard kaldırıldı)
-│   ├── Library.tsx              # Safety Moment Library bölümü (/#library) — max-w-3xl mx-auto
-│   ├── About.tsx                # Hakkımızda bölümü
-│   ├── Contact.tsx              # İletişim bölümü (mailto CTA)
+│   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil focus-trap, ARIA, Escape)
+│   ├── Hero.tsx                 # Tipografik hero (drafting-grid + hazard-stripe; video yok)
+│   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok)
+│   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
+│   ├── Library.tsx              # Safety Moment Library sarmalayıcısı
+│   ├── About.tsx                # Hakkımızda — asimetrik 7/5 grid + pull-quote
+│   ├── Contact.tsx              # İletişim paneli (hazard-stripe üst kenar, mailto CTA)
 │   ├── Footer.tsx               # 3-kolonlu footer
+│   ├── LegacyHashRedirect.tsx   # Eski /#services vb. hash linklerini yeni rotalara yönlendirir
+│   ├── ThemeToggle.tsx          # data-theme + localStorage tema düğmesi
 │   ├── tools/                   # Etkileşimli araç bileşenleri
-│   │   ├── IncidentRateCalc.tsx # 3 CalcFrame bölümü: Personal Injury / SIF Potential Events / Motor Vehicle Incidents
-│   │   └── SafetyMomentLibrary.tsx # Safety moment kütüphanesi
+│   │   ├── IncidentRateCalc.tsx # 3 CalcFrame: Personal Injury / SIF Potential / Motor Vehicle
+│   │   └── SafetyMomentLibrary.tsx # Safety moment kütüphanesi (clause-numaralı kartlar)
+│   ├── blog/                    # Blog chrome (BlogArticleLayout, ToC, ReadingProgress)
 │   └── ui/                      # Atomik / paylaşımlı UI bileşenleri
 │       ├── BackToTop.tsx        # Scroll-triggered geri-dön butonu
-│       ├── Button.tsx           # Temel buton bileşeni
-│       ├── CounterStat.tsx      # Animasyonlu istatistik sayacı
-│       ├── GoldDivider.tsx      # Dekoratif altın bölücü
-│       ├── SectionHeader.tsx    # Bölüm başlık bileşeni
-│       └── ToolCard.tsx         # Araç kartı (defaultOpen prop'u var)
+│       ├── Container.tsx        # max-w-[1200px] içerik sarmalayıcısı — her section'da kullan
+│       ├── ClauseTag.tsx        # Standart-klozu etiketi: "04 — RISK ANALYSIS"
+│       ├── DimensionRule.tsx    # Teknik-çizim bölücü (uç tikli hairline + mono etiket)
+│       └── SignalButton.tsx     # CTA: solid (turuncu) / text (altı çizili) varyantları
 ├── data/
 │   └── safetyMoments.ts         # Safety Moment veri deposu (UI bağımlılığı yok)
 ├── lib/
@@ -111,41 +116,46 @@ import Hero from '../components/Hero'         // ✗ relative path kullanma
 
 ---
 
-## Ana Sayfa Bölüm Sırası
+## Site Rotaları
 
-`app/page.tsx` artık `TabbedContent` ile hash-driven tab router kullanır. Aktif sekmeye göre bölümler şunlardır:
+Hash-tab router kaldırıldı — her bölüm kendi statik rotasında yaşar (SEO: her sayfanın kendi metadata + canonical'ı var):
 
-| Hash | Bölüm |
-|------|-------|
-| (boş) | Hero |
-| `#services` | Services |
-| `#tools` | FreeTools — 3 CalcFrame: Personal Injury Calculator · SIF Potential Events · Motor Vehicle Incidents |
-| `#library` | Library (Safety Moment Library) |
-| `#about` / `#contact` | About + Contact |
+| Rota | İçerik |
+|------|--------|
+| `/` | Hero (yalnızca) |
+| `/services/` | Services — numaralı indeks (01–06) |
+| `/tools/` | FreeTools — 3 CalcFrame: Personal Injury · SIF Potential · Motor Vehicle |
+| `/library/` | Safety Moment Library (`#safety-moment-library` anchor) |
+| `/about/` | About + Contact (`#contact` anchor) |
+| `/blog/` | Blog index + makaleler |
+| `/privacy/` | Gizlilik politikası |
 
 Nav linkleri: **Services · Free Tools · Library · Blog · About · Get in Touch**
 
-Yeni bir sekme eklenirken `TabbedContent.tsx` içindeki `Section` tipini, `HASH_SECTION_MAP`'i ve `SECTION_CONTENT`'i güncelle. Aynı zamanda `Nav.tsx`'teki `links` dizisine yeni linki ekle.
+Eski `/#services` tarzı hash linkleri `components/LegacyHashRedirect.tsx` (yalnızca ana sayfada render edilir) yeni rotalara yönlendirir. Yeni bir sayfa eklerken: `app/[slug]/page.tsx` oluştur (metadata + canonical ile), `Nav.tsx` ve `Footer.tsx` link dizilerini ve `app/sitemap.ts`'i güncelle.
 
 ---
 
-## Tasarım Sistemi & Renkler
+## Tasarım Sistemi & Renkler — "Field Standard"
 
-Inline HEX kullanma — her zaman `tailwind.config.ts`'deki tokenları kullan:
+Site, güzelce dizgilenmiş bir güvenlik-mühendisliği standardı gibi tasarlanmıştır: clause numaraları (`ClauseTag`), teknik-çizim bölücüler (`DimensionRule`), drafting-grid dokusu ve tek sinyal rengi. Inline HEX kullanma — her zaman token kullan. Değerler tema başına `globals.css`'te tanımlıdır (`:root` = koyu "night shift", `[data-theme="light"]` = açık "engineering paper"):
 
-| Token | Değer | Kullanım |
-|-------|-------|----------|
-| `navy` | `#0a1628` | Ana arka plan |
-| `navy-mid` | `#112240` | Kart / bölüm arka planı |
-| `navy-light` | `#1d3461` | Hafif vurgu arka planı |
-| `cream` | `#f5f0e8` | Ana metin rengi |
-| `gold` | `#c9a84c` | CTA, divider, focus ring, tag |
-| `gold-light` | `#e8c96a` | Hover durumu, vurgu |
-| `muted` | `#9fb0cc` | İkincil metin (WCAG AA uyumlu) |
+| Token | Koyu | Açık | Kullanım |
+|-------|------|------|----------|
+| `paper` | `#14181D` | `#F4F2EC` | Sayfa arka planı |
+| `paper-raised` | `#1B2129` | `#FDFCF9` | Kart / panel yüzeyi |
+| `ink` | `#E9E6DE` | `#161D26` | Ana metin |
+| `ink-soft` | `#9AA5B1` | `#4C5866` | İkincil metin (AA uyumlu) |
+| `line` | `#2A323C` | `#D8D3C8` | Hairline, çerçeve, drafting-grid |
+| `signal` | `#FF6A3D` | `#B8401D` | CTA, aktif durum, vurgu — kıtlıkla kullan |
+| `steel` | `#7FA3C0` | `#33526B` | İkincil vurgu, tag metni |
+| `ok` / `warn` / `danger` | emerald-500 / amber-500 / red-400 | emerald-700 / amber-800 / red-700 | Hesaplayıcı benchmark renkleri |
 
-Font değişkenleri: `--font-cormorant` → `font-display` (başlıklar), `--font-dm-sans` → `font-sans` (gövde).
+Fontlar: `font-head` (Big Shoulders Display — başlıklar, uppercase), `font-body` (IBM Plex Sans — gövde), `font-data` (IBM Plex Mono — clause numaraları, veri, etiketler). `font-display` (Cormorant) yalnızca blog makale başlıklarında kalır; `font-sans` (DM Sans) base fallback'tir.
 
-> ⚠️ `muted` rengi için `/50` veya `#8a9ab5` gibi düşük opacity değerleri WCAG kontrastını bozar — minimum `/70` kullan.
+> ⚠️ Tailwind alpha değerleri 5'in katı olmalı (`/10`, `/15`...) ya da arbitrary yazılmalı (`/[0.12]`) — `/12` gibi geçersiz değerler **sessizce derlenmez** ve border preflight grisine düşer.
+> ⚠️ Açık temadaki `signal`/`ok`/`warn`/`danger` değerleri WCAG AA (4.5:1) için özel seçilmiştir — Tailwind'in stok `-500` tonlarını açık zeminde kullanma.
+> ⚠️ `hazard-stripe` sınıfı site genelinde tam iki kullanımla sınırlıdır (Hero taban çizgisi + Contact panel üst kenarı) — her yerde kullanmak imzayı kostüme çevirir.
 
 ---
 
@@ -185,7 +195,7 @@ app/blog/[yazi-slug]/page.tsx
 **2. `page.tsx` yapısı — `BlogArticleLayout` kullan:**
 
 `BlogArticleLayout` (`components/blog/BlogArticleLayout.tsx`) tüm blog yazıları için ortak chrome'u sağlar:
-- ReadingProgress bar (altın renk, sayfanın üstünde)
+- ReadingProgress bar (signal turuncu, sayfanın üstünde)
 - Nav + Footer + BackToTop
 - Sticky TableOfContents sidebar (xl: 1280px+ ekranlarda)
 - JSON-LD script injection
@@ -203,10 +213,11 @@ export const metadata: Metadata = {
     authors: ['Safety Studio'],
     tags: ['tag1', 'tag2'],
   },
+  alternates: { canonical: 'https://safetystudio.net/blog/[yazi-slug]/' },
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-gold/10">
+  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-signal/10">
     {/* tag, h1, meta satırı */}
   </header>
 )
@@ -223,7 +234,7 @@ export default function ArticlePage() {
   return (
     <BlogArticleLayout header={header} cta={cta} jsonLd={jsonLd}>
       {/* Sadece makale gövdesi — <article> ve flex wrapper BlogArticleLayout tarafından sağlanır */}
-      <h2 id="section-id" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="section-id" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
         Bölüm Başlığı
       </h2>
       <p>...</p>
@@ -309,8 +320,10 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 - `out/` klasörünü elle düzenleme — `npm run build` ile yeniden oluştur
 - Bileşenleri `app/` altında oluşturma — sadece routing dosyaları `app/` altında
 - Inline HEX renk kullanma — Tailwind config tokenlarını kullan
-- `muted` için `/50` veya altı opacity kullanma — WCAG kontrastı bozar
-- Yeni renk eklerken `tailwind.config.ts`'i güncellemeden devam etme
+- `ink-soft` için `/50` veya altı opacity kullanma — WCAG kontrastı bozar
+- Geçersiz Tailwind alpha adımı yazma (`/12`, `/8` gibi) — sınıf sessizce derlenmez; `/[0.12]` kullan
+- Yeni renk eklerken hem `globals.css` (iki tema bloğu) hem `tailwind.config.ts`'i güncelle; açık tema değerini AA kontrast için doğrula
+- `npm run build`'i dev sunucusu çalışırken çalıştırma — `.next` cache'ini bozar
 - Kaynak koda API key veya token yazma — statik bundle'da açığa çıkar
 - Harici link'te `rel="noopener noreferrer"` unutma
 
