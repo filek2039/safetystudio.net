@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 48" font-family="'Big Shoulders Display', 'Archivo Narrow', 'Arial Narrow', sans-serif">
+  <g fill="#161D26">
+    <rect x="4" y="7" width="18.06" height="6.38" rx="1.6" />
+    <rect x="27.38" y="7" width="6.38" height="6.38" rx="1.6" />
+    <rect x="4" y="16.56" width="6.38" height="6.38" rx="1.6" />
+    <rect x="4" y="26.13" width="12.75" height="6.38" rx="1.6" />
+    <rect x="22.06" y="26.13" width="11.69" height="6.38" rx="1.6" />
+  </g>
+  <rect x="15.69" y="16.56" width="18.06" height="6.38" rx="1.6" fill="#B8401D" />
+  <text x="48" y="32" font-size="30" font-weight="800" letter-spacing="-0.5" fill="#161D26">SAFETY<tspan fill="#B8401D">STUDIO</tspan></text>
+</svg>

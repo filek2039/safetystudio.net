@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
+import BrandMark from './ui/BrandMark'
 
 const links = [
   { label: 'Services', href: '/services/' },
@@ -60,8 +61,11 @@ export default function Nav() {
       }`}
     >
       {/* Logo */}
-      <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink flex items-baseline gap-2">
-        Safety<span className="text-signal">Studio</span>
+      <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink flex items-center gap-2.5">
+        <BrandMark className="w-[22px] h-[22px]" />
+        <span>
+          Safety<span className="text-signal">Studio</span>
+        </span>
       </a>
 
       {/* Desktop nav */}

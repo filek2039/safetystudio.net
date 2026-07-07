@@ -1,3 +1,5 @@
+import BrandMark from './ui/BrandMark'
+
 const quickLinks = [
   { label: 'Services', href: '/services/' },
   { label: 'Free Tools', href: '/tools/' },
@@ -12,8 +14,11 @@ export default function Footer() {
       <div className="grid grid-cols-3 max-md:grid-cols-1 gap-8 max-md:gap-6">
         {/* Brand */}
         <div>
-          <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink">
-            Safety<span className="text-signal">Studio</span>
+          <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink inline-flex items-center gap-2.5">
+            <BrandMark className="w-[20px] h-[20px]" />
+            <span>
+              Safety<span className="text-signal">Studio</span>
+            </span>
           </a>
           <p className="font-body text-ink-soft text-xs leading-relaxed mt-2 max-w-[260px]">
             Expert HSE consultancy, training, risk analysis and audits for oil &amp; gas, construction, and industrial sectors.

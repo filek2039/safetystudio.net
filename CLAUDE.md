@@ -61,10 +61,12 @@ SafetyStudio.net/
 │   ├── blog/                    # Blog chrome (BlogArticleLayout, ToC, ReadingProgress)
 │   └── ui/                      # Atomik / paylaşımlı UI bileşenleri
 │       ├── BackToTop.tsx        # Scroll-triggered geri-dön butonu
+│       ├── BrandMark.tsx        # Logo işareti (bariyer istifi) — tema-uyumlu SVG
 │       ├── Container.tsx        # max-w-[1200px] içerik sarmalayıcısı — her section'da kullan
-│       ├── ClauseTag.tsx        # Standart-klozu etiketi: "04 — RISK ANALYSIS"
+│       ├── ClauseTag.tsx        # Standart-klozu etiketi (ör. "RISK ANALYSIS")
 │       ├── DimensionRule.tsx    # Teknik-çizim bölücü (uç tikli hairline + mono etiket)
 │       └── SignalButton.tsx     # CTA: solid (turuncu) / text (altı çizili) varyantları
+├── brand/                       # Logo brand pack — SVG varyantları + BRAND.md kullanım rehberi
 ├── data/
 │   └── safetyMoments.ts         # Safety Moment veri deposu (UI bağımlılığı yok)
 ├── lib/
@@ -151,7 +153,9 @@ Site, güzelce dizgilenmiş bir güvenlik-mühendisliği standardı gibi tasarla
 | `steel` | `#7FA3C0` | `#33526B` | İkincil vurgu, tag metni |
 | `ok` / `warn` / `danger` | emerald-500 / amber-500 / red-400 | emerald-700 / amber-800 / red-700 | Hesaplayıcı benchmark renkleri |
 
-Fontlar: `font-head` (Big Shoulders Display — başlıklar, uppercase), `font-body` (IBM Plex Sans — gövde), `font-data` (IBM Plex Mono — clause numaraları, veri, etiketler). `font-display` (Cormorant) yalnızca blog makale başlıklarında kalır; `font-sans` (DM Sans) base fallback'tir.
+Fontlar: `font-head` (Big Shoulders Display — başlıklar, uppercase), `font-body` (IBM Plex Sans — gövde), `font-data` (IBM Plex Mono — veri, etiketler). `font-display` (Cormorant) yalnızca blog makale başlıklarında kalır; `font-sans` (DM Sans) base fallback'tir.
+
+**Logo**: "Bariyer istifi" — Reason'ın defense-in-depth modeli; boşlukları hizalanmayan üç bariyer, turuncu bar "tutan bariyer". Bileşen: `components/ui/BrandMark.tsx` (tema-uyumlu), favicon: `app/icon.svg`, dış kullanım varyantları + kurallar: `brand/BRAND.md`. İşareti yeniden renklendirme, döndürme veya bar ekleme/çıkarma yapma.
 
 > ⚠️ Tailwind alpha değerleri 5'in katı olmalı (`/10`, `/15`...) ya da arbitrary yazılmalı (`/[0.12]`) — `/12` gibi geçersiz değerler **sessizce derlenmez** ve border preflight grisine düşer.
 > ⚠️ Açık temadaki `signal`/`ok`/`warn`/`danger` değerleri WCAG AA (4.5:1) için özel seçilmiştir — Tailwind'in stok `-500` tonlarını açık zeminde kullanma.
