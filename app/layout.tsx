@@ -1,5 +1,11 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import {
+  Cormorant_Garamond,
+  DM_Sans,
+  Big_Shoulders_Display,
+  IBM_Plex_Sans,
+  IBM_Plex_Mono,
+} from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -21,6 +27,28 @@ const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   variable: '--font-dm-sans',
+  display: 'swap',
+})
+
+/* ── "Field Standard" redesign fonts (see plan/website-redesign-plan.md) ── */
+const bigShoulders = Big_Shoulders_Display({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-big-shoulders',
+  display: 'swap',
+})
+
+const plexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-sans',
+  display: 'swap',
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
   display: 'swap',
 })
 
@@ -58,7 +86,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="en"
+      className={`${cormorant.variable} ${dmSans.variable} ${bigShoulders.variable} ${plexSans.variable} ${plexMono.variable}`}
+    >
       {/* Anti-flash: read stored theme before first paint */}
       <head>
         <script
@@ -67,11 +98,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-navy text-cream font-sans antialiased">
+      <body className="bg-paper text-ink font-sans antialiased">
         {/* Skip to content link */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-gold focus:text-navy focus:px-4 focus:py-2 focus:rounded-sm focus:text-sm focus:font-medium focus:tracking-wide"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-signal focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:tracking-wide"
         >
           Skip to content
         </a>

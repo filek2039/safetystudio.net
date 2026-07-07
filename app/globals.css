@@ -2,56 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Dark theme (default) ────────────────────────────────────────────────── */
+/* ─── Dark theme ("night shift" variant) ──────────────────────────────────── */
 :root {
-  --navy:       10 22 40;      /* #0A1628 */
-  --navy-mid:   17 34 64;      /* #112240 */
-  --navy-light: 29 52 97;      /* #1D3461 */
-  --gold:       201 168 76;    /* #C9A84C */
-  --gold-light: 232 201 106;   /* #E8C96A */
-  --cream:      245 240 232;   /* #F5F0E8 */
-  --muted:      159 176 204;   /* #9FB0CC */
+  --paper:        20 24 29;     /* #14181D graphite */
+  --paper-raised: 27 33 41;     /* #1B2129 */
+  --ink:          233 230 222;  /* #E9E6DE */
+  --ink-soft:     154 165 177;  /* #9AA5B1 */
+  --line:         42 50 60;     /* #2A323C */
+  --signal:       255 106 61;   /* #FF6A3D safety orange (dark-adjusted) */
+  --steel:        127 163 192;  /* #7FA3C0 */
 
-  /* Semantic aliases used in inline styles & non-Tailwind CSS */
-  --color-navy:       #0a1628;
-  --color-navy-mid:   #112240;
-  --color-navy-light: #1d3461;
-  --color-gold:       #c9a84c;
-  --color-gold-light: #e8c96a;
-  --color-cream:      #f5f0e8;
-  --color-muted:      #9fb0cc;
+  /* Benchmark semantic colors (calculator/library "copied" state). Tailwind's
+     dark: variant isn't wired to [data-theme] in this project, so these are
+     plain tokens like the rest — values chosen for 4.5:1+ on paper-raised. */
+  --ok:           16 185 129;    /* emerald-500 */
+  --warn:         245 158 11;   /* amber-500 */
+  --danger:       248 113 113;  /* red-400 — red-500 is 4.31:1, fails AA */
 
-  /* Form input helpers */
-  --input-bg:           rgba(255, 255, 255, 0.05);
-  --input-border:       rgba(201, 168, 76, 0.25);
-  --input-text:         #f5f0e8;
-  --input-placeholder:  #9fb0cc;
-  --select-option-bg:   #112240;
+  /* Form input helpers — aligned to Field Standard tokens (calculator, Phase 4) */
+  --input-bg:           rgba(233, 230, 222, 0.04);
+  --input-border:       rgb(var(--line));
+  --input-text:         rgb(var(--ink));
+  --input-placeholder:  rgb(var(--ink-soft));
+  --select-option-bg:   rgb(var(--paper-raised));
 }
 
-/* ─── Light theme ─────────────────────────────────────────────────────────── */
+/* ─── Light theme ("engineering paper", primary) ──────────────────────────── */
 [data-theme="light"] {
-  --navy:       248 245 240;   /* #F8F5F0 — warm white bg */
-  --navy-mid:   255 255 255;   /* #FFFFFF — card surface */
-  --navy-light: 240 234 222;   /* #F0EADE — warm card surface */
-  --gold:       154 118 16;    /* #9A7610 — rich dark gold (AA contrast on light) */
-  --gold-light: 180 140 24;    /* #B48C18 — gold hover */
-  --cream:      10 22 40;      /* #0A1628 — deep navy text (inverted) */
-  --muted:      74 96 122;     /* #4A607A — medium blue-gray */
+  --paper:        244 242 236;  /* #F4F2EC warm paper */
+  --paper-raised: 253 252 249;  /* #FDFCF9 */
+  --ink:          22 29 38;     /* #161D26 */
+  --ink-soft:     76 88 102;    /* #4C5866 */
+  --line:         216 211 200;  /* #D8D3C8 */
+  --signal:       184 64 29;    /* #B8401D safety orange, darkened from #D64A21 for WCAG AA
+                                    (original was 3.86:1 on paper — fails 4.5:1 normal-text AA;
+                                    this hits 4.95:1 on paper, 5.40:1 on paper-raised) */
+  --steel:        51 82 107;    /* #33526B */
 
-  --color-navy:       #f8f5f0;
-  --color-navy-mid:   #ffffff;
-  --color-navy-light: #f0eade;
-  --color-gold:       #9a7610;
-  --color-gold-light: #b48c18;
-  --color-cream:      #0a1628;
-  --color-muted:      #4a607a;
+  --ok:           4 120 87;      /* emerald-700 — emerald-500 is 2.27:1 on paper, fails badly */
+  --warn:         146 64 14;     /* amber-800 — amber-500 is 1.92:1 on paper, fails badly */
+  --danger:       185 28 28;     /* red-700 — red-500 is 3.36:1 on paper, fails AA */
 
-  --input-bg:           rgba(10, 22, 40, 0.04);
-  --input-border:       rgba(154, 118, 16, 0.3);
-  --input-text:         #0a1628;
-  --input-placeholder:  #4a607a;
-  --select-option-bg:   #ffffff;
+  --input-bg:           rgba(22, 29, 38, 0.03);
+  --input-border:       rgb(var(--line));
+  --input-text:         rgb(var(--ink));
+  --input-placeholder:  rgb(var(--ink-soft));
+  --select-option-bg:   rgb(var(--paper-raised));
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -61,8 +57,8 @@
 }
 
 body {
-  background: var(--color-navy);
-  color: var(--color-cream);
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -82,10 +78,10 @@ select {
   background: var(--input-bg);
   border: 1px solid var(--input-border);
   color: var(--input-text);
-  border-radius: 3px;
+  border-radius: 0;
   padding: 0.5rem 0.75rem;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.95rem;
   outline: none;
   width: 100%;
   transition: border-color 0.2s;
@@ -96,8 +92,8 @@ select {
 input[type="number"]:focus-visible,
 input[type="text"]:focus-visible,
 select:focus-visible {
-  border-color: var(--color-gold);
-  outline: 2px solid var(--color-gold);
+  border-color: rgb(var(--signal));
+  outline: 2px solid rgb(var(--signal));
   outline-offset: 2px;
 }
 
@@ -117,19 +113,60 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 0.4;
 }
 
-/* ─── Light mode hero ────────────────────────────────────────────────────── */
-/* The refinery video is dark footage; light-theme text tokens invert to dark
-   navy and become illegible over it. Hide the video and its scrim in light
-   mode so the hero renders on the theme background instead. */
-[data-theme="light"] .hero-video-layer {
-  display: none;
+/* ─── "Field Standard" texture utilities ─────────────────────────────────── */
+/* Two-level drafting grid: 64px major / 8px minor hairlines in the theme's
+   line color. Apply to section backgrounds for technical-drawing depth. */
+.drafting-grid {
+  background-image:
+    linear-gradient(rgb(var(--line) / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line) / 0.5) 1px, transparent 1px),
+    linear-gradient(rgb(var(--line) / 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line) / 0.18) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 8px 8px, 8px 8px;
 }
 
-/* ─── Light mode card depth ──────────────────────────────────────────────── */
-[data-theme="light"] .card-depth {
-  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.06), 0 4px 16px rgba(10, 22, 40, 0.05);
+/* Signature hazard stripe — budgeted to exactly two uses site-wide
+   (Hero baseline, Contact panel top edge). See redesign plan §2.5. */
+.hazard-stripe {
+  height: 3px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgb(var(--signal)) 0 6px,
+    rgb(var(--ink)) 6px 12px
+  );
 }
 
-[data-theme="light"] .card-depth-lg {
-  box-shadow: 0 2px 8px rgba(10, 22, 40, 0.07), 0 8px 32px rgba(10, 22, 40, 0.06);
+/* ─── Print stylesheet ────────────────────────────────────────────────────
+   HSE managers paste calculator output into incident reports. Strip site
+   chrome and decoration so a printed page is a clean, ink-cheap record of
+   the figures, not a copy of the marketing site. */
+@media print {
+  nav,
+  footer,
+  .drafting-grid,
+  .hazard-stripe,
+  .no-print,
+  button[aria-label="Back to top"],
+  button[aria-label="Toggle menu"] {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+
+  .print-calc,
+  .print-calc * {
+    color: #000 !important;
+    background: #fff !important;
+    border-color: #999 !important;
+  }
 }

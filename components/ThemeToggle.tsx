@@ -29,7 +29,7 @@ export default function ThemeToggle() {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.15 }}
-      className="relative w-8 h-8 flex items-center justify-center text-muted hover:text-gold transition-colors duration-200"
+      className="relative w-8 h-8 flex items-center justify-center text-ink-soft hover:text-signal transition-colors duration-200"
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {theme === 'dark' ? (
