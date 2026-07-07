@@ -62,7 +62,6 @@ export default function Nav() {
       {/* Logo */}
       <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink flex items-baseline gap-2">
         Safety<span className="text-signal">Studio</span>
-        <span className="hidden lg:inline font-data text-[0.6rem] tracking-[0.15em] text-ink-soft normal-case">/ HSE</span>
       </a>
 
       {/* Desktop nav */}

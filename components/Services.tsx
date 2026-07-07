@@ -6,37 +6,31 @@ import DimensionRule from './ui/DimensionRule'
 
 const services = [
   {
-    num: '01',
     title: 'AI Safety Intelligence',
     desc: 'Harnessing machine learning and operational data analytics to identify risk patterns, predict incident likelihood, and surface leading indicators before incidents occur — shifting your safety programme from reactive to intelligence-driven.',
     tags: ['Predictive Analytics', 'Risk Modelling', 'Leading Indicators'],
   },
   {
-    num: '02',
     title: 'Digital HSE Transformation',
     desc: 'Integrating AI-powered tools, automated workflows, and smart management systems into your HSE operations — reducing administrative overhead while improving accuracy, traceability, and decision speed across your organisation.',
     tags: ['Automation', 'HSE Systems', 'Digital Strategy'],
   },
   {
-    num: '03',
     title: 'Training & Education',
     desc: 'Tailored HSE training programs that equip your workforce with the knowledge and skills to operate safely and confidently in any environment.',
     tags: ['On-site', 'Online', 'Certified'],
   },
   {
-    num: '04',
     title: 'HSE Consultancy',
     desc: 'Strategic advisory services to help you design, implement, and continuously improve your health, safety, and environmental management systems.',
     tags: ['ISO 45001', 'ISO 14001', 'Strategy'],
   },
   {
-    num: '05',
     title: 'Risk Analysis',
     desc: 'Systematic identification, assessment, and mitigation of workplace hazards — protecting your people, assets, and reputation before incidents occur.',
     tags: ['HAZOP', 'FMEA', 'Bow-Tie'],
   },
   {
-    num: '06',
     title: 'Audit & Inspection',
     desc: 'Independent, thorough HSE audits that deliver clear, actionable findings — ensuring regulatory compliance and driving continuous performance improvement.',
     tags: ['Compliance', 'Gap Analysis', 'Reporting'],
@@ -58,7 +52,7 @@ export default function Services() {
   return (
     <section id="services" className="py-24 bg-paper">
       <Container>
-        <ClauseTag num="02" label="What We Do" className="mb-6" />
+        <ClauseTag label="What We Do" className="mb-6" />
         <h2 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,4rem)] leading-[0.98] tracking-tight text-ink mb-12">
           Comprehensive{' '}
           <span className="relative inline-block">
@@ -74,25 +68,24 @@ export default function Services() {
         <div>
           {services.map((s, i) => (
             <motion.div
-              key={s.num}
+              key={s.title}
               custom={i}
               variants={rowVariants}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.1 }}
-              className="group grid grid-cols-[auto_1fr] md:grid-cols-[6rem_1fr_20rem] gap-x-6 gap-y-3 items-start py-8 border-b border-line transition-colors duration-300 hover:bg-paper-raised px-4 -mx-4"
+              className="group relative grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_22rem] gap-x-10 gap-y-3 items-start py-8 border-b border-line transition-colors duration-300 hover:bg-paper-raised px-4 -mx-4"
             >
-              <span className="font-data text-3xl md:text-4xl text-ink-soft group-hover:text-signal transition-colors duration-300 tabular-nums">
-                {s.num}
-              </span>
-              <h3 className="font-head font-bold text-xl md:text-2xl text-ink self-center">
-                {s.title}
-              </h3>
-              <p className="col-span-2 md:col-span-1 font-body text-sm text-ink-soft leading-[1.8]">
-                {s.desc}
-                <span className="block mt-3 font-data text-xs uppercase tracking-[0.08em] text-steel">
+              <div>
+                <h3 className="font-head font-bold text-2xl md:text-3xl text-ink group-hover:text-signal transition-colors duration-300">
+                  {s.title}
+                </h3>
+                <p className="font-data text-xs uppercase tracking-[0.08em] text-steel mt-2">
                   {s.tags.join(' / ')}
-                </span>
+                </p>
+              </div>
+              <p className="font-body text-sm text-ink-soft leading-[1.8]">
+                {s.desc}
               </p>
             </motion.div>
           ))}

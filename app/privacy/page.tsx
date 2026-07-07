@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       <Nav />
       <main id="main-content" className="min-h-screen bg-paper">
         <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-line">
-          <ClauseTag num="08" label="Legal" className="mb-6" />
+          <ClauseTag label="Legal" className="mb-6" />
           <h1 className="font-head font-extrabold uppercase text-[2.8rem] max-md:text-[2rem] text-ink leading-[1.1]">
             Privacy Policy
           </h1>

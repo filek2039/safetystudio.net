@@ -6,7 +6,7 @@ export default function FreeTools() {
   return (
     <section id="tools" className="py-24 bg-paper">
       <Container className="max-w-3xl">
-        <ClauseTag num="05" label="Free HSE Tools" className="mb-6" />
+        <ClauseTag label="Free HSE Tools" className="mb-6" />
         <h2 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,3.6rem)] leading-[0.98] tracking-tight text-ink mb-4">
           Practical{' '}
           <span className="relative inline-block">

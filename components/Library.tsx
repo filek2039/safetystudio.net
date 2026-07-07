@@ -6,7 +6,7 @@ export default function Library() {
   return (
     <section id="library" className="py-24 bg-paper">
       <Container className="max-w-3xl">
-        <ClauseTag num="06" label="Safety Resource Library" className="mb-6" />
+        <ClauseTag label="Safety Resource Library" className="mb-6" />
         <h2 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,3.6rem)] leading-[0.98] tracking-tight text-ink mb-4">
           Ready-to-Use{' '}
           <span className="relative inline-block">

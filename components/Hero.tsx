@@ -23,7 +23,7 @@ export default function Hero() {
         animate="show"
       >
         <motion.div variants={item} className="mb-8">
-          <ClauseTag num="01" label="Health · Safety · Environment" />
+          <ClauseTag label="Health · Safety · Environment" />
         </motion.div>
 
         <motion.h1

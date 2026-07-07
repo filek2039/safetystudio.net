@@ -51,7 +51,7 @@ export default function BlogIndex() {
         {/* Header */}
         <section className="pt-36 pb-16">
           <Container className="max-w-3xl">
-            <ClauseTag num="07" label="HSE Insights" className="mb-6" />
+            <ClauseTag label="HSE Insights" className="mb-6" />
             <h1 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,3.6rem)] leading-[0.98] tracking-tight text-ink mb-4">
               Practical Safety{' '}
               <span className="relative inline-block">

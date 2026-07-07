@@ -27,7 +27,7 @@ export default function Contact() {
 
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
             <div>
-              <ClauseTag num="04" label="Get Started" className="mb-6" />
+              <ClauseTag label="Get Started" className="mb-6" />
               <h2 className="font-head font-extrabold uppercase text-[clamp(1.8rem,3.5vw,2.8rem)] text-ink leading-[1.05] mb-4">
                 Ready to Build a<br />
                 <span className="relative inline-block">

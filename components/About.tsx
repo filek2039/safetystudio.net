@@ -32,7 +32,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "circOut" }}
         >
-          <ClauseTag num="03" label="Why Safety Studio" className="mb-6" />
+          <ClauseTag label="Why Safety Studio" className="mb-6" />
           <h2 className="font-head font-extrabold uppercase text-[clamp(2.2rem,5vw,3.6rem)] leading-[0.98] tracking-tight text-ink mb-6">
             A Partner You Can{' '}
             <span className="relative inline-block">
