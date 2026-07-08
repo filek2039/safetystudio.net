@@ -33,8 +33,9 @@
   - "How to Run an Effective Safety Moment" (cross-links Safety Moment Library)
   - "Understanding HAZOP: A Practical Guide" (cross-links consultancy service)
   - "LTIF vs TRCF: What's the Difference?" (cross-links calculator)
-- [ ] **Contact form** — Replace/supplement mailto CTA with a form (Formspree or Web3Forms). File: `components/ContactForm.tsx`, update `components/Contact.tsx`.
-- [ ] **Services detail expansion** — Add expandable bullet points to each service card. File: `components/Services.tsx`.
-- [ ] **FAQ section** — Accordion FAQ targeting HSE search queries + `FAQPage` JSON-LD schema. File: `components/FAQ.tsx`, insert between About and Contact.
-- [ ] **Social proof / testimonials** — Industries served strip or client testimonials in About section. File: `components/About.tsx`.
-- [ ] **Framer Motion reduced-motion in components** — Use `useReducedMotion()` hook to conditionally disable animations in Hero, SectionHeader, Services, About, Contact, Button, ToolCard.
+- [x] **Contact form** — DONE 2026-07: Web3Forms-backed `components/ContactForm.tsx` live on `/about/`, verified end-to-end in production (key: `NEXT_PUBLIC_WEB3FORMS_KEY` in `.env.local` + Cloudflare Pages env var; `api.web3forms.com` whitelisted in `public/_headers` CSP `connect-src`).
+- [x] **FAQ section** — DONE 2026-07: `components/FAQ.tsx` + `data/faq.ts` (6 owner-reviewed Q&As) with `FAQPage` JSON-LD on `/about/`.
+- [ ] **Services detail expansion** — Add expandable bullet points to each service row. File: `components/Services.tsx`.
+- [ ] **Social proof / case studies** — PARKED by owner until real anonymized metrics exist; placeholder safety statistics must never deploy. Structure spec in `plan/growth-phase-plan.md` (untracked, local).
+- [ ] **Framer Motion → CSS migration** — descoped from the 2026-07 redesign (14 files import it, incl. mobile-menu focus trap and AnimatePresence transitions); needs its own careful pass. `useReducedMotion()` is already applied in the components that animate.
+- [ ] **SEO next steps** — article cluster (see suggestions above), `Organization` JSON-LD with the new logo, Search Console sitemap submission, blog RSS feed.

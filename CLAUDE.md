@@ -51,7 +51,9 @@ SafetyStudio.net/
 │   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
 │   ├── Library.tsx              # Safety Moment Library sarmalayıcısı
 │   ├── About.tsx                # Hakkımızda — asimetrik 7/5 grid + pull-quote
-│   ├── Contact.tsx              # İletişim paneli (hazard-stripe üst kenar, mailto CTA)
+│   ├── FAQ.tsx                  # SSS — native details/summary akordeon (JS yok)
+│   ├── Contact.tsx              # İletişim paneli (hazard-stripe üst kenar, form + mailto)
+│   ├── ContactForm.tsx          # Web3Forms formu — anahtar yoksa null döner (mailto fallback)
 │   ├── Footer.tsx               # 3-kolonlu footer
 │   ├── LegacyHashRedirect.tsx   # Eski /#services vb. hash linklerini yeni rotalara yönlendirir
 │   ├── ThemeToggle.tsx          # data-theme + localStorage tema düğmesi
@@ -68,11 +70,14 @@ SafetyStudio.net/
 │       └── SignalButton.tsx     # CTA: solid (turuncu) / text (altı çizili) varyantları
 ├── brand/                       # Logo brand pack — SVG varyantları + BRAND.md kullanım rehberi
 ├── data/
-│   └── safetyMoments.ts         # Safety Moment veri deposu (UI bağımlılığı yok)
+│   ├── safetyMoments.ts         # Safety Moment veri deposu (UI bağımlılığı yok)
+│   └── faq.ts                   # SSS içeriği — FAQ.tsx VE FAQPage JSON-LD aynı diziden beslenir
 ├── lib/
 │   └── irCalculations.ts        # Incident Rate hesaplama — saf fonksiyonlar
 ├── public/
-│   └── robots.txt               # Cloudflare'e kopyalanır
+│   ├── robots.txt               # Cloudflare'e kopyalanır
+│   ├── favicon.ico              # 16+32px legacy favicon (bariyer istifi)
+│   └── _headers                 # Cloudflare Pages security header'ları + CSP (bkz. Güvenlik)
 ├── out/                         # Build çıktısı — elle düzenleme
 ├── next.config.mjs              # output:'export', trailingSlash:true, images.unoptimized
 ├── tailwind.config.ts           # Renk tokenleri ve font değişkenleri
@@ -273,15 +278,8 @@ Bu proje statik bir site olduğu için sunucu taraflı saldırılar geçerli de�
 - `mailto:` linklerinde e-posta adresini açıkça yaz — obfuscation gerekmez (statik site)
 
 **Cloudflare Güvenliği:**
-- HTTP Security Header'lar Cloudflare dashboard'dan ya da `_headers` dosyasıyla yönetilir
-- Önerilen header'lar (Cloudflare Pages `public/_headers` dosyasına ekle):
-  ```
-  /*
-    X-Frame-Options: DENY
-    X-Content-Type-Options: nosniff
-    Referrer-Policy: strict-origin-when-cross-origin
-    Permissions-Policy: camera=(), microphone=(), geolocation=()
-  ```
+- HTTP Security Header'lar `public/_headers` dosyasında tanımlı (CSP dahil) ve Cloudflare Pages tarafından uygulanır
+- ⚠️ **CSP tuzağı:** `_headers` yalnızca Cloudflare'de etkilidir, `next dev` onu YOKSAYAR. İstemcinin konuştuğu her yeni harici servis (fetch/script/img) ilgili CSP direktifine eklenmeli — yoksa localhost'ta çalışır, canlıda sessizce bloklanır. (Web3Forms bu şekilde `connect-src`'a eklendi, 2026-07.)
 - `robots.txt` `public/` klasöründe mevcut — hassas path'leri burada `Disallow` et
 
 **Bağımlılık Güvenliği:**
@@ -309,11 +307,13 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 
 | Görev | Dosyalar | Öncelik |
 |-------|----------|---------|
-| FAQ bölümü | `components/FAQ.tsx` + `FAQPage` JSON-LD | Orta |
+| Sosyal kanıt / vaka çalışmaları | `components/About.tsx` — sahibinden gerçek metrik bekliyor, placeholder istatistik DEPLOY EDİLMEZ | Orta (park) |
+| SEO içerik kümesi + Organization JSON-LD + Search Console | `app/blog/*` | Orta |
 | Blog içerik genişletme | `app/blog/[slug]/page.tsx` | Düşük |
-| İletişim formu | `components/ContactForm.tsx`, `components/Contact.tsx` | Düşük |
 | Servis kartı detayları | `components/Services.tsx` | Düşük |
-| Sosyal kanıt / referanslar | `components/About.tsx` | Düşük |
+| Framer Motion → CSS geçişi | tüm bileşenler (ayrı, dikkatli bir geçiş olarak) | Düşük |
+
+✅ Tamamlananlar (2026-07): FAQ (`components/FAQ.tsx` + `data/faq.ts`, FAQPage JSON-LD) ve iletişim formu (`components/ContactForm.tsx`, Web3Forms) canlıda çalışıyor. Form anahtarı: `.env.local` + Cloudflare Pages env var `NEXT_PUBLIC_WEB3FORMS_KEY`.
 
 ---
 
@@ -336,6 +336,8 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 ## Notlar
 
 - Site e-postası: `safety@safetystudio.net`
+- İletişim formu Web3Forms üzerinden çalışır; public anahtar `NEXT_PUBLIC_WEB3FORMS_KEY` (lokalde `.env.local`, canlıda Cloudflare Pages env var). Anahtar tanımsızsa `ContactForm` null döner ve yalnızca mailto görünür.
+- Deploy Git-bağlantılı: `main`'e her push Cloudflare Pages build'ini otomatik tetikler
 - Cloudflare deploy: `wrangler.toml` → `name = "safetystudio"`, `assets.directory = "out"`, `compatibility_date = "2025-01-01"`
 - `lib/irCalculations.ts` saf hesaplama fonksiyonları içerir, UI bağımlılığı yoktur
 - `data/safetyMoments.ts` statik veri deposudur, doğrudan import edilir
