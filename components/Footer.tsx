@@ -55,7 +55,7 @@ export default function Footer() {
             Industries We Serve
           </div>
           <p className="font-body text-ink-soft text-xs leading-relaxed">
-            Oil &amp; Gas, Construction, Manufacturing, Energy, Logistics &amp; Transportation, Mining.
+            Oil &amp; Gas, Construction, Manufacturing, Energy, Logistics &amp; Transportation.
           </p>
           <p className="font-body text-ink-soft text-xs leading-relaxed mt-3">
             ISO 45001 &amp; ISO 14001 aligned services.

@@ -74,6 +74,8 @@ h1, h2, h3 {
 /* ─── Input / Select base styles ─────────────────────────────────────────── */
 input[type="number"],
 input[type="text"],
+input[type="email"],
+textarea,
 select {
   background: var(--input-bg);
   border: 1px solid var(--input-border);
@@ -91,15 +93,23 @@ select {
 
 input[type="number"]:focus-visible,
 input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+textarea:focus-visible,
 select:focus-visible {
   border-color: rgb(var(--signal));
   outline: 2px solid rgb(var(--signal));
   outline-offset: 2px;
 }
 
-input[type="number"]::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: var(--input-placeholder);
   opacity: 0.7;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 select option {

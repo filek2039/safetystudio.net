@@ -1,8 +1,8 @@
 'use client'
 import { motion } from 'framer-motion'
 import Container from './ui/Container'
-import SignalButton from './ui/SignalButton'
 import ClauseTag from './ui/ClauseTag'
+import ContactForm from './ContactForm'
 
 export default function Contact() {
   return (
@@ -25,7 +25,7 @@ export default function Contact() {
             HSE
           </div>
 
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+          <div className="relative z-10 flex flex-col md:flex-row items-start justify-between gap-10">
             <div>
               <ClauseTag label="Get Started" className="mb-6" />
               <h2 className="font-head font-extrabold uppercase text-[clamp(1.8rem,3.5vw,2.8rem)] text-ink leading-[1.05] mb-4">
@@ -41,13 +41,12 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 flex-shrink-0">
-              <SignalButton href="mailto:safety@safetystudio.net" variant="solid" className="font-data text-base">
-                safety@safetystudio.net
-              </SignalButton>
-              <SignalButton href="/services/" variant="text">
-                View All Services
-              </SignalButton>
+            <div className="w-full md:max-w-[440px] flex-shrink-0">
+              <ContactForm />
+              <p className="font-data text-xs text-ink-soft mt-4">
+                Or write to us directly:{' '}
+                <a href="mailto:safety@safetystudio.net" className="text-signal underline decoration-signal/40 underline-offset-4 hover:decoration-signal">safety@safetystudio.net</a>
+              </p>
             </div>
           </div>
         </motion.div>
