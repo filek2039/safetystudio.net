@@ -75,7 +75,9 @@ export default function ContactForm() {
 
       <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <SignalButton variant="solid">{status === 'sending' ? 'Sending…' : 'Send message'}</SignalButton>
+      <SignalButton variant="solid" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending…' : 'Send Message'}
+      </SignalButton>
 
       <p aria-live="polite" className="font-data text-xs text-danger min-h-[1rem]">
         {status === 'error' ? 'Something went wrong — please email us directly at safety@safetystudio.net.' : ''}

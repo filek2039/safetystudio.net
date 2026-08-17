@@ -88,13 +88,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
+      data-theme="light"
       className={`${cormorant.variable} ${dmSans.variable} ${bigShoulders.variable} ${plexSans.variable} ${plexMono.variable}`}
     >
       {/* Anti-flash: read stored theme before first paint */}
       <head>
+        <meta name="theme-color" content="#F4F2EC" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('theme')==='dark'?'dark':'light';document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#14181D':'#F4F2EC');}catch(e){}})();`,
           }}
         />
       </head>

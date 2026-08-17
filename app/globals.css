@@ -2,48 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Dark theme ("night shift" variant) ──────────────────────────────────── */
+/* ─── Light theme ("engineering paper", default) ─────────────────────────── */
 :root {
-  --paper:        20 24 29;     /* #14181D graphite */
-  --paper-raised: 27 33 41;     /* #1B2129 */
-  --ink:          233 230 222;  /* #E9E6DE */
-  --ink-soft:     154 165 177;  /* #9AA5B1 */
-  --line:         42 50 60;     /* #2A323C */
-  --signal:       255 106 61;   /* #FF6A3D safety orange (dark-adjusted) */
-  --steel:        127 163 192;  /* #7FA3C0 */
+  color-scheme: light;
+  --paper:        244 242 236;  /* #F4F2EC warm paper */
+  --paper-raised: 253 252 249;  /* #FDFCF9 */
+  --ink:          22 29 38;     /* #161D26 */
+  --ink-soft:     76 88 102;    /* #4C5866 */
+  --line:         216 211 200;  /* #D8D3C8 */
+  --signal:       184 64 29;    /* #B8401D safety orange — WCAG AA */
+  --steel:        51 82 107;    /* #33526B */
 
-  /* Benchmark semantic colors (calculator/library "copied" state). Tailwind's
-     dark: variant isn't wired to [data-theme] in this project, so these are
-     plain tokens like the rest — values chosen for 4.5:1+ on paper-raised. */
-  --ok:           16 185 129;    /* emerald-500 */
-  --warn:         245 158 11;   /* amber-500 */
-  --danger:       248 113 113;  /* red-400 — red-500 is 4.31:1, fails AA */
+  --ok:           4 120 87;
+  --warn:         146 64 14;
+  --danger:       185 28 28;
 
-  /* Form input helpers — aligned to Field Standard tokens (calculator, Phase 4) */
-  --input-bg:           rgba(233, 230, 222, 0.04);
+  --input-bg:           rgba(22, 29, 38, 0.03);
   --input-border:       rgb(var(--line));
   --input-text:         rgb(var(--ink));
   --input-placeholder:  rgb(var(--ink-soft));
   --select-option-bg:   rgb(var(--paper-raised));
 }
 
-/* ─── Light theme ("engineering paper", primary) ──────────────────────────── */
-[data-theme="light"] {
-  --paper:        244 242 236;  /* #F4F2EC warm paper */
-  --paper-raised: 253 252 249;  /* #FDFCF9 */
-  --ink:          22 29 38;     /* #161D26 */
-  --ink-soft:     76 88 102;    /* #4C5866 */
-  --line:         216 211 200;  /* #D8D3C8 */
-  --signal:       184 64 29;    /* #B8401D safety orange, darkened from #D64A21 for WCAG AA
-                                    (original was 3.86:1 on paper — fails 4.5:1 normal-text AA;
-                                    this hits 4.95:1 on paper, 5.40:1 on paper-raised) */
-  --steel:        51 82 107;    /* #33526B */
+/* ─── Dark theme ("night shift" variant) ──────────────────────────────────── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:        20 24 29;
+  --paper-raised: 27 33 41;
+  --ink:          233 230 222;
+  --ink-soft:     154 165 177;
+  --line:         42 50 60;
+  --signal:       255 106 61;
+  --steel:        127 163 192;
 
-  --ok:           4 120 87;      /* emerald-700 — emerald-500 is 2.27:1 on paper, fails badly */
-  --warn:         146 64 14;     /* amber-800 — amber-500 is 1.92:1 on paper, fails badly */
-  --danger:       185 28 28;     /* red-700 — red-500 is 3.36:1 on paper, fails AA */
+  --ok:           16 185 129;
+  --warn:         245 158 11;
+  --danger:       248 113 113;
 
-  --input-bg:           rgba(22, 29, 38, 0.03);
+  --input-bg:           rgba(233, 230, 222, 0.04);
   --input-border:       rgb(var(--line));
   --input-text:         rgb(var(--ink));
   --input-placeholder:  rgb(var(--ink-soft));

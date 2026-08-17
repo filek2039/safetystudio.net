@@ -207,7 +207,7 @@ export default function IncidentRateCalc() {
               autoComplete="off"
               value={inputs.hours || ''}
               onChange={update('hours')}
-              placeholder="e.g. 1000000"
+              placeholder="e.g. 1,000,000…"
               min="0"
             />
           </Field>
@@ -335,7 +335,7 @@ export default function IncidentRateCalc() {
               autoComplete="off"
               value={inputs.km || ''}
               onChange={update('km')}
-              placeholder="e.g. 5000000"
+              placeholder="e.g. 5,000,000…"
               min="0"
             />
           </Field>
@@ -394,7 +394,7 @@ export default function IncidentRateCalc() {
       <div className="flex justify-end pt-2 no-print">
         <button
           onClick={handleCopyResults}
-          className={`font-data text-[0.68rem] tracking-[0.1em] uppercase px-4 py-2 border transition-all duration-200 ${
+          className={`font-data text-[0.68rem] tracking-[0.1em] uppercase px-4 py-2 border transition-colors duration-200 ${
             copied
               ? 'text-ok border-ok/40'
               : 'text-ink-soft border-line hover:text-signal hover:border-signal/40'

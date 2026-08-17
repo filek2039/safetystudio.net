@@ -56,12 +56,12 @@ export default function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-8 lg:px-16 py-5 flex justify-between items-center bg-paper border-b border-line transition-shadow duration-300 ${
+      className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-line bg-paper/95 px-6 py-4 backdrop-blur-md transition-shadow duration-300 md:px-8 lg:px-16 ${
         scrolled ? 'shadow-[0_1px_24px_rgba(0,0,0,0.08)]' : ''
       }`}
     >
       {/* Logo */}
-      <a href="/" className="font-head font-extrabold uppercase text-xl tracking-tight text-ink flex items-center gap-2.5">
+      <a href="/" className="flex items-center gap-2.5 font-head text-xl font-extrabold uppercase tracking-tight text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal">
         <BrandMark className="w-[22px] h-[22px]" />
         <span>
           Safety<span className="text-signal">Studio</span>
@@ -75,7 +75,7 @@ export default function Nav() {
             key={l.href}
             href={l.href}
             aria-current={isActive(l.href) ? 'page' : undefined}
-            className={`font-body text-sm transition-colors duration-200 pb-0.5 border-b-2 ${
+            className={`border-b-2 pb-1 font-body text-sm transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal ${
               isActive(l.href)
                 ? 'text-ink border-signal'
                 : 'text-ink-soft border-transparent hover:text-ink'
@@ -87,7 +87,7 @@ export default function Nav() {
         <ThemeToggle />
         <a
           href="/about/#contact"
-          className="bg-signal text-paper font-data text-sm font-medium px-5 py-2 transition-opacity duration-200 hover:opacity-90"
+          className="bg-signal px-5 py-2.5 font-data text-sm font-medium text-paper transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
         >
           Get in Touch
         </a>
@@ -98,12 +98,12 @@ export default function Nav() {
         <ThemeToggle />
         <button
           ref={hamburgerRef}
-          className="text-ink p-1"
+          className="flex h-10 w-10 items-center justify-center border border-line text-ink transition-colors duration-150 hover:border-signal/50 hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg aria-hidden="true" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             {menuOpen ? (
               <path d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -123,7 +123,7 @@ export default function Nav() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "circOut" }}
-            className="absolute top-full left-0 right-0 bg-paper border-b border-line overflow-hidden md:hidden"
+            className="absolute left-0 right-0 top-full max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-b border-line bg-paper md:hidden"
             role="dialog"
             aria-label="Mobile navigation"
           >
@@ -134,7 +134,7 @@ export default function Nav() {
                   href={l.href}
                   onClick={closeMenu}
                   aria-current={isActive(l.href) ? 'page' : undefined}
-                  className={`font-body text-sm transition-colors ${
+                  className={`py-2 font-body text-base transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal ${
                     isActive(l.href) ? 'text-signal' : 'text-ink-soft hover:text-ink'
                   }`}
                 >

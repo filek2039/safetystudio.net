@@ -5,6 +5,7 @@ interface SignalButtonProps {
   variant?: 'solid' | 'text'
   href?: string
   onClick?: () => void
+  disabled?: boolean
   children: React.ReactNode
   className?: string
 }
@@ -19,12 +20,13 @@ export default function SignalButton({
   variant = 'solid',
   href,
   onClick,
+  disabled = false,
   children,
   className = '',
 }: SignalButtonProps) {
   const base =
     variant === 'solid'
-      ? 'inline-block px-7 py-3 bg-signal text-paper font-data text-sm font-medium tracking-wide transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
+      ? 'inline-block px-7 py-3 bg-signal text-paper font-data text-sm font-medium tracking-wide transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
       : 'inline-block px-1 py-3 text-ink font-data text-sm font-medium tracking-wide underline decoration-signal decoration-2 underline-offset-4 transition-colors duration-200 hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
 
   const combined = `${base} ${className}`
@@ -46,6 +48,8 @@ export default function SignalButton({
   return (
     <motion.button
       onClick={onClick}
+      disabled={disabled}
+      aria-disabled={disabled}
       className={combined}
       whileHover={{ y: -2 }}
       whileTap={{ y: 0 }}

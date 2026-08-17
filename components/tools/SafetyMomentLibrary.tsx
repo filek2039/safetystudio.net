@@ -40,7 +40,7 @@ export default function SafetyMomentLibrary() {
                 category: cat.id,
               })
             }}
-            className={`font-data text-[0.68rem] tracking-[0.08em] uppercase px-3.5 py-1.5 transition-all duration-200 whitespace-nowrap border ${
+            className={`font-data text-[0.68rem] tracking-[0.08em] uppercase px-3.5 py-1.5 transition-colors duration-200 whitespace-nowrap border ${
               activeCat === cat.id
                 ? 'text-signal border-signal/50 bg-paper-raised'
                 : 'text-ink-soft border-transparent hover:text-ink hover:border-line'
@@ -68,7 +68,7 @@ export default function SafetyMomentLibrary() {
             >
               <button
                 onClick={() => handleCopy(moment.id, moment.body)}
-                className={`absolute top-3 right-3 font-data text-[0.62rem] tracking-[0.1em] uppercase px-2.5 py-1 border transition-all duration-200 ${
+                className={`absolute top-3 right-3 font-data text-[0.62rem] tracking-[0.1em] uppercase px-2.5 py-1 border transition-colors duration-200 ${
                   copied === moment.id
                     ? 'text-ok border-ok/40'
                     : 'text-ink-soft border-line hover:text-signal hover:border-signal/40'
