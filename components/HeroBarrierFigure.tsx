@@ -176,7 +176,6 @@ export default function HeroBarrierFigure({ className = '' }: HeroBarrierFigureP
       <button
         type="button"
         onClick={() => setPaused((p) => !p)}
-        aria-pressed={paused}
         className="bs-pause mt-3 mx-auto block font-data text-[0.7rem] uppercase tracking-[0.15em] text-ink-soft hover:text-signal transition-colors px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal"
       >
         {paused ? 'Play animation' : 'Pause animation'}

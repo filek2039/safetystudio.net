@@ -57,7 +57,8 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <HeroBarrierFigure className="max-xl:hidden absolute right-16 top-[calc(50%+3.5rem)] -translate-y-1/2 w-[min(470px,36vw)] z-0" />
+      {/* Below xl the figure stacks under the copy; at xl+ it sits beside the headline */}
+      <HeroBarrierFigure className="relative z-0 w-full max-w-[440px] pb-14 xl:absolute xl:right-16 xl:top-[calc(50%+3.5rem)] xl:-translate-y-1/2 xl:w-[min(470px,36vw)] xl:max-w-none xl:pb-0" />
 
       <div className="hazard-stripe hero-stripe-draw relative z-10" />
     </section>
