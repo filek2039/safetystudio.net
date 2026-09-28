@@ -146,6 +146,168 @@ input[type="number"]::-webkit-outer-spin-button {
   );
 }
 
+/* ─── Hero motion ─────────────────────────────────────────────────────────── */
+/* Barrier-stack figure (components/HeroBarrierFigure.tsx) + hero stripe wipe.
+   Every element's resting style IS its final frame; the keyframes only
+   describe how it arrives. Reduced motion removes the animations outright. */
+.hero-stripe-draw {
+  transform-origin: left;
+  animation: bs-wipe 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+@keyframes bs-wipe { from { transform: scaleX(0); } }
+
+.bs-draw {
+  stroke-dasharray: 1;
+  animation: bs-draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes bs-draw { from { stroke-dashoffset: 1; } }
+
+.bs-fade { animation: bs-fade 0.6s ease-out both; }
+@keyframes bs-fade { from { opacity: 0; } }
+
+.bs-bar {
+  transform-box: fill-box;
+  animation: bs-bar-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes bs-bar-in {
+  from { opacity: 0; transform: translateX(var(--bs-from, -32px)); }
+}
+
+/* Hazard cycle — loops forever once the stack has built. Every looping
+   element shares one period and start, so the keyframe percentages ARE the
+   timeline:  0–10% source appears · 10–34% fall · 34% strike ·
+   34–55% recoil, shockwave, sparks · 78–92% trace clears · rest idle. */
+.bs-figure {
+  --bs-cycle: 4.5s;
+  --bs-start: 1.9s;
+}
+.bs-src,
+.bs-trace-reveal,
+.bs-fall,
+.bs-head,
+.bs-flash,
+.bs-ring,
+.bs-sparks,
+.bs-held,
+.bs-shake {
+  animation-duration: var(--bs-cycle);
+  animation-delay: calc(var(--bs-start) + var(--d, 0s));
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+.bs-src { animation-name: bs-src; }
+@keyframes bs-src {
+  0%        { opacity: 0; }
+  8%, 80%   { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+
+/* The trace: the mask rect grows downward, accelerating like a fall */
+.bs-trace-reveal {
+  animation-name: bs-trace;
+  transform-box: fill-box;
+  transform-origin: top;
+}
+@keyframes bs-trace {
+  0%, 10%   { transform: scaleY(0); opacity: 1; animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  34%, 78%  { transform: scaleY(1); opacity: 1; }
+  92%, 100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* The hazard head rides the leading edge of the trace (same easing) */
+.bs-fall { animation-name: bs-fall; }
+@keyframes bs-fall {
+  0%, 10%    { transform: translateY(0); animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45); }
+  34%, 100%  { transform: translateY(152px); }
+}
+.bs-head { opacity: 0; animation-name: bs-head; }
+@keyframes bs-head {
+  0%, 9%     { opacity: 0; }
+  11%, 33.5% { opacity: 1; }
+  34.5%, 100% { opacity: 0; }
+}
+
+/* Strike flash at the barrier face */
+.bs-flash {
+  opacity: 0;
+  animation-name: bs-flash;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes bs-flash {
+  0%, 33.9%  { opacity: 0; transform: scale(0.4); }
+  34%        { opacity: 1; transform: scale(0.6); }
+  37%        { opacity: 0.85; transform: scale(1.9); }
+  44%, 100%  { opacity: 0; transform: scale(2.4); }
+}
+
+/* Shockwave — three rings, staggered via --d */
+.bs-ring {
+  opacity: 0;
+  animation-name: bs-ring;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes bs-ring {
+  0%, 33.9%  { opacity: 0; transform: scale(0.3); }
+  34%        { opacity: 1; transform: scale(0.3); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
+  56%, 100%  { opacity: 0; transform: scale(4.2); }
+}
+
+/* Sparks thrown back up off the face */
+.bs-sparks {
+  opacity: 0;
+  animation-name: bs-sparks;
+  transform-box: view-box;
+  transform-origin: 215px 190px;
+}
+@keyframes bs-sparks {
+  0%, 33.9%  { opacity: 0; transform: scale(0.5); }
+  34%        { opacity: 1; transform: scale(0.6); animation-timing-function: cubic-bezier(0.1, 0.7, 0.3, 1); }
+  46%, 100%  { opacity: 0; transform: scale(1.7); }
+}
+
+/* The held barrier takes the hit: a hard 10-unit recoil with a flare,
+   a rebound, a settle — and it holds */
+.bs-held { animation-name: bs-held; }
+@keyframes bs-held {
+  0%, 34%   { transform: translateY(0); filter: brightness(1); }
+  36%       { transform: translateY(10px); filter: brightness(1.55); }
+  41%       { transform: translateY(-4px); filter: brightness(1.2); }
+  46%       { transform: translateY(2px); filter: brightness(1.05); }
+  51%, 100% { transform: translateY(0); filter: brightness(1); }
+}
+
+/* The rest of the stack shudders with the energy of the strike */
+.bs-shake { animation-name: bs-shake; }
+@keyframes bs-shake {
+  0%, 34.5% { transform: translate(0, 0); }
+  36.5%     { transform: translate(-3px, 1px); }
+  38.5%     { transform: translate(3px, -1px); }
+  40.5%     { transform: translate(-2px, 0); }
+  43%       { transform: translate(1px, 0); }
+  46%, 100% { transform: translate(0, 0); }
+}
+
+/* Pause control (WCAG 2.2.2 — the loop runs indefinitely) */
+.bs-paused,
+.bs-paused * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stripe-draw,
+  .bs-figure,
+  .bs-figure * {
+    animation: none !important;
+  }
+  .bs-pause {
+    display: none;
+  }
+}
+
 /* ─── Print stylesheet ────────────────────────────────────────────────────
    HSE managers paste calculator output into incident reports. Strip site
    chrome and decoration so a printed page is a clean, ink-cheap record of
