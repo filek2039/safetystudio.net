@@ -146,6 +146,67 @@ input[type="number"]::-webkit-outer-spin-button {
   );
 }
 
+/* ─── Hero motion ─────────────────────────────────────────────────────────── */
+/* Barrier-stack figure (components/HeroBarrierFigure.tsx) + hero stripe wipe.
+   Every element's resting style IS its final frame; the keyframes only
+   describe how it arrives. Reduced motion removes the animations outright. */
+.hero-stripe-draw {
+  transform-origin: left;
+  animation: bs-wipe 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.3s both;
+}
+@keyframes bs-wipe { from { transform: scaleX(0); } }
+
+.bs-draw {
+  stroke-dasharray: 1;
+  animation: bs-draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes bs-draw { from { stroke-dashoffset: 1; } }
+
+.bs-fade { animation: bs-fade 0.6s ease-out both; }
+@keyframes bs-fade { from { opacity: 0; } }
+
+.bs-bar {
+  transform-box: fill-box;
+  animation: bs-bar-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes bs-bar-in {
+  from { opacity: 0; transform: translateX(var(--bs-from, -32px)); }
+}
+
+/* Hazard trace: the mask rect grows downward, accelerating like a fall */
+.bs-trace-reveal {
+  transform-box: fill-box;
+  transform-origin: top;
+  animation: bs-reveal 1s cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+@keyframes bs-reveal { from { transform: scaleY(0); } }
+
+.bs-impact {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bs-impact 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes bs-impact {
+  0%   { opacity: 0; transform: scale(0.3); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+/* The held barrier absorbs the hit — a 3-unit give, then recovers */
+.bs-held { animation: bs-held 0.5s cubic-bezier(0.3, 0, 0.3, 1) both; }
+@keyframes bs-held {
+  30% { transform: translateY(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stripe-draw,
+  .bs-figure,
+  .bs-figure * {
+    animation: none !important;
+  }
+}
+
 /* ─── Print stylesheet ────────────────────────────────────────────────────
    HSE managers paste calculator output into incident reports. Strip site
    chrome and decoration so a printed page is a clean, ink-cheap record of

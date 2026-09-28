@@ -1,17 +1,20 @@
 'use client'
-import { motion } from 'framer-motion'
-import SignalButton from './ui/SignalButton'
+import { motion, useReducedMotion } from 'framer-motion'
+import SignalButton from '@/components/ui/SignalButton'
+import HeroBarrierFigure from '@/components/HeroBarrierFigure'
 
 const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
 }
-const item = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.9 } },
-}
 
 export default function Hero() {
+  const reduce = useReducedMotion()
+  const item = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 32 },
+    show: { opacity: 1, y: 0, transition: { duration: reduce ? 0.3 : 0.9 } },
+  }
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-16 max-md:px-6 pt-28 pb-0 overflow-hidden drafting-grid bg-paper">
       {/* Content */}
@@ -29,7 +32,14 @@ export default function Hero() {
           Meets{' '}
           <span className="relative inline-block">
             Expertise
-            <span className="absolute left-0 right-0 -bottom-1 h-[0.12em] bg-signal" aria-hidden="true" />
+            {/* the underline draws in like a rule being inked */}
+            <motion.span
+              className="absolute left-0 right-0 -bottom-1 h-[0.12em] bg-signal origin-left"
+              aria-hidden="true"
+              initial={reduce ? false : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 1.0, ease: [0.65, 0, 0.35, 1] }}
+            />
           </span>
         </motion.h1>
 
@@ -47,7 +57,9 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <div className="hazard-stripe relative z-10" />
+      <HeroBarrierFigure className="max-xl:hidden absolute right-16 top-[calc(50%+3.5rem)] -translate-y-1/2 w-[min(470px,36vw)] z-0" />
+
+      <div className="hazard-stripe hero-stripe-draw relative z-10" />
     </section>
   )
 }
