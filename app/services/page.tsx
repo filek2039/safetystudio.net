@@ -8,7 +8,7 @@ import BackToTop from '@/components/ui/BackToTop'
 export const metadata: Metadata = {
   title: 'HSE Services — Safety Studio',
   description:
-    'AI safety intelligence, digital HSE transformation, training, consultancy, risk analysis, and audit & inspection services for oil & gas, construction, and industrial sectors.',
+    'AI safety intelligence, digital HSE transformation, training, consultancy, risk analysis, incident investigation (Kelvin TOP-SET, ICAM, 5 Whys) and audit & inspection services for oil & gas, construction, and industrial sectors.',
   alternates: { canonical: 'https://safetystudio.net/services/' },
 }
 

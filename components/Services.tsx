@@ -31,6 +31,11 @@ const services = [
     tags: ['HAZOP', 'FMEA', 'Bow-Tie'],
   },
   {
+    title: 'Incident Investigation',
+    desc: 'Independent root cause investigation of incidents and high-potential near misses using Kelvin TOP-SET, ICAM and 5 Whys. We identify failed controls, organisational weaknesses, barrier gaps and underlying system factors, then provide practical corrective actions to prevent recurrence.',
+    tags: ['Kelvin TOP-SET', 'ICAM', '5 Whys'],
+  },
+  {
     title: 'Audit & Inspection',
     desc: 'Independent, thorough HSE audits that deliver clear, actionable findings — ensuring regulatory compliance and driving continuous performance improvement.',
     tags: ['Compliance', 'Gap Analysis', 'Reporting'],

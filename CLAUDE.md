@@ -48,7 +48,7 @@ SafetyStudio.net/
 │   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil focus-trap, ARIA, Escape)
 │   ├── Hero.tsx                 # Tipografik hero (drafting-grid + hazard-stripe; video yok)
 │   ├── HeroBarrierFigure.tsx    # Hero figürü: bariyer istifi + döngüsel tehlike darbesi (CSS, pause düğmesi, reduced-motion statik)
-│   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok)
+│   ├── Services.tsx             # Numaralı indeks satırları (01–07, ikon yok)
 │   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
 │   ├── Library.tsx              # Safety Moment Library sarmalayıcısı
 │   ├── About.tsx                # Hakkımızda — asimetrik 7/5 grid + pull-quote
@@ -131,7 +131,7 @@ Hash-tab router kaldırıldı — her bölüm kendi statik rotasında yaşar (SE
 | Rota | İçerik |
 |------|--------|
 | `/` | Hero (yalnızca) |
-| `/services/` | Services — numaralı indeks (01–06) |
+| `/services/` | Services — numaralı indeks (01–07) |
 | `/tools/` | FreeTools — 3 CalcFrame: Personal Injury · SIF Potential · Motor Vehicle |
 | `/library/` | Safety Moment Library (`#safety-moment-library` anchor) |
 | `/about/` | About + Contact (`#contact` anchor) |
