@@ -6,7 +6,7 @@ Bu dosya Claude'a proje hakkında bağlam sağlar ve her oturumda otomatik okunu
 
 ## Proje Özeti
 
-SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri sunan bir kurumsal web sitesidir. Next.js 14 ile geliştirilmiş olup; servis tanıtımı, blog, ücretsiz araçlar (Incident Rate Calculator, Safety Moment Library) ve iletişim bölümlerinden oluşur. Hedef sektörler: petrol & gaz, inşaat ve endüstriyel tesisler.
+SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri sunan bir kurumsal web sitesidir. Next.js 16 ile geliştirilmiş olup; servis tanıtımı, blog, ücretsiz araçlar (Incident Rate Calculator, Safety Moment Library) ve iletişim bölümlerinden oluşur. Hedef sektörler: petrol & gaz, inşaat ve endüstriyel tesisler.
 
 ---
 
@@ -14,14 +14,14 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 
 | Katman | Teknoloji | Versiyon |
 |--------|-----------|----------|
-| **Framework** | Next.js (App Router) | 14.2.35 |
+| **Framework** | Next.js (App Router) | ^16.4.5 |
 | **Dil** | TypeScript | ^5, strict mode |
 | **Stil** | Tailwind CSS | ^3.4.1 |
 | **Animasyon** | Framer Motion | ^12.38.0 |
 | **Fontlar** | Cormorant Garamond (başlıklar), DM Sans (gövde) | — |
 | **Deploy** | Cloudflare Pages — statik export (`out/`) | — |
 | **Paket Yöneticisi** | npm | — |
-| **Linter** | ESLint (eslint-config-next) | ^8 |
+| **Linter** | ESLint (eslint-config-next) | ^9 |
 
 ---
 
@@ -31,7 +31,7 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 SafetyStudio.net/
 ├── app/                         # YALNIZCA Next.js routing dosyaları
 │   ├── layout.tsx               # Root layout — fontlar (5 adet), OG meta, anti-flash theme script, skip-link
-│   ├── page.tsx                 # Ana sayfa — yalnızca Hero + LegacyHashRedirect
+│   ├── page.tsx                 # Ana sayfa — Hero + HomeOverview + LegacyHashRedirect
 │   ├── globals.css              # Global stiller, tema tokenleri, drafting-grid, print stylesheet
 │   ├── sitemap.ts               # Otomatik sitemap.xml üretimi
 │   ├── not-found.tsx            # Özel 404 sayfası
@@ -45,7 +45,7 @@ SafetyStudio.net/
 │       └── [yeni-slug]/
 │           └── page.tsx         # Yeni blog makaleleri bu şekilde eklenir
 ├── components/                  # Tüm UI bileşenleri burada
-│   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil focus-trap, ARIA, Escape)
+│   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil açılır menü, ARIA, Escape)
 │   ├── Hero.tsx                 # Tipografik hero (drafting-grid + hazard-stripe; video yok)
 │   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok)
 │   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
@@ -99,7 +99,7 @@ npm install
 # Geliştirme sunucusunu başlat (localhost:3000)
 npm run dev
 
-# Statik build al (out/ klasörüne)
+# Statik build al (out/ klasörüne; Webpack)
 npm run build
 
 # Linter çalıştır

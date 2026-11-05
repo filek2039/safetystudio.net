@@ -4,8 +4,6 @@ import DimensionRule from './ui/DimensionRule'
 
 const pathways = [
   {
-    number: '01',
-    eyebrow: 'Advisory & Delivery',
     title: 'Strengthen Your HSE System',
     description:
       'From AI safety intelligence and digital transformation to field audits, risk analysis, and workforce training.',
@@ -13,8 +11,6 @@ const pathways = [
     link: 'Explore Services',
   },
   {
-    number: '02',
-    eyebrow: 'Free Practical Tools',
     title: 'Turn Exposure Data Into Insight',
     description:
       'Calculate personal injury, SIF potential event, and motor vehicle incident rates with report-ready outputs.',
@@ -22,8 +18,6 @@ const pathways = [
     link: 'Use the Calculators',
   },
   {
-    number: '03',
-    eyebrow: 'Field Learning',
     title: 'Lead a Better Safety Moment',
     description:
       'Browse concise, ready-to-use topics designed for toolbox talks, shift briefings, and team conversations.',
@@ -63,13 +57,9 @@ export default function HomeOverview() {
         <div className="grid grid-cols-1 border-l border-line lg:grid-cols-3">
           {pathways.map((pathway) => (
             <article
-              key={pathway.number}
+              key={pathway.title}
               className="group flex min-w-0 flex-col border-b border-r border-line bg-paper px-6 py-8 transition-colors duration-150 hover:bg-paper-raised md:px-8"
             >
-              <div className="mb-10 flex items-center justify-between gap-4 font-data text-xs uppercase tracking-[0.12em] text-ink-soft">
-                <span>{pathway.number}</span>
-                <span className="text-right">{pathway.eyebrow}</span>
-              </div>
               <h3 className="font-head text-3xl font-bold leading-none text-ink transition-colors duration-150 group-hover:text-signal">
                 {pathway.title}
               </h3>
@@ -93,6 +83,25 @@ export default function HomeOverview() {
               <p className="mt-1 font-body text-sm text-ink-soft">{detail}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-20 grid gap-8 border-t border-line pt-10 md:grid-cols-[1fr_2fr]">
+          <div>
+            <ClauseTag label="How We Work" className="mb-5" />
+            <h2 className="font-head text-4xl font-bold uppercase leading-none text-ink">From challenge to action</h2>
+          </div>
+          <ol className="grid gap-8 sm:grid-cols-3">
+            {[
+              ['Understand', 'Discuss your operation, priorities and the challenge you need to address.'],
+              ['Assess', 'Review the relevant risks, systems and field practices together.'],
+              ['Act', 'Agree practical next steps suited to your people and operating context.'],
+            ].map(([title, description]) => (
+              <li key={title}>
+                <h3 className="font-head text-2xl font-bold text-ink">{title}</h3>
+                <p className="mt-2 font-body text-sm leading-relaxed text-ink-soft">{description}</p>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-6 border-l-4 border-signal bg-paper-raised px-6 py-7 sm:flex-row sm:items-center md:px-8">

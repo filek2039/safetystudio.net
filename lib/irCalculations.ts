@@ -77,20 +77,13 @@ export function calculateIR(inputs: IRInputs): IRResults {
   // MVI calculations (independent of hours)
   let mvifr: number | null = null
   let mviFatalFr: number | null = null
-  let mvifrBench = ''
-  let mvifrCite = ''
+  const mvifrBench = ''
+  const mvifrCite = ''
   let mvifrTarget: number | null = null
 
   if (km > 0) {
     mvifr = (mviTotal / km) * 1000000
     mviFatalFr = (mviFatal / km) * 1000000
-    mvifrBench =
-      mvifr <= 2.5
-        ? '✓ Below global avg (≈2.5 per 1M km, road transport)'
-        : mvifr <= 5.0
-        ? '⚠ Above average — driver safety programme recommended'
-        : '✗ Significantly above average — immediate road safety review'
-    mvifrCite = 'Source: IOGP 2022 Safety Performance Indicators — Road Transport'
     mvifrTarget = mvifr * (1 - mviReductionPct / 100)
   }
 
@@ -110,51 +103,12 @@ export function calculateIR(inputs: IRInputs): IRResults {
   const sifpRate = (sifp / hours) * base
   const sifpTarget = sifpRate * (1 - sifpReductionPct / 100)
 
-  let ltifBench: string
-  let trcfBench: string
-  let ltifCite: string
-  let trcfCite: string
-
-  if (isIntl) {
-    ltifBench =
-      ltif <= 1.0
-        ? '✓ Below global avg (≈1.0, oil & gas)'
-        : ltif <= 2.0
-        ? '⚠ Above average — improvement recommended'
-        : '✗ Significantly above average — urgent review'
-    trcfBench =
-      trcf <= 4.5
-        ? '✓ Below industry avg (≈4.5, general)'
-        : trcf <= 7.0
-        ? '⚠ Above average — improvement recommended'
-        : '✗ Significantly above average — urgent review'
-    ltifCite = 'Source: IOGP 2022 Safety Performance Indicators Report'
-    trcfCite = 'Source: HSE UK Industry-Wide Statistics (non-fatal injuries)'
-  } else {
-    ltifBench =
-      ltif <= 1.5
-        ? '✓ Below industry avg (≈1.5, BLS general industry)'
-        : ltif <= 2.5
-        ? '⚠ Above average — improvement recommended'
-        : '✗ Significantly above average — urgent review'
-    trcfBench =
-      trcf <= 3.0
-        ? '✓ Below industry avg (≈3.0, BLS general industry)'
-        : trcf <= 5.0
-        ? '⚠ Above average — improvement recommended'
-        : '✗ Significantly above average — urgent review'
-    ltifCite =
-      'Source: U.S. Bureau of Labor Statistics (BLS), Survey of Occupational Injuries & Illnesses'
-    trcfCite =
-      'Source: U.S. Bureau of Labor Statistics (BLS), Survey of Occupational Injuries & Illnesses'
-  }
-
   const ltifTarget = ltif * (1 - ltifReductionPct / 100)
   const trcfTarget = trcf * (1 - trcfReductionPct / 100)
 
   return {
     lti, trc, ltif, trcf,
-    ltifBench, trcfBench, ltifCite, trcfCite,
+    ltifBench: '', trcfBench: '', ltifCite: '', trcfCite: '',
     ltifTarget, trcfTarget, baseLabel,
     sifpRate, sifpTarget,
     mviTotal, mvifr, mviFatalFr, mvifrBench, mvifrCite, mvifrTarget,

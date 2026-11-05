@@ -1,5 +1,7 @@
 import { ImageResponse } from 'next/og'
 
+export const dynamic = 'force-static'
+
 export const alt = 'SafetyStudio — HSE consultancy, training, risk analysis and audits'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'

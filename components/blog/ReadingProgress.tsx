@@ -8,6 +8,8 @@ export default function ReadingProgress() {
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    // Read the browser preference after hydration and subscribe to changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShouldReduce(mq.matches)
     const update = (e: MediaQueryListEvent) => setShouldReduce(e.matches)
     mq.addEventListener('change', update)

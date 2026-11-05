@@ -16,6 +16,8 @@ export default function TableOfContents() {
     if (!article) return
 
     const headings = Array.from(article.querySelectorAll('h2[id]'))
+    // Headings are only available in the rendered article DOM.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setItems(
       headings.map((h) => ({
         id: h.id,

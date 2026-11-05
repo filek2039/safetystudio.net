@@ -1,11 +1,13 @@
 'use client'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SM_CATEGORIES, SMCategory } from '@/data/safetyMoments'
 
 export default function SafetyMomentLibrary() {
   const [activeCat, setActiveCat] = useState<string>(SM_CATEGORIES[0].id)
   const [copied, setCopied] = useState<string | null>(null)
+  const [copyStatus, setCopyStatus] = useState('')
+  const shouldReduceMotion = useReducedMotion()
 
   const category = SM_CATEGORIES.find((c) => c.id === activeCat) as SMCategory
 
@@ -13,6 +15,7 @@ export default function SafetyMomentLibrary() {
     try {
       await navigator.clipboard.writeText(body)
       setCopied(id)
+      setCopyStatus('Safety moment copied to clipboard.')
       setTimeout(() => setCopied(null), 2000)
       window.gtag?.('event', 'tool_used', {
         tool_name: 'safety_moment_library',
@@ -21,7 +24,7 @@ export default function SafetyMomentLibrary() {
         category: activeCat,
       })
     } catch {
-      // clipboard not available
+      setCopyStatus('Copy failed. Please select the text and copy it manually.')
     }
   }
 
@@ -32,6 +35,8 @@ export default function SafetyMomentLibrary() {
         {SM_CATEGORIES.map((cat) => (
           <button
             key={cat.id}
+            type="button"
+            aria-pressed={activeCat === cat.id}
             onClick={() => {
               setActiveCat(cat.id)
               window.gtag?.('event', 'tool_used', {
@@ -55,9 +60,9 @@ export default function SafetyMomentLibrary() {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCat}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
+          exit={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : -8 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
           className="flex flex-col gap-4"
         >
@@ -88,6 +93,7 @@ export default function SafetyMomentLibrary() {
         </motion.div>
       </AnimatePresence>
 
+      <p role="status" className="sr-only">{copyStatus}</p>
       <p className="font-data text-[0.6rem] text-ink-soft mt-6 text-center">
         These safety moments are for training and awareness purposes. Always follow your site-specific procedures and regulations.
       </p>

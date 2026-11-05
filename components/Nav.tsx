@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import ThemeToggle from './ThemeToggle'
 import BrandMark from './ui/BrandMark'
@@ -18,7 +19,6 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { scrollY } = useScroll()
   const hamburgerRef = useRef<HTMLButtonElement>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 60))
@@ -33,26 +33,12 @@ export default function Nav() {
     if (!menuOpen) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeMenu()
-      // Focus trap
-      if (e.key === 'Tab' && menuRef.current) {
-        const focusable = menuRef.current.querySelectorAll<HTMLElement>('a, button')
-        if (focusable.length === 0) return
-        const first = focusable[0]
-        const last = focusable[focusable.length - 1]
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault()
-          last.focus()
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault()
-          first.focus()
-        }
-      }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen, closeMenu])
 
-  const isActive = (href: string) => pathname === href
+  const isActive = (href: string) => pathname.replace(/\/$/, '') === href.replace(/\/$/, '')
 
   return (
     <nav
@@ -61,12 +47,12 @@ export default function Nav() {
       }`}
     >
       {/* Logo */}
-      <a href="/" className="flex items-center gap-2.5 font-head text-xl font-extrabold uppercase tracking-tight text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal">
+      <Link href="/" className="flex items-center gap-2.5 font-head text-xl font-extrabold uppercase tracking-tight text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal">
         <BrandMark className="w-[22px] h-[22px]" />
         <span>
           Safety<span className="text-signal">Studio</span>
         </span>
-      </a>
+      </Link>
 
       {/* Desktop nav */}
       <div className="hidden md:flex items-center gap-4 lg:gap-8">
@@ -102,6 +88,7 @@ export default function Nav() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
         >
           <svg aria-hidden="true" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             {menuOpen ? (
@@ -117,15 +104,13 @@ export default function Nav() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            ref={menuRef}
+            id="mobile-navigation"
             key="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "circOut" }}
             className="absolute left-0 right-0 top-full max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-b border-line bg-paper md:hidden"
-            role="dialog"
-            aria-label="Mobile navigation"
           >
             <div className="flex flex-col px-6 py-4 gap-4">
               {links.map((l) => (

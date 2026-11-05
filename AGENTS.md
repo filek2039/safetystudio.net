@@ -6,7 +6,7 @@ Bu dosya Codex'a proje hakkında bağlam sağlar ve her oturumda otomatik okunur
 
 ## Proje Özeti
 
-SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri sunan bir kurumsal web sitesidir. Next.js 14 ile geliştirilmiş olup; servis tanıtımı, blog, ücretsiz araçlar (Incident Rate Calculator, Safety Moment Library) ve iletişim bölümlerinden oluşur. Hedef sektörler: petrol & gaz, inşaat ve endüstriyel tesisler.
+SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri sunan bir kurumsal web sitesidir. Next.js 16 ile geliştirilmiş olup; servis tanıtımı, blog, ücretsiz araçlar (Incident Rate Calculator, Safety Moment Library) ve iletişim bölümlerinden oluşur. Hedef sektörler: petrol & gaz, inşaat ve endüstriyel tesisler.
 
 ---
 
@@ -14,14 +14,14 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 
 | Katman | Teknoloji | Versiyon |
 |--------|-----------|----------|
-| **Framework** | Next.js (App Router) | 14.2.35 |
+| **Framework** | Next.js (App Router) | ^16.4.5 |
 | **Dil** | TypeScript | ^5, strict mode |
 | **Stil** | Tailwind CSS | ^3.4.1 |
 | **Animasyon** | Framer Motion | ^12.38.0 |
 | **Fontlar** | Cormorant Garamond (başlıklar), DM Sans (gövde) | — |
 | **Deploy** | Cloudflare Pages — statik export (`out/`) | — |
 | **Paket Yöneticisi** | npm | — |
-| **Linter** | ESLint (eslint-config-next) | ^8 |
+| **Linter** | ESLint (eslint-config-next) | ^9 |
 
 ---
 
@@ -42,7 +42,7 @@ SafetyStudio.net/
 │       └── [yeni-slug]/
 │           └── page.tsx         # Yeni blog makaleleri bu şekilde eklenir
 ├── components/                  # Tüm UI bileşenleri burada
-│   ├── Nav.tsx                  # Navbar (mobil focus-trap, ARIA, Escape key)
+│   ├── Nav.tsx                  # Navbar (mobil açılır menü, ARIA, Escape key)
 │   ├── Hero.tsx                 # Hero/banner bölümü
 │   ├── Services.tsx             # Hizmetler bölümü
 │   ├── FreeTools.tsx            # Ücretsiz araçlar — max-w-3xl mx-auto, IncidentRateCalc'ı doğrudan render eder (ToolCard kaldırıldı)
@@ -111,41 +111,13 @@ import Hero from '../components/Hero'         // ✗ relative path kullanma
 
 ---
 
-## Ana Sayfa Bölüm Sırası
+## Sayfalar ve Tasarım Sistemi
 
-`app/page.tsx` artık `TabbedContent` ile hash-driven tab router kullanır. Aktif sekmeye göre bölümler şunlardır:
+Ana sayfa `Hero` ve `HomeOverview` bileşenlerini gösterir. Servisler, araçlar, kütüphane, blog ve hakkımızda ayrı rotalardır (`/services/`, `/tools/`, `/library/`, `/blog/`, `/about/`). Eski hash bağlantıları `LegacyHashRedirect` ile yönlendirilir. Mobil menü bir açılır navigasyondur; Escape ile kapanır.
 
-| Hash | Bölüm |
-|------|-------|
-| (boş) | Hero |
-| `#services` | Services |
-| `#tools` | FreeTools — 3 CalcFrame: Personal Injury Calculator · SIF Potential Events · Motor Vehicle Incidents |
-| `#library` | Library (Safety Moment Library) |
-| `#about` / `#contact` | About + Contact |
+Renkler `tailwind.config.ts` ve `app/globals.css` içindeki tema tokenlarından (`paper`, `ink`, `signal`, `line` vb.) gelir. Başlık, gövde ve veri fontları sırasıyla Big Shoulders, IBM Plex Sans ve IBM Plex Mono'dur. Mevcut hero düzenini ve hareketini koru; animasyon bir kez oynar ve azaltılmış hareket tercihini destekler.
 
-Nav linkleri: **Services · Free Tools · Library · Blog · About · Get in Touch**
-
-Yeni bir sekme eklenirken `TabbedContent.tsx` içindeki `Section` tipini, `HASH_SECTION_MAP`'i ve `SECTION_CONTENT`'i güncelle. Aynı zamanda `Nav.tsx`'teki `links` dizisine yeni linki ekle.
-
----
-
-## Tasarım Sistemi & Renkler
-
-Inline HEX kullanma — her zaman `tailwind.config.ts`'deki tokenları kullan:
-
-| Token | Değer | Kullanım |
-|-------|-------|----------|
-| `navy` | `#0a1628` | Ana arka plan |
-| `navy-mid` | `#112240` | Kart / bölüm arka planı |
-| `navy-light` | `#1d3461` | Hafif vurgu arka planı |
-| `cream` | `#f5f0e8` | Ana metin rengi |
-| `gold` | `#c9a84c` | CTA, divider, focus ring, tag |
-| `gold-light` | `#e8c96a` | Hover durumu, vurgu |
-| `muted` | `#9fb0cc` | İkincil metin (WCAG AA uyumlu) |
-
-Font değişkenleri: `--font-cormorant` → `font-display` (başlıklar), `--font-dm-sans` → `font-sans` (gövde).
-
-> ⚠️ `muted` rengi için `/50` veya `#8a9ab5` gibi düşük opacity değerleri WCAG kontrastını bozar — minimum `/70` kullan.
+Node sürümü `.node-version` dosyasında belirtilir. `npm run build` Webpack ile statik export üretir; `npm run lint` ESLint CLI kullanır. Next.js 16 derleme sırasında lint çalıştırmaz; iki kontrolü de ayrı çalıştır.
 
 ---
 
@@ -323,3 +295,13 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 - `lib/irCalculations.ts` saf hesaplama fonksiyonları içerir, UI bağımlılığı yoktur
 - `data/safetyMoments.ts` statik veri deposudur, doğrudan import edilir
 - Next.js Image Optimization statik export'ta çalışmaz — `images.unoptimized: true` bu yüzden açık
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

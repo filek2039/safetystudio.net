@@ -97,10 +97,11 @@ function TargetRow({
       <div className="flex items-center gap-1.5">
         <input
           type="number"
+          aria-label={`${label} target reduction percentage`}
           value={reductionPct || ''}
           onChange={onReductionChange}
-          min={1}
-          max={99}
+          min={0}
+          max={100}
           className="!w-14 !px-2 text-center"
         />
         <span className="font-data text-[0.65rem] text-ink-soft">% reduction</span>
@@ -119,7 +120,9 @@ export default function IncidentRateCalc() {
     (field: keyof IRInputs) =>
     (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const val = parseFloat(e.target.value)
-      setInputs((prev) => ({ ...prev, [field]: isNaN(val) ? 0 : val }))
+      const max = field.endsWith('ReductionPct') ? 100 : Infinity
+      const safeValue = Number.isFinite(val) ? Math.min(max, Math.max(0, val)) : 0
+      setInputs((prev) => ({ ...prev, [field]: safeValue }))
     }
 
   const fmt = (n: number | null, decimals = 2) =>

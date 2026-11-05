@@ -18,22 +18,26 @@ const services = [
   {
     title: 'Training & Education',
     desc: 'Tailored HSE training programs that equip your workforce with the knowledge and skills to operate safely and confidently in any environment.',
-    tags: ['On-site', 'Online', 'Certified'],
+    tags: ['On-site', 'Online', 'Training'],
+    example: 'Training can be tailored to the work, hazards and responsibilities of your team.',
   },
   {
     title: 'HSE Consultancy',
     desc: 'Strategic advisory services to help you design, implement, and continuously improve your health, safety, and environmental management systems.',
     tags: ['ISO 45001', 'ISO 14001', 'Strategy'],
+    example: 'Support can include a management system gap review, priorities for improvement and implementation planning.',
   },
   {
     title: 'Risk Analysis',
     desc: 'Systematic identification, assessment, and mitigation of workplace hazards — protecting your people, assets, and reputation before incidents occur.',
     tags: ['HAZOP', 'FMEA', 'Bow-Tie'],
+    example: 'Examples include hazard identification workshops, risk assessments and reviews of critical controls.',
   },
   {
     title: 'Audit & Inspection',
     desc: 'Independent, thorough HSE audits that deliver clear, actionable findings — ensuring regulatory compliance and driving continuous performance improvement.',
     tags: ['Compliance', 'Gap Analysis', 'Reporting'],
+    example: 'An engagement can include a review of documentation and field practices, followed by findings and recommended actions.',
   },
 ]
 
@@ -84,9 +88,10 @@ export default function Services() {
                   {s.tags.join(' / ')}
                 </p>
               </div>
-              <p className="font-body text-sm text-ink-soft leading-[1.8]">
-                {s.desc}
-              </p>
+              <div className="font-body text-sm text-ink-soft leading-[1.8]">
+                <p>{s.desc}</p>
+                {s.example && <p className="mt-3 text-ink">{s.example}</p>}
+              </div>
             </motion.div>
           ))}
         </div>

@@ -9,6 +9,8 @@ export default function ThemeToggle() {
   useEffect(() => {
     const stored = localStorage.getItem('theme') as 'dark' | 'light' | null
     const initial = stored === 'dark' ? 'dark' : 'light'
+    // Synchronize the control with the theme applied before hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(initial)
     document.documentElement.setAttribute('data-theme', initial)
   }, [])

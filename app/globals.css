@@ -176,3 +176,35 @@ input[type="number"]::-webkit-outer-spin-button {
     border-color: #999 !important;
   }
 }
+
+
+/* Original defense-in-depth hero animation. */
+.hero-stripe-draw { transform-origin: left center; animation: bs-wipe 1.4s cubic-bezier(.65,0,.35,1) .3s both; }
+@keyframes bs-wipe { from { transform: scaleX(0); } }
+.bs-draw { stroke-dasharray: 1; animation: bs-draw .9s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes bs-draw { from { stroke-dashoffset: 1; } }
+.bs-fade { animation: bs-fade .6s ease-out both; }
+@keyframes bs-fade { from { opacity: 0; } }
+.bs-bar { transform-box: fill-box; animation: bs-bar-in .9s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes bs-bar-in { from { opacity: 0; transform: translateX(var(--bs-from, -32px)); } }
+.bs-figure { --bs-cycle: 4.5s; --bs-start: 1.9s; }
+.bs-fall, .bs-flash, .bs-head, .bs-held, .bs-ring, .bs-shake, .bs-sparks, .bs-src, .bs-trace-reveal { animation-duration: var(--bs-cycle); animation-delay: calc(var(--bs-start) + var(--d, 0s)); animation-iteration-count: 1; animation-fill-mode: both; animation-timing-function: linear; }
+.bs-src { animation-name: bs-src; }
+@keyframes bs-src { 0% { opacity: 0; } 8%, 80% { opacity: 1; } 92%, 100% { opacity: 0; } }
+.bs-trace-reveal { animation-name: bs-trace; transform-box: fill-box; transform-origin: center top; }
+@keyframes bs-trace { 0%, 10% { transform: scaleY(0); opacity: 1; animation-timing-function: cubic-bezier(.55,0,1,.45); } 34%, 78% { transform: scaleY(1); opacity: 1; } 92%, 100% { transform: scaleY(1); opacity: 0; } }
+.bs-fall { animation-name: bs-fall; }
+@keyframes bs-fall { 0%, 10% { transform: translateY(0); animation-timing-function: cubic-bezier(.55,0,1,.45); } 34%, 100% { transform: translateY(152px); } }
+.bs-head { opacity: 0; animation-name: bs-head; }
+@keyframes bs-head { 0%, 9% { opacity: 0; } 11%, 33.5% { opacity: 1; } 34.5%, 100% { opacity: 0; } }
+.bs-flash { opacity: 0; animation-name: bs-flash; transform-box: fill-box; transform-origin: center; }
+@keyframes bs-flash { 0%, 33.9% { opacity: 0; transform: scale(.4); } 34% { opacity: 1; transform: scale(.6); } 37% { opacity: .85; transform: scale(1.9); } 44%, 100% { opacity: 0; transform: scale(2.4); } }
+.bs-ring { opacity: 0; animation-name: bs-ring; transform-box: fill-box; transform-origin: center; }
+@keyframes bs-ring { 0%, 33.9% { opacity: 0; transform: scale(.3); } 34% { opacity: 1; transform: scale(.3); animation-timing-function: cubic-bezier(.1,.7,.3,1); } 56%, 100% { opacity: 0; transform: scale(4.2); } }
+.bs-sparks { opacity: 0; animation-name: bs-sparks; transform-box: view-box; transform-origin: 215px 190px; }
+@keyframes bs-sparks { 0%, 33.9% { opacity: 0; transform: scale(.5); } 34% { opacity: 1; transform: scale(.6); animation-timing-function: cubic-bezier(.1,.7,.3,1); } 46%, 100% { opacity: 0; transform: scale(1.7); } }
+.bs-held { animation-name: bs-held; }
+@keyframes bs-held { 0%, 34% { transform: translateY(0); filter: brightness(1); } 36% { transform: translateY(10px); filter: brightness(1.55); } 41% { transform: translateY(-4px); filter: brightness(1.2); } 46% { transform: translateY(2px); filter: brightness(1.05); } 51%, 100% { transform: translateY(0); filter: brightness(1); } }
+.bs-shake { animation-name: bs-shake; }
+@keyframes bs-shake { 0%, 34.5% { transform: translate(0); } 36.5% { transform: translate(-3px,1px); } 38.5% { transform: translate(3px,-1px); } 40.5% { transform: translate(-2px); } 43% { transform: translate(1px); } 46%, 100% { transform: translate(0); } }
+@media (prefers-reduced-motion: reduce) { .bs-figure, .bs-figure *, .hero-stripe-draw { animation: none !important; } }

@@ -37,7 +37,7 @@ export default function Contact() {
                 Workplace?
               </h2>
               <p className="font-body text-ink-soft text-sm leading-relaxed max-w-[400px]">
-                Let's discuss your HSE needs and create a tailored plan for your organization.
+                Let&apos;s discuss your HSE needs and create a tailored plan for your organization.
               </p>
             </div>
 

@@ -2,11 +2,17 @@
 
 ## Completed
 
+### 2026-11-05: Review and Security Updates
+- [x] Upgraded Next.js to 16.4.5 and React to 19.3.1; configured ESLint and static sitemap/social image generation. Node 22.23.4 is specified in `.node-version`.
+- [x] Improved mobile navigation and calculator input labels and bounds; removed unsupported benchmark comparisons.
+- [x] Simplified homepage labels and set the hero animation to play once, honoring reduced motion.
+- [x] Added `object-src 'none'` to the Cloudflare content security policy.
+
 ### Tier 1: High Impact, Quick Wins
 - [x] **Color contrast fix** — Muted color `#8a9ab5` → `#9fb0cc` for WCAG AA. Low-opacity variants bumped to `/70` min.
 - [x] **SEO: OG tags, structured data, sitemap, robots.txt** — OpenGraph + Twitter cards on all pages. Organization JSON-LD (layout), Article JSON-LD (blog). `sitemap.xml` auto-generated. `robots.txt` created.
 - [x] **Skip-to-content link** — Visually-hidden link in root layout. `id="main-content"` on all `<main>` elements.
-- [x] **Mobile nav keyboard support** — Escape key closes menu, focus trap, `aria-expanded` on hamburger, `role="dialog"` on menu panel, focus returns to trigger on close.
+- [x] **Mobile nav keyboard support** — Escape closes the mobile disclosure, `aria-expanded` describes its state, and focus returns to the trigger on Escape.
 - [x] **Reduced motion** — `scroll-behavior: smooth` wrapped in `prefers-reduced-motion: no-preference`.
 - [x] **Custom 404 page** — Branded `app/not-found.tsx` with nav, message, and CTA.
 - [x] **Footer enhancement** — 3-column: brand + tagline, quick links, industries + ISO alignment.
@@ -27,6 +33,8 @@
 ---
 
 ## Remaining (Not Yet Implemented)
+
+- [ ] **Dependency advisory** — Full npm audit reports eight moderate entries in the development linting chain, all tracing to minimatch (GHSA-g3hv-75wg-m249). Production-only audit reported zero findings on 2026-11-05. Recheck for a compatible upstream fix; do not force an untested major override.
 
 ### Tier 3: Nice to Have
 - [ ] **More blog content** — Blog index has 3 posts (SIF, HPI, Chronic Unease & Complacency). Remaining suggested articles:

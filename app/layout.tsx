@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import {
   Cormorant_Garamond,
   DM_Sans,
-  Big_Shoulders_Display,
+  Big_Shoulders,
   IBM_Plex_Sans,
   IBM_Plex_Mono,
 } from 'next/font/google'
@@ -31,11 +31,12 @@ const dmSans = DM_Sans({
 })
 
 /* ── "Field Standard" redesign fonts (see plan/website-redesign-plan.md) ── */
-const bigShoulders = Big_Shoulders_Display({
+const bigShoulders = Big_Shoulders({
   subsets: ['latin'],
   weight: ['600', '700', '800'],
   variable: '--font-big-shoulders',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 const plexSans = IBM_Plex_Sans({
