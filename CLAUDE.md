@@ -47,6 +47,7 @@ SafetyStudio.net/
 ├── components/                  # Tüm UI bileşenleri burada
 │   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil açılır menü, ARIA, Escape)
 │   ├── Hero.tsx                 # Tipografik hero (drafting-grid + hazard-stripe; video yok)
+│   ├── HeroBarrierFigure.tsx    # Hero figürü: bariyer istifi + bir kez oynayan tehlike darbesi (CSS, reduced-motion statik)
 │   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok)
 │   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
 │   ├── Library.tsx              # Safety Moment Library sarmalayıcısı
