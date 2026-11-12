@@ -1,6 +1,3 @@
-'use client'
-import { motion } from 'framer-motion'
-
 interface SignalButtonProps {
   variant?: 'solid' | 'text'
   href?: string
@@ -15,6 +12,9 @@ interface SignalButtonProps {
  * underlined text link — an asymmetric pair rather than matching twin
  * buttons. Additive alongside the legacy Button.tsx, which Library/FreeTools
  * still use until their own redesign pass.
+ *
+ * Hover lifts 2px and :active settles back with a pressed look — pure CSS,
+ * so it works without hydration and is dropped under reduced motion.
  */
 export default function SignalButton({
   variant = 'solid',
@@ -24,38 +24,27 @@ export default function SignalButton({
   children,
   className = '',
 }: SignalButtonProps) {
+  const motion =
+    'transition-[opacity,transform,color,filter] duration-150 ease-out hover:-translate-y-0.5 active:translate-y-0 disabled:hover:translate-y-0 motion-reduce:transition-none motion-reduce:hover:translate-y-0'
+
   const base =
     variant === 'solid'
-      ? 'inline-block px-7 py-3 bg-signal text-paper font-data text-sm font-medium tracking-wide transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
-      : 'inline-block px-1 py-3 text-ink font-data text-sm font-medium tracking-wide underline decoration-signal decoration-2 underline-offset-4 transition-colors duration-200 hover:text-signal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
+      ? 'inline-block px-7 py-3 bg-signal text-paper font-data text-sm font-medium tracking-wide hover:opacity-90 active:opacity-100 active:brightness-90 disabled:cursor-wait disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
+      : 'inline-block px-1 py-3 text-ink font-data text-sm font-medium tracking-wide underline decoration-signal decoration-2 underline-offset-4 hover:text-signal active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-paper'
 
-  const combined = `${base} ${className}`
+  const combined = `${base} ${motion} ${className}`
 
   if (href) {
     return (
-      <motion.a
-        href={href}
-        className={combined}
-        whileHover={{ y: -2 }}
-        whileTap={{ y: 0 }}
-        transition={{ duration: 0.15 }}
-      >
+      <a href={href} className={combined}>
         {children}
-      </motion.a>
+      </a>
     )
   }
 
   return (
-    <motion.button
-      onClick={onClick}
-      disabled={disabled}
-      aria-disabled={disabled}
-      className={combined}
-      whileHover={{ y: -2 }}
-      whileTap={{ y: 0 }}
-      transition={{ duration: 0.15 }}
-    >
+    <button onClick={onClick} disabled={disabled} aria-disabled={disabled} className={combined}>
       {children}
-    </motion.button>
+    </button>
   )
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout'
+import Container from '@/components/ui/Container'
 
 export const metadata: Metadata = {
   title: 'Understanding SIF: Serious Injury and Fatality — Safety Studio',
@@ -39,50 +40,54 @@ function Fn({ n }: { n: number }) {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-signal/10">
-    <div className="max-w-2xl mx-auto">
-      <div className="flex items-center gap-3 mb-6">
-        <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
-          &larr; Blog
-        </a>
-        <span className="text-ink-soft/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
-          Risk Management
-        </span>
-      </div>
+  <header className="pt-36 pb-12 border-b border-signal/10">
+    <Container>
+      <div className="max-w-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
+            &larr; Blog
+          </a>
+          <span className="text-ink-soft/40 text-xs">&middot;</span>
+          <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
+            Risk Management
+          </span>
+        </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
-        When LTIF Doesn&apos;t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)
-      </h1>
+        <h1 className="font-head font-extrabold uppercase tracking-tight text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.0] text-ink mb-5">
+          When LTIF Doesn&apos;t Tell the Whole Story: Understanding Serious Injury and Fatality (SIF)
+        </h1>
 
-      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
-        <span>Safety Studio</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>March 2026</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>7 min read</span>
+        <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
+          <span>Safety Studio</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>March 2026</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>7 min read</span>
+        </div>
       </div>
-    </div>
+    </Container>
   </header>
 )
 
 const cta = (
-  <div className="pb-24 w-full max-w-2xl mx-auto px-8 max-md:px-6">
-    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
-      <div>
-        <div className="text-ink font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
-        <div className="text-ink-soft text-xs font-light">
-          Use our free Incident Rate Calculator to benchmark your LTIF &amp; TRCF against industry averages.
+  <Container className="pb-24">
+    <div className="max-w-2xl">
+      <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
+        <div>
+          <div className="text-ink font-medium text-sm mb-1">Assess your site&apos;s SIF exposure</div>
+          <div className="text-ink-soft text-xs font-light">
+            Use our free Incident Rate Calculator to benchmark your LTIF &amp; TRCF against industry averages.
+          </div>
         </div>
+        <a
+          href="/tools/"
+          className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
+        >
+          Open Calculator
+        </a>
       </div>
-      <a
-        href="/tools/"
-        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
-      >
-        Open Calculator
-      </a>
     </div>
-  </div>
+  </Container>
 )
 
 const jsonLd = JSON.stringify({
@@ -116,7 +121,7 @@ export default function SIFArticle() {
         That is where SIF comes in.
       </p>
 
-      <h2 id="what-is-sif" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-is-sif" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         What Is SIF?
       </h2>
 
@@ -136,7 +141,7 @@ export default function SIFArticle() {
         someone?&rdquo;
       </p>
 
-      <h2 id="the-triangle-has-a-problem" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-triangle-has-a-problem" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         The Triangle Has a Problem
       </h2>
 
@@ -165,7 +170,7 @@ export default function SIFArticle() {
         numbers mean the organisation is safe from catastrophic events.
       </p>
 
-      <h2 id="sif-precursors" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="sif-precursors" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         SIF Precursors: Where the Real Work Happens
       </h2>
 
@@ -200,7 +205,7 @@ export default function SIFArticle() {
         means auditing these combinations — not counting recordable incidents.
       </p>
 
-      <h2 id="where-sif-happens-most" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="where-sif-happens-most" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Where SIF Happens Most
       </h2>
 
@@ -220,7 +225,7 @@ export default function SIFArticle() {
         thing that changed was the outcome.
       </p>
 
-      <h2 id="why-good-ltif-can-mislead" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="why-good-ltif-can-mislead" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Why Good LTIF Numbers Can Mislead You
       </h2>
 
@@ -245,7 +250,7 @@ export default function SIFArticle() {
         outcomes is one of the more subtle — and dangerous — misreadings of safety data.
       </p>
 
-      <h2 id="practical-steps" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="practical-steps" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Practical Steps for SIF Management
       </h2>
 
@@ -283,7 +288,7 @@ export default function SIFArticle() {
           },
         ].map((item) => (
           <div key={item.n} className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
-            <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+            <span className="font-head font-bold text-signal/50 text-lg leading-none mt-0.5 flex-shrink-0 w-6">
               {item.n}
             </span>
             <div>
@@ -294,7 +299,7 @@ export default function SIFArticle() {
         ))}
       </div>
 
-      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-bottom-line" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         The Bottom Line
       </h2>
 

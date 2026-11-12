@@ -17,8 +17,8 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 | **Framework** | Next.js (App Router) | ^16.4.5 |
 | **Dil** | TypeScript | ^5, strict mode |
 | **Stil** | Tailwind CSS | ^3.4.1 |
-| **Animasyon** | Framer Motion | ^12.38.0 |
-| **Fontlar** | Cormorant Garamond (başlıklar), DM Sans (gövde) | — |
+| **Animasyon** | CSS (giriş animasyonları, `globals.css`) + Framer Motion (yalnızca 4 etkileşimli bileşen) | ^12.38.0 |
+| **Fontlar** | Big Shoulders Display (başlıklar), IBM Plex Sans (gövde), IBM Plex Mono (veri), DM Sans (fallback) | — |
 | **Deploy** | Cloudflare Pages — statik export (`out/`) | — |
 | **Paket Yöneticisi** | npm | — |
 | **Linter** | ESLint (eslint-config-next) | ^9 |
@@ -30,7 +30,7 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 ```
 SafetyStudio.net/
 ├── app/                         # YALNIZCA Next.js routing dosyaları
-│   ├── layout.tsx               # Root layout — fontlar (5 adet), OG meta, anti-flash theme script, skip-link
+│   ├── layout.tsx               # Root layout — fontlar (4 adet), OG meta, anti-flash theme script (kayıtlı seçim → yoksa sistem teması), skip-link
 │   ├── page.tsx                 # Ana sayfa — Hero + HomeOverview + LegacyHashRedirect
 │   ├── globals.css              # Global stiller, tema tokenleri, drafting-grid, print stylesheet
 │   ├── sitemap.ts               # Otomatik sitemap.xml üretimi
@@ -46,10 +46,11 @@ SafetyStudio.net/
 │           └── page.tsx         # Yeni blog makaleleri bu şekilde eklenir
 ├── components/                  # Tüm UI bileşenleri burada
 │   ├── Nav.tsx                  # Navbar (usePathname aktif-sayfa çizgisi, mobil açılır menü, ARIA, Escape)
-│   ├── Hero.tsx                 # Tipografik hero (drafting-grid + hazard-stripe; video yok)
+│   ├── Hero.tsx                 # Tipografik hero — Server Component, CSS giriş animasyonu (drafting-grid + hazard-stripe)
+│   ├── HomeOverview.tsx         # Ana sayfa özet kartları (stretched-link ile tamamı tıklanabilir)
 │   ├── HeroBarrierFigure.tsx    # Hero figürü: bariyer istifi + bir kez oynayan tehlike darbesi (CSS, reduced-motion statik)
-│   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok)
-│   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı — IncidentRateCalc'ı render eder
+│   ├── Services.tsx             # Numaralı indeks satırları (01–06, ikon yok); her satır /about/#contact'a stretched-link
+│   ├── FreeTools.tsx            # Ücretsiz araçlar sarmalayıcısı (lg+'da 1200px) — IncidentRateCalc'ı render eder
 │   ├── Library.tsx              # Safety Moment Library sarmalayıcısı
 │   ├── About.tsx                # Hakkımızda — asimetrik 7/5 grid + pull-quote
 │   ├── FAQ.tsx                  # SSS — native details/summary akordeon (JS yok)
@@ -60,15 +61,16 @@ SafetyStudio.net/
 │   ├── ThemeToggle.tsx          # data-theme + localStorage tema düğmesi
 │   ├── tools/                   # Etkileşimli araç bileşenleri
 │   │   ├── IncidentRateCalc.tsx # 3 CalcFrame: Personal Injury / SIF Potential / Motor Vehicle
+│   │   ├── CalcLayout.tsx       # CalcFrame, CalcColumns (lg+: girdiler sol / sonuçlar sağ), LiveSummary (sr-only aria-live)
 │   │   └── SafetyMomentLibrary.tsx # Safety moment kütüphanesi (clause-numaralı kartlar)
 │   ├── blog/                    # Blog chrome (BlogArticleLayout, ToC, ReadingProgress)
 │   └── ui/                      # Atomik / paylaşımlı UI bileşenleri
 │       ├── BackToTop.tsx        # Scroll-triggered geri-dön butonu
 │       ├── BrandMark.tsx        # Logo işareti (bariyer istifi) — tema-uyumlu SVG
-│       ├── Container.tsx        # max-w-[1200px] içerik sarmalayıcısı — her section'da kullan
+│       ├── Container.tsx        # max-w-[1200px] içerik sarmalayıcısı — nav, hero, footer, blog dahil HER yerde kullan (tek sol kenar)
 │       ├── ClauseTag.tsx        # Standart-klozu etiketi (ör. "RISK ANALYSIS")
 │       ├── DimensionRule.tsx    # Teknik-çizim bölücü (uç tikli hairline + mono etiket)
-│       └── SignalButton.tsx     # CTA: solid (turuncu) / text (altı çizili) varyantları
+│       └── SignalButton.tsx     # CTA: solid (turuncu) / text (altı çizili) varyantları — saf CSS hover/active
 ├── brand/                       # Logo brand pack — SVG varyantları + BRAND.md kullanım rehberi
 ├── data/
 │   ├── safetyMoments.ts         # Safety Moment veri deposu (UI bağımlılığı yok)
@@ -130,7 +132,7 @@ Hash-tab router kaldırıldı — her bölüm kendi statik rotasında yaşar (SE
 
 | Rota | İçerik |
 |------|--------|
-| `/` | Hero (yalnızca) |
+| `/` | Hero + HomeOverview |
 | `/services/` | Services — numaralı indeks (01–06) |
 | `/tools/` | FreeTools — 3 CalcFrame: Personal Injury · SIF Potential · Motor Vehicle |
 | `/library/` | Safety Moment Library (`#safety-moment-library` anchor) |
@@ -146,7 +148,7 @@ Eski `/#services` tarzı hash linkleri `components/LegacyHashRedirect.tsx` (yaln
 
 ## Tasarım Sistemi & Renkler — "Field Standard"
 
-Site, güzelce dizgilenmiş bir güvenlik-mühendisliği standardı gibi tasarlanmıştır: clause numaraları (`ClauseTag`), teknik-çizim bölücüler (`DimensionRule`), drafting-grid dokusu ve tek sinyal rengi. Inline HEX kullanma — her zaman token kullan. Değerler tema başına `globals.css`'te tanımlıdır (`:root` = koyu "night shift", `[data-theme="light"]` = açık "engineering paper"):
+Site, güzelce dizgilenmiş bir güvenlik-mühendisliği standardı gibi tasarlanmıştır: clause numaraları (`ClauseTag`), teknik-çizim bölücüler (`DimensionRule`), drafting-grid dokusu ve tek sinyal rengi. Inline HEX kullanma — her zaman token kullan. Değerler tema başına `globals.css`'te tanımlıdır (`:root` = açık "engineering paper", `[data-theme="dark"]` = koyu "night shift"). Tema seçimi: `localStorage.theme` varsa o, yoksa `prefers-color-scheme` (mantık hem `app/layout.tsx` inline script'inde hem `ThemeToggle.tsx`'te — ikisini birlikte güncelle):
 
 | Token | Koyu | Açık | Kullanım |
 |-------|------|------|----------|
@@ -159,13 +161,24 @@ Site, güzelce dizgilenmiş bir güvenlik-mühendisliği standardı gibi tasarla
 | `steel` | `#7FA3C0` | `#33526B` | İkincil vurgu, tag metni |
 | `ok` / `warn` / `danger` | emerald-500 / amber-500 / red-400 | emerald-700 / amber-800 / red-700 | Hesaplayıcı benchmark renkleri |
 
-Fontlar: `font-head` (Big Shoulders Display — başlıklar, uppercase), `font-body` (IBM Plex Sans — gövde), `font-data` (IBM Plex Mono — veri, etiketler). `font-display` (Cormorant) yalnızca blog makale başlıklarında kalır; `font-sans` (DM Sans) base fallback'tir.
+Fontlar: `font-head` (Big Shoulders Display — başlıklar, uppercase), `font-body` (IBM Plex Sans — gövde), `font-data` (IBM Plex Mono — veri, etiketler). `font-sans` (DM Sans) base fallback'tir. Serif yok: `font-display` (Cormorant) kaldırıldı — blog ve privacy başlıkları da `font-head` kullanır.
+
+**Form girdileri**: `--input-*` tokenleri (`globals.css`, iki tema bloğu) — kenarlık WCAG 1.4.11 için ≥3:1, min yükseklik 44px, font 16px (iOS zoom önlemi). Sayısal alanlara `inputMode="numeric"`/`"decimal"` ekle.
+
+**Tıklanabilir kart/satır**: stretched-link kalıbı — kapsayıcı `relative`, içteki `<a>` `after:absolute after:inset-0`, odak için kapsayıcıda `has-[a:focus-visible]:`. Hover efekti olan her yüzey gerçekten tıklanabilir olmalı.
 
 **Logo**: "Bariyer istifi" — Reason'ın defense-in-depth modeli; boşlukları hizalanmayan üç bariyer, turuncu bar "tutan bariyer". Bileşen: `components/ui/BrandMark.tsx` (tema-uyumlu), favicon: `app/icon.svg`, dış kullanım varyantları + kurallar: `brand/BRAND.md`. İşareti yeniden renklendirme, döndürme veya bar ekleme/çıkarma yapma.
 
 > ⚠️ Tailwind alpha değerleri 5'in katı olmalı (`/10`, `/15`...) ya da arbitrary yazılmalı (`/[0.12]`) — `/12` gibi geçersiz değerler **sessizce derlenmez** ve border preflight grisine düşer.
 > ⚠️ Açık temadaki `signal`/`ok`/`warn`/`danger` değerleri WCAG AA (4.5:1) için özel seçilmiştir — Tailwind'in stok `-500` tonlarını açık zeminde kullanma.
 > ⚠️ `hazard-stripe` sınıfı site genelinde tam iki kullanımla sınırlıdır (Hero taban çizgisi + Contact panel üst kenarı) — her yerde kullanmak imzayı kostüme çevirir.
+
+### Hareket (motion)
+
+Giriş animasyonları **yalnızca CSS**'tir (`globals.css`): `.hero-rise` / `.hero-fade` (`--hero-delay`), kaydırmayla beliren içerik için `.reveal` (`--reveal-x`, `--reveal-y`; `animation-timeline: view()`, `@supports` + `prefers-reduced-motion: no-preference` içinde). Sayfalar arası geçiş: `@view-transition { navigation: auto }`.
+
+> ⚠️ Giriş animasyonu için Framer Motion `initial={{ opacity: 0 }}` KULLANMA — statik export bunu inline `opacity:0` olarak HTML'e gömer, içerik hydration'a kadar görünmez (LCP + JS'siz erişim bozulur). Kontrol: `grep -c 'opacity:0' out/index.html` → 0 olmalı.
+> Framer Motion yalnızca şuralarda kalır: `Nav.tsx` (mobil menü), `ThemeToggle.tsx`, `ui/BackToTop.tsx`, `tools/SafetyMomentLibrary.tsx`.
 
 ---
 
@@ -175,7 +188,9 @@ Erişilebilirlik bu projede birinci önceliktir:
 
 - `<main>` elementine mutlaka `id="main-content"` ekle (skip-link için)
 - Form elemanlarında `id`/`htmlFor` eşleştirmesi zorunlu
-- Animasyonlarda `useReducedMotion()` hook'unu uygula (Framer Motion)
+- Animasyonlar reduced-motion'a uymalı: CSS'te `prefers-reduced-motion` / Tailwind `motion-reduce:`, Framer Motion'da `useReducedMotion()`
+- Dokunma hedefleri mobilde en az 44px; gövde metni en az 16px (`text-base`)
+- Canlı güncellenen sonuçlar için `LiveSummary` (debounce'lu, sr-only `aria-live="polite"`) kullan
 - Renk kontrastını WCAG AA standardında tut
 - Klavye navigasyonunu test et; modal/drawer'larda focus trap ekle
 - Etkileşimli elemanlara `aria-label` veya `aria-expanded` ekle
@@ -213,6 +228,7 @@ app/blog/[yazi-slug]/page.tsx
 ```tsx
 import type { Metadata } from 'next'
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout'
+import Container from '@/components/ui/Container'
 
 export const metadata: Metadata = {
   title: 'Başlık — Safety Studio',
@@ -227,15 +243,22 @@ export const metadata: Metadata = {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-signal/10">
-    {/* tag, h1, meta satırı */}
+  <header className="pt-36 pb-12 border-b border-signal/10">
+    <Container>
+      <div className="max-w-2xl">
+        {/* tag, meta satırı ve h1: */}
+        <h1 className="font-head font-extrabold uppercase tracking-tight text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.0] text-ink mb-5">
+          Başlık
+        </h1>
+      </div>
+    </Container>
   </header>
 )
 
 const cta = (
-  <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
-    {/* CTA strip */}
-  </div>
+  <Container className="pb-24">
+    <div className="max-w-2xl">{/* CTA strip */}</div>
+  </Container>
 )
 
 const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', /* ... */ })
@@ -244,7 +267,7 @@ export default function ArticlePage() {
   return (
     <BlogArticleLayout header={header} cta={cta} jsonLd={jsonLd}>
       {/* Sadece makale gövdesi — <article> ve flex wrapper BlogArticleLayout tarafından sağlanır */}
-      <h2 id="section-id" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="section-id" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Bölüm Başlığı
       </h2>
       <p>...</p>
@@ -312,7 +335,7 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 | SEO içerik kümesi + Organization JSON-LD + Search Console | `app/blog/*` | Orta |
 | Blog içerik genişletme | `app/blog/[slug]/page.tsx` | Düşük |
 | Servis kartı detayları | `components/Services.tsx` | Düşük |
-| Framer Motion → CSS geçişi | tüm bileşenler (ayrı, dikkatli bir geçiş olarak) | Düşük |
+| Framer Motion → CSS geçişi (kalan kısım) | `Nav.tsx`, `ThemeToggle.tsx`, `ui/BackToTop.tsx`, `tools/SafetyMomentLibrary.tsx` — bitince bağımlılık kaldırılabilir | Düşük |
 
 ✅ Tamamlananlar (2026-07): FAQ (`components/FAQ.tsx` + `data/faq.ts`, FAQPage JSON-LD) ve iletişim formu (`components/ContactForm.tsx`, Web3Forms) canlıda çalışıyor. Form anahtarı: `.env.local` + Cloudflare Pages env var `NEXT_PUBLIC_WEB3FORMS_KEY`.
 
@@ -325,6 +348,8 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 - `out/` klasörünü elle düzenleme — `npm run build` ile yeniden oluştur
 - Bileşenleri `app/` altında oluşturma — sadece routing dosyaları `app/` altında
 - Inline HEX renk kullanma — Tailwind config tokenlarını kullan
+- Giriş animasyonunda Framer Motion `initial` ile içeriği gizleme — CSS `.reveal` / `.hero-*` kullan
+- Sayfa içeriğini `px-16` gibi elle padding ile hizalama — `Container` kullan (logo ile aynı sol kenar)
 - `ink-soft` için `/50` veya altı opacity kullanma — WCAG kontrastı bozar
 - Geçersiz Tailwind alpha adımı yazma (`/12`, `/8` gibi) — sınıf sessizce derlenmez; `/[0.12]` kullan
 - Yeni renk eklerken hem `globals.css` (iki tema bloğu) hem `tailwind.config.ts`'i güncelle; açık tema değerini AA kontrast için doğrula
@@ -343,3 +368,5 @@ Bekleyen geliştirmeler için `IMPROVEMENTS.md` dosyasını kontrol et.
 - `lib/irCalculations.ts` saf hesaplama fonksiyonları içerir, UI bağımlılığı yoktur
 - `data/safetyMoments.ts` statik veri deposudur, doğrudan import edilir
 - Next.js Image Optimization statik export'ta çalışmaz — `images.unoptimized: true` bu yüzden açık
+- Doğrulama sırası: `npx tsc --noEmit` → `npm run lint` → (dev sunucusunu durdur) → `npm run build`
+- Önizleme paneli gizliyken tarayıcı CSS animasyon/transition'larını duraklatır — içerik "boş" görünürse hata sanma; ölçüm için geçici `animation:none` enjekte et

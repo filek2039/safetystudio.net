@@ -2,27 +2,49 @@
 import { useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
+type Theme = 'dark' | 'light'
+
+/** Browser-chrome colours; must match the anti-flash script in app/layout.tsx. */
+const THEME_COLOR: Record<Theme, string> = { dark: '#14181D', light: '#F4F2EC' }
+
+/** A stored explicit choice wins; otherwise follow the OS preference. */
+function resolveTheme(): Theme {
+  let stored: string | null = null
+  try {
+    stored = localStorage.getItem('theme')
+  } catch {
+    // Storage blocked (private mode etc.) — fall through to the system preference.
+  }
+  if (stored === 'dark' || stored === 'light') return stored
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+function applyTheme(theme: Theme): void {
+  document.documentElement.setAttribute('data-theme', theme)
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLOR[theme])
+}
+
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('light')
+  const [theme, setTheme] = useState<Theme>('light')
   const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as 'dark' | 'light' | null
-    const initial = stored === 'dark' ? 'dark' : 'light'
+    const initial = resolveTheme()
     // Synchronize the control with the theme applied before hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(initial)
-    document.documentElement.setAttribute('data-theme', initial)
+    applyTheme(initial)
   }, [])
 
   const toggle = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
+    const next: Theme = theme === 'dark' ? 'light' : 'dark'
     setTheme(next)
-    document.documentElement.setAttribute('data-theme', next)
-    localStorage.setItem('theme', next)
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', next === 'dark' ? '#14181D' : '#F4F2EC')
+    applyTheme(next)
+    try {
+      localStorage.setItem('theme', next)
+    } catch {
+      // Storage blocked — the choice still applies for this page view.
+    }
   }
 
   return (

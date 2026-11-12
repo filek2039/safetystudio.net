@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import {
-  Cormorant_Garamond,
   DM_Sans,
   Big_Shoulders,
   IBM_Plex_Sans,
@@ -15,13 +14,6 @@ declare global {
     dataLayer: unknown[]
   }
 }
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '600'],
-  variable: '--font-cormorant',
-  display: 'swap',
-})
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -91,14 +83,14 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-theme="light"
-      className={`${cormorant.variable} ${dmSans.variable} ${bigShoulders.variable} ${plexSans.variable} ${plexMono.variable}`}
+      className={`${dmSans.variable} ${bigShoulders.variable} ${plexSans.variable} ${plexMono.variable}`}
     >
-      {/* Anti-flash: read stored theme before first paint */}
+      {/* Anti-flash: stored theme, else system preference, before first paint */}
       <head>
         <meta name="theme-color" content="#F4F2EC" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme')==='dark'?'dark':'light';document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#14181D':'#F4F2EC');}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('theme'),t=s==='dark'||s==='light'?s:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#14181D':'#F4F2EC');}catch(e){}})();`,
           }}
         />
       </head>

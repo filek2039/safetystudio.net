@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout'
+import Container from '@/components/ui/Container'
 
 export const metadata: Metadata = {
   title: 'Chronic Unease and Complacency: Why Safety Success Can Become a Hazard — Safety Studio',
@@ -39,51 +40,55 @@ function Fn({ n }: { n: number }) {
 }
 
 const header = (
-  <header className="pt-36 pb-12 px-8 max-md:px-6 border-b border-signal/10">
-    <div className="max-w-2xl mx-auto">
-      <div className="flex items-center gap-3 mb-6">
-        <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
-          &larr; Blog
-        </a>
-        <span className="text-ink-soft/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
-          Safety Culture
-        </span>
-      </div>
+  <header className="pt-36 pb-12 border-b border-signal/10">
+    <Container>
+      <div className="max-w-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <a href="/blog/" className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors">
+            &larr; Blog
+          </a>
+          <span className="text-ink-soft/40 text-xs">&middot;</span>
+          <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
+            Safety Culture
+          </span>
+        </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
-        Chronic Unease and Complacency:<br />
-        Why Safety Success Can Become a Hazard
-      </h1>
+        <h1 className="font-head font-extrabold uppercase tracking-tight text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.0] text-ink mb-5">
+          Chronic Unease and Complacency:<br />
+          Why Safety Success Can Become a Hazard
+        </h1>
 
-      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
-        <span>Safety Studio</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>April 2026</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>9 min read</span>
+        <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
+          <span>Safety Studio</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>April 2026</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>9 min read</span>
+        </div>
       </div>
-    </div>
+    </Container>
   </header>
 )
 
 const cta = (
-  <div className="pb-24 w-full max-w-2xl mx-auto px-8 max-md:px-6">
-    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
-      <div>
-        <div className="text-ink font-medium text-sm mb-1">Assess your organisation&apos;s safety culture</div>
-        <div className="text-ink-soft text-xs font-light">
-          Safety Studio provides safety culture assessments and leadership advisory for high-hazard industries.
+  <Container className="pb-24">
+    <div className="max-w-2xl">
+      <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
+        <div>
+          <div className="text-ink font-medium text-sm mb-1">Assess your organisation&apos;s safety culture</div>
+          <div className="text-ink-soft text-xs font-light">
+            Safety Studio provides safety culture assessments and leadership advisory for high-hazard industries.
+          </div>
         </div>
+        <a
+          href="/about/#contact"
+          className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
+        >
+          Get in Touch
+        </a>
       </div>
-      <a
-        href="/about/#contact"
-        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
-      >
-        Get in Touch
-      </a>
     </div>
-  </div>
+  </Container>
 )
 
 const jsonLd = JSON.stringify({
@@ -125,7 +130,7 @@ export default function ChronicUneaseArticle() {
         <strong className="text-ink font-medium"> chronic unease</strong>.
       </p>
 
-      <h2 id="what-is-chronic-unease" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-is-chronic-unease" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         What Is Chronic Unease?
       </h2>
 
@@ -149,7 +154,7 @@ export default function ChronicUneaseArticle() {
         &ldquo;<em className="text-ink not-italic">Is what I am being told actually true?</em>&rdquo;
       </p>
 
-      <h2 id="how-complacency-develops" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="how-complacency-develops" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         How Complacency Develops
       </h2>
 
@@ -187,7 +192,7 @@ export default function ChronicUneaseArticle() {
         a tank overflowed, there was no last line of defence.
       </p>
 
-      <h2 id="success-as-a-hazard" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="success-as-a-hazard" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Success as a Hazard
       </h2>
 
@@ -215,7 +220,7 @@ export default function ChronicUneaseArticle() {
         exactly the space in which major accidents form.
       </p>
 
-      <h2 id="deepwater-horizon" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="deepwater-horizon" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Deepwater Horizon: A Case in Complacency
       </h2>
 
@@ -242,7 +247,7 @@ export default function ChronicUneaseArticle() {
         drift in the threshold at which those hazards register as requiring action.
       </p>
 
-      <h2 id="what-chronic-unease-looks-like" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="what-chronic-unease-looks-like" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         What Chronic Unease Looks Like in Practice
       </h2>
 
@@ -281,7 +286,7 @@ export default function ChronicUneaseArticle() {
           },
         ].map((item) => (
           <div key={item.n} className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
-            <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+            <span className="font-head font-bold text-signal/50 text-lg leading-none mt-0.5 flex-shrink-0 w-6">
               {item.n}
             </span>
             <div>
@@ -292,7 +297,7 @@ export default function ChronicUneaseArticle() {
         ))}
       </div>
 
-      <h2 id="the-leadership-dimension" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-leadership-dimension" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         The Leadership Dimension
       </h2>
 
@@ -324,7 +329,7 @@ export default function ChronicUneaseArticle() {
         with the numbers. Comfort, in a high-hazard environment, is a warning sign in itself.
       </p>
 
-      <h2 id="practical-starting-points" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="practical-starting-points" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Practical Starting Points
       </h2>
 
@@ -353,7 +358,7 @@ export default function ChronicUneaseArticle() {
         These are not comfortable questions. That is precisely the point.
       </p>
 
-      <h2 id="the-bottom-line" className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]">
+      <h2 id="the-bottom-line" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         The Bottom Line
       </h2>
 
