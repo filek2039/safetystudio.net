@@ -17,8 +17,8 @@ SafetyStudio.net, HSE (Health, Safety & Environment) danışmanlık hizmetleri s
 | **Framework** | Next.js (App Router) | ^16.4.5 |
 | **Dil** | TypeScript | ^5, strict mode |
 | **Stil** | Tailwind CSS | ^3.4.1 |
-| **Animasyon** | Framer Motion | ^12.38.0 |
-| **Fontlar** | Cormorant Garamond (başlıklar), DM Sans (gövde) | — |
+| **Animasyon** | CSS (giriş animasyonları, `globals.css`) + Framer Motion (yalnızca 4 etkileşimli bileşen) | ^12.38.0 |
+| **Fontlar** | Big Shoulders Display (başlıklar), IBM Plex Sans (gövde), IBM Plex Mono (veri), DM Sans (fallback) | — |
 | **Deploy** | Cloudflare Pages — statik export (`out/`) | — |
 | **Paket Yöneticisi** | npm | — |
 | **Linter** | ESLint (eslint-config-next) | ^9 |
@@ -127,7 +127,8 @@ Erişilebilirlik bu projede birinci önceliktir:
 
 - `<main>` elementine mutlaka `id="main-content"` ekle (skip-link için)
 - Form elemanlarında `id`/`htmlFor` eşleştirmesi zorunlu
-- Animasyonlarda `useReducedMotion()` hook'unu uygula (Framer Motion)
+- Animasyonlar reduced-motion'a uymalı: CSS'te `prefers-reduced-motion` / Tailwind `motion-reduce:`, Framer Motion'da `useReducedMotion()`
+- Giriş animasyonları yalnızca CSS (`.hero-rise`, `.hero-fade`, `.reveal`) — Framer Motion `initial` ile içerik gizleme (statik export'ta hydration'a kadar görünmez)
 - Renk kontrastını WCAG AA standardında tut
 - Klavye navigasyonunu test et; modal/drawer'larda focus trap ekle
 - Etkileşimli elemanlara `aria-label` veya `aria-expanded` ekle
@@ -195,7 +196,7 @@ export default function ArticlePage() {
   return (
     <BlogArticleLayout header={header} cta={cta} jsonLd={jsonLd}>
       {/* Sadece makale gövdesi — <article> ve flex wrapper BlogArticleLayout tarafından sağlanır */}
-      <h2 id="section-id" className="font-display font-light text-[1.7rem] text-cream mt-12 mb-2 leading-[1.2]">
+      <h2 id="section-id" className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight">
         Bölüm Başlığı
       </h2>
       <p>...</p>
