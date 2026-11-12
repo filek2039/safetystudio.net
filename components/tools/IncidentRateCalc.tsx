@@ -1,6 +1,7 @@
 'use client'
 import { useState, ChangeEvent } from 'react'
 import { calculateIR, defaultInputs, IRInputs } from '@/lib/irCalculations'
+import { CalcColumns, CalcFrame, LiveSummary } from '@/components/tools/CalcLayout'
 
 function Field({ label, id, children }: { label: string; id?: string; children: React.ReactNode }) {
   return (
@@ -60,19 +61,6 @@ function Subtotal({ label, value, formula }: { label: string; value: number; for
   )
 }
 
-function CalcFrame({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="border border-line bg-paper">
-      <div className="px-5 py-3.5 border-b border-line bg-paper-raised">
-        <h3 className="font-data text-[0.72rem] tracking-[0.15em] uppercase text-ink-soft">{title}</h3>
-      </div>
-      <div className="px-5 py-6 space-y-5">
-        {children}
-      </div>
-    </div>
-  )
-}
-
 function TargetRow({
   label,
   current,
@@ -97,6 +85,7 @@ function TargetRow({
       <div className="flex items-center gap-1.5">
         <input
           type="number"
+          inputMode="decimal"
           aria-label={`${label} target reduction percentage`}
           value={reductionPct || ''}
           onChange={onReductionChange}
@@ -196,201 +185,239 @@ export default function IncidentRateCalc() {
     }
   }
 
+  const summaryPI =
+    results.ltif !== null
+      ? `LTIF ${fmt(results.ltif)}, TRCF ${fmt(results.trcf)}. Targets: LTIF ${fmt(results.ltifTarget)}, TRCF ${fmt(results.trcfTarget)}.`
+      : ''
+  const summarySif =
+    results.sifpRate !== null
+      ? `SIFpR ${fmt(results.sifpRate)}. Target ${fmt(results.sifpTarget)}.`
+      : ''
+  const summaryMvi =
+    results.mvifr !== null
+      ? `MVIFR ${fmt(results.mvifr, 3)}, Fatal MVIFR ${fmt(results.mviFatalFr, 3)}. Target ${fmt(results.mvifrTarget, 3)}.`
+      : ''
+
+  const countProps = { type: 'number', inputMode: 'numeric', autoComplete: 'off', placeholder: '0', min: '0' } as const
+
   return (
     <div className="space-y-6 print-calc">
 
       {/* Frame 1: Personal Injury Incident Rate Calculator */}
       <CalcFrame title="Personal Injury Incident Rate Calculator">
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-          <Field label="Hours Worked (period)" id="ir-hours">
-            <input
-              id="ir-hours"
-              name="hours"
-              type="number"
-              autoComplete="off"
-              value={inputs.hours || ''}
-              onChange={update('hours')}
-              placeholder="e.g. 1,000,000…"
-              min="0"
-            />
-          </Field>
-          <Field label="Base Figure" id="ir-base">
-            <select id="ir-base" name="base" autoComplete="off" value={inputs.base} onChange={update('base')}>
-              <option value={1000000}>1,000,000 hrs — International</option>
-              <option value={200000}>200,000 hrs — US OSHA</option>
-            </select>
-          </Field>
-        </div>
+        <CalcColumns
+          inputs={
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                <Field label="Hours Worked (period)" id="ir-hours">
+                  <input
+                    id="ir-hours"
+                    name="hours"
+                    type="number"
+                    inputMode="decimal"
+                    autoComplete="off"
+                    value={inputs.hours || ''}
+                    onChange={update('hours')}
+                    placeholder="e.g. 1,000,000…"
+                    min="0"
+                  />
+                </Field>
+                <Field label="Base Figure" id="ir-base">
+                  <select id="ir-base" name="base" autoComplete="off" value={inputs.base} onChange={update('base')}>
+                    <option value={1000000}>1,000,000 hrs — International</option>
+                    <option value={200000}>200,000 hrs — US OSHA</option>
+                  </select>
+                </Field>
+              </div>
 
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-          <Field label="Fatality (FAT)" id="ir-fat">
-            <input id="ir-fat" name="fat" type="number" autoComplete="off" value={inputs.fat || ''} onChange={update('fat')} placeholder="0" min="0" />
-          </Field>
-          <Field label="Lost Workday Case (LWC)" id="ir-lwc">
-            <input id="ir-lwc" name="lwc" type="number" autoComplete="off" value={inputs.lwc || ''} onChange={update('lwc')} placeholder="0" min="0" />
-          </Field>
-          <Field label="Restricted Workday Case (RWC)" id="ir-rwc">
-            <input id="ir-rwc" name="rwc" type="number" autoComplete="off" value={inputs.rwc || ''} onChange={update('rwc')} placeholder="0" min="0" />
-          </Field>
-          <Field label="Medical Treatment Case (MTC)" id="ir-mtc">
-            <input id="ir-mtc" name="mtc" type="number" autoComplete="off" value={inputs.mtc || ''} onChange={update('mtc')} placeholder="0" min="0" />
-          </Field>
-        </div>
+              <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+                <Field label="Fatality (FAT)" id="ir-fat">
+                  <input id="ir-fat" name="fat" {...countProps} value={inputs.fat || ''} onChange={update('fat')} />
+                </Field>
+                <Field label="Lost Workday Case (LWC)" id="ir-lwc">
+                  <input id="ir-lwc" name="lwc" {...countProps} value={inputs.lwc || ''} onChange={update('lwc')} />
+                </Field>
+                <Field label="Restricted Workday Case (RWC)" id="ir-rwc">
+                  <input id="ir-rwc" name="rwc" {...countProps} value={inputs.rwc || ''} onChange={update('rwc')} />
+                </Field>
+                <Field label="Medical Treatment Case (MTC)" id="ir-mtc">
+                  <input id="ir-mtc" name="mtc" {...countProps} value={inputs.mtc || ''} onChange={update('mtc')} />
+                </Field>
+              </div>
 
-        <div className="flex flex-wrap gap-6 bg-paper-raised border border-line px-5 py-3.5">
-          <Subtotal label="LTI" value={results.lti} formula="(LWC + FAT)" />
-          <div className="w-px h-8 bg-line self-center hidden sm:block" />
-          <Subtotal label="TRC" value={results.trc} formula="(LWC + RWC + MTC + FAT)" />
-        </div>
+              <div className="flex flex-wrap gap-6 bg-paper-raised border border-line px-5 py-3.5">
+                <Subtotal label="LTI" value={results.lti} formula="(LWC + FAT)" />
+                <div className="w-px h-8 bg-line self-center hidden sm:block" />
+                <Subtotal label="TRC" value={results.trc} formula="(LWC + RWC + MTC + FAT)" />
+              </div>
+            </>
+          }
+          results={
+            <>
+              <LiveSummary message={summaryPI} />
+              <div className="grid grid-cols-2 max-md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                <MetricCard
+                  label="LTIF — Lost Time Injury Frequency"
+                  formula={`(LTI ÷ Hours) × ${results.baseLabel}`}
+                  value={results.ltif !== null ? fmt(results.ltif) : null}
+                  emptyHint="Enter hours worked to calculate"
+                  bench={results.ltifBench}
+                  cite={results.ltifCite}
+                />
+                <MetricCard
+                  label="TRCF — Total Recordable Case Frequency"
+                  formula={`(TRC ÷ Hours) × ${results.baseLabel}`}
+                  value={results.trcf !== null ? fmt(results.trcf) : null}
+                  emptyHint="Enter hours worked to calculate"
+                  bench={results.trcfBench}
+                  cite={results.trcfCite}
+                />
+              </div>
 
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-          <MetricCard
-            label="LTIF — Lost Time Injury Frequency"
-            formula={`(LTI ÷ Hours) × ${results.baseLabel}`}
-            value={results.ltif !== null ? fmt(results.ltif) : null}
-            emptyHint="Enter hours worked to calculate"
-            bench={results.ltifBench}
-            cite={results.ltifCite}
-          />
-          <MetricCard
-            label="TRCF — Total Recordable Case Frequency"
-            formula={`(TRC ÷ Hours) × ${results.baseLabel}`}
-            value={results.trcf !== null ? fmt(results.trcf) : null}
-            emptyHint="Enter hours worked to calculate"
-            bench={results.trcfBench}
-            cite={results.trcfCite}
-          />
-        </div>
-
-        <div className="border border-line px-5 py-4">
-          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
-            Improvement Targets
-          </div>
-          <TargetRow
-            label="LTIF"
-            current={results.ltif}
-            target={results.ltifTarget}
-            reductionPct={inputs.ltifReductionPct}
-            onReductionChange={update('ltifReductionPct')}
-          />
-          <TargetRow
-            label="TRCF"
-            current={results.trcf}
-            target={results.trcfTarget}
-            reductionPct={inputs.trcfReductionPct}
-            onReductionChange={update('trcfReductionPct')}
-          />
-        </div>
+              <div className="border border-line px-5 py-4">
+                <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
+                  Improvement Targets
+                </div>
+                <TargetRow
+                  label="LTIF"
+                  current={results.ltif}
+                  target={results.ltifTarget}
+                  reductionPct={inputs.ltifReductionPct}
+                  onReductionChange={update('ltifReductionPct')}
+                />
+                <TargetRow
+                  label="TRCF"
+                  current={results.trcf}
+                  target={results.trcfTarget}
+                  reductionPct={inputs.trcfReductionPct}
+                  onReductionChange={update('trcfReductionPct')}
+                />
+              </div>
+            </>
+          }
+        />
       </CalcFrame>
 
-      {/* Frame 2: SIF Potential Events */}
+      {/* Frame 2: SIF Potential Events — one input, so the results column
+          sits alongside without sticking (nothing to scroll past). */}
       <CalcFrame title="SIF Potential Events">
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 items-end">
-          <Field label="SIF-Potential Events (SIFp)" id="ir-sifp">
-            <input
-              id="ir-sifp"
-              name="sifp"
-              type="number"
-              autoComplete="off"
-              value={inputs.sifp || ''}
-              onChange={update('sifp')}
-              placeholder="0"
-              min="0"
-            />
-          </Field>
-          <div className="font-body text-[0.65rem] text-ink-soft leading-relaxed pb-1">
-            Count of events that, under slightly different circumstances, could have resulted in a
-            fatality or permanently disabling injury — regardless of actual outcome.
-          </div>
-        </div>
+        <CalcColumns
+          sticky={false}
+          inputs={
+            <div className="grid grid-cols-2 max-md:grid-cols-1 lg:grid-cols-1 gap-4 items-end">
+              <Field label="SIF-Potential Events (SIFp)" id="ir-sifp">
+                <input id="ir-sifp" name="sifp" {...countProps} value={inputs.sifp || ''} onChange={update('sifp')} />
+              </Field>
+              <div className="font-body text-[0.65rem] text-ink-soft leading-relaxed pb-1">
+                Count of events that, under slightly different circumstances, could have resulted in a
+                fatality or permanently disabling injury — regardless of actual outcome.
+              </div>
+            </div>
+          }
+          results={
+            <>
+              <LiveSummary message={summarySif} />
+              <MetricCard
+                label="SIFpR — SIF-Potential Frequency Rate"
+                formula={`(SIFp ÷ Hours) × ${results.baseLabel}`}
+                value={results.sifpRate !== null ? fmt(results.sifpRate) : null}
+                emptyHint="Enter hours worked to calculate"
+                bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
+                cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
+              />
 
-        <MetricCard
-          label="SIFpR — SIF-Potential Frequency Rate"
-          formula={`(SIFp ÷ Hours) × ${results.baseLabel}`}
-          value={results.sifpRate !== null ? fmt(results.sifpRate) : null}
-          emptyHint="Enter hours worked to calculate"
-          bench="Track trend over time — no universal industry benchmark due to variation in SIFp classification criteria."
-          cite="Ref: Campbell Institute / NSC, Preventing Serious Injuries & Fatalities (2015)"
+              <div className="border border-line px-5 py-4">
+                <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
+                  SIFp Improvement Target
+                </div>
+                <TargetRow
+                  label="SIFpR"
+                  current={results.sifpRate}
+                  target={results.sifpTarget}
+                  reductionPct={inputs.sifpReductionPct}
+                  onReductionChange={update('sifpReductionPct')}
+                />
+              </div>
+            </>
+          }
         />
-
-        <div className="border border-line px-5 py-4">
-          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
-            SIFp Improvement Target
-          </div>
-          <TargetRow
-            label="SIFpR"
-            current={results.sifpRate}
-            target={results.sifpTarget}
-            reductionPct={inputs.sifpReductionPct}
-            onReductionChange={update('sifpReductionPct')}
-          />
-        </div>
       </CalcFrame>
 
       {/* Frame 3: Motor Vehicle Incidents */}
       <CalcFrame title="Motor Vehicle Incidents">
-        <div className="grid grid-cols-1 max-w-xs">
-          <Field label="Total km Driven (period)" id="ir-km">
-            <input
-              id="ir-km"
-              name="km"
-              type="number"
-              autoComplete="off"
-              value={inputs.km || ''}
-              onChange={update('km')}
-              placeholder="e.g. 5,000,000…"
-              min="0"
-            />
-          </Field>
-        </div>
+        <CalcColumns
+          inputs={
+            <>
+              <div className="grid grid-cols-1 max-w-xs lg:max-w-none">
+                <Field label="Total km Driven (period)" id="ir-km">
+                  <input
+                    id="ir-km"
+                    name="km"
+                    type="number"
+                    inputMode="decimal"
+                    autoComplete="off"
+                    value={inputs.km || ''}
+                    onChange={update('km')}
+                    placeholder="e.g. 5,000,000…"
+                    min="0"
+                  />
+                </Field>
+              </div>
 
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-          <Field label="Fatal MVI" id="ir-mvi-fatal">
-            <input id="ir-mvi-fatal" name="mviFatal" type="number" autoComplete="off" value={inputs.mviFatal || ''} onChange={update('mviFatal')} placeholder="0" min="0" />
-          </Field>
-          <Field label="Serious MVI (with injury)" id="ir-mvi-serious">
-            <input id="ir-mvi-serious" name="mviSerious" type="number" autoComplete="off" value={inputs.mviSerious || ''} onChange={update('mviSerious')} placeholder="0" min="0" />
-          </Field>
-          <Field label="Minor MVI (property damage)" id="ir-mvi-minor">
-            <input id="ir-mvi-minor" name="mviMinor" type="number" autoComplete="off" value={inputs.mviMinor || ''} onChange={update('mviMinor')} placeholder="0" min="0" />
-          </Field>
-          <div className="flex items-end">
-            <div className="flex items-baseline gap-2 bg-paper-raised border border-line px-4 py-3 w-full">
-              <Subtotal label="Total MVI" value={results.mviTotal} formula="(all types)" />
-            </div>
-          </div>
-        </div>
+              <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
+                <Field label="Fatal MVI" id="ir-mvi-fatal">
+                  <input id="ir-mvi-fatal" name="mviFatal" {...countProps} value={inputs.mviFatal || ''} onChange={update('mviFatal')} />
+                </Field>
+                <Field label="Serious MVI (with injury)" id="ir-mvi-serious">
+                  <input id="ir-mvi-serious" name="mviSerious" {...countProps} value={inputs.mviSerious || ''} onChange={update('mviSerious')} />
+                </Field>
+                <Field label="Minor MVI (property damage)" id="ir-mvi-minor">
+                  <input id="ir-mvi-minor" name="mviMinor" {...countProps} value={inputs.mviMinor || ''} onChange={update('mviMinor')} />
+                </Field>
+                <div className="flex items-end">
+                  <div className="flex items-baseline gap-2 bg-paper-raised border border-line px-4 py-3 w-full">
+                    <Subtotal label="Total MVI" value={results.mviTotal} formula="(all types)" />
+                  </div>
+                </div>
+              </div>
+            </>
+          }
+          results={
+            <>
+              <LiveSummary message={summaryMvi} />
+              <div className="grid grid-cols-2 max-md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                <MetricCard
+                  label="MVIFR — Motor Vehicle Incident Frequency Rate"
+                  formula={`(Total MVI ÷ km) × 1,000,000`}
+                  value={results.mvifr !== null ? fmt(results.mvifr, 3) : null}
+                  emptyHint="Enter km driven to calculate"
+                  bench={results.mvifrBench}
+                  cite={results.mvifrCite}
+                />
+                <MetricCard
+                  label="Fatal MVIFR — Fatal Motor Vehicle Incident Rate"
+                  formula={`(Fatal MVI ÷ km) × 1,000,000`}
+                  value={results.mviFatalFr !== null ? fmt(results.mviFatalFr, 3) : null}
+                  emptyHint="Enter km driven to calculate"
+                />
+              </div>
 
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4">
-          <MetricCard
-            label="MVIFR — Motor Vehicle Incident Frequency Rate"
-            formula={`(Total MVI ÷ km) × 1,000,000`}
-            value={results.mvifr !== null ? fmt(results.mvifr, 3) : null}
-            emptyHint="Enter km driven to calculate"
-            bench={results.mvifrBench}
-            cite={results.mvifrCite}
-          />
-          <MetricCard
-            label="Fatal MVIFR — Fatal Motor Vehicle Incident Rate"
-            formula={`(Fatal MVI ÷ km) × 1,000,000`}
-            value={results.mviFatalFr !== null ? fmt(results.mviFatalFr, 3) : null}
-            emptyHint="Enter km driven to calculate"
-          />
-        </div>
-
-        <div className="border border-line px-5 py-4">
-          <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
-            MVI Improvement Target
-          </div>
-          <TargetRow
-            label="MVIFR"
-            current={results.mvifr}
-            target={results.mvifrTarget}
-            reductionPct={inputs.mviReductionPct}
-            onReductionChange={update('mviReductionPct')}
-            decimals={3}
-          />
-        </div>
+              <div className="border border-line px-5 py-4">
+                <div className="font-data text-[0.68rem] tracking-[0.12em] uppercase text-ink-soft mb-4">
+                  MVI Improvement Target
+                </div>
+                <TargetRow
+                  label="MVIFR"
+                  current={results.mvifr}
+                  target={results.mvifrTarget}
+                  reductionPct={inputs.mviReductionPct}
+                  onReductionChange={update('mviReductionPct')}
+                  decimals={3}
+                />
+              </div>
+            </>
+          }
+        />
       </CalcFrame>
 
       {/* Copy Results */}

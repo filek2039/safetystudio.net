@@ -1,6 +1,6 @@
-import Container from './ui/Container'
-import ClauseTag from './ui/ClauseTag'
-import DimensionRule from './ui/DimensionRule'
+import Container from '@/components/ui/Container'
+import ClauseTag from '@/components/ui/ClauseTag'
+import DimensionRule from '@/components/ui/DimensionRule'
 
 const pathways = [
   {
@@ -58,17 +58,17 @@ export default function HomeOverview() {
           {pathways.map((pathway) => (
             <article
               key={pathway.title}
-              className="group flex min-w-0 flex-col border-b border-r border-line bg-paper px-6 py-8 transition-colors duration-150 hover:bg-paper-raised md:px-8"
+              className="group relative flex min-w-0 flex-col border-b border-r border-line bg-paper px-6 py-8 transition-colors duration-150 hover:bg-paper-raised has-[a:focus-visible]:bg-paper-raised md:px-8"
             >
               <h3 className="font-head text-3xl font-bold leading-none text-ink transition-colors duration-150 group-hover:text-signal">
                 {pathway.title}
               </h3>
-              <p className="mb-8 mt-4 flex-1 font-body text-sm leading-[1.8] text-ink-soft">
+              <p className="mb-8 mt-4 flex-1 font-body text-base leading-[1.7] text-ink-soft">
                 {pathway.description}
               </p>
               <a
                 href={pathway.href}
-                className="w-fit font-data text-sm font-medium text-ink underline decoration-signal decoration-2 underline-offset-4 transition-colors duration-150 hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+                className="w-fit font-data text-sm font-medium text-ink underline decoration-signal decoration-2 underline-offset-4 transition-colors duration-150 hover:text-signal group-hover:text-signal focus-visible:outline-none after:absolute after:inset-0 after:content-[''] focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:[outline-offset:-2px] focus-visible:after:outline-signal"
               >
                 {pathway.link} <span aria-hidden="true">→</span>
               </a>
@@ -80,7 +80,7 @@ export default function HomeOverview() {
           {principles.map(([label, detail]) => (
             <div key={label} className="border-b border-line px-5 py-6 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
               <p className="font-data text-sm font-medium text-signal">{label}</p>
-              <p className="mt-1 font-body text-sm text-ink-soft">{detail}</p>
+              <p className="mt-1 font-body text-base leading-[1.7] text-ink-soft">{detail}</p>
             </div>
           ))}
         </div>
@@ -98,7 +98,7 @@ export default function HomeOverview() {
             ].map(([title, description]) => (
               <li key={title}>
                 <h3 className="font-head text-2xl font-bold text-ink">{title}</h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-ink-soft">{description}</p>
+                <p className="mt-2 font-body text-base leading-[1.7] text-ink-soft">{description}</p>
               </li>
             ))}
           </ol>
@@ -107,13 +107,13 @@ export default function HomeOverview() {
         <div className="mt-14 flex flex-col items-start justify-between gap-6 border-l-4 border-signal bg-paper-raised px-6 py-7 sm:flex-row sm:items-center md:px-8">
           <div>
             <p className="font-head text-2xl font-bold text-ink">Not Sure Where to Begin?</p>
-            <p className="mt-1 font-body text-sm leading-relaxed text-ink-soft">
+            <p className="mt-1 font-body text-base leading-[1.7] text-ink-soft">
               Describe the operational challenge. We’ll help define a practical first step.
             </p>
           </div>
           <a
             href="/about/#contact"
-            className="shrink-0 bg-signal px-6 py-3 font-data text-sm font-medium text-paper transition-opacity duration-150 hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+            className="shrink-0 bg-signal px-6 py-3 font-data text-sm font-medium text-paper transition-[opacity,transform,filter] duration-150 hover:opacity-90 active:translate-y-px active:opacity-100 active:brightness-90 motion-reduce:transition-none motion-reduce:active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
           >
             Discuss Your Needs
           </a>

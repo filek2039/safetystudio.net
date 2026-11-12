@@ -17,8 +17,13 @@
   --warn:         146 64 14;
   --danger:       185 28 28;
 
-  --input-bg:           rgba(22, 29, 38, 0.03);
-  --input-border:       rgb(var(--line));
+  /* Fields: clean white well on warm paper; border ink-soft/0.75 = 3.67:1 on
+     paper, 3.85:1 on paper-raised (WCAG 1.4.11 ≥ 3:1). */
+  --input-bg:           rgb(255 255 255);
+  --input-border:       rgb(var(--ink-soft) / 0.75);
+  --input-border-hover: rgb(var(--ink) / 0.7);
+  --input-shadow:       inset 0 1px 2px rgb(var(--ink) / 0.06);
+  --input-chevron:      rgb(var(--ink-soft));
   --input-text:         rgb(var(--ink));
   --input-placeholder:  rgb(var(--ink-soft));
   --select-option-bg:   rgb(var(--paper-raised));
@@ -39,8 +44,13 @@
   --warn:         245 158 11;
   --danger:       248 113 113;
 
-  --input-bg:           rgba(233, 230, 222, 0.04);
-  --input-border:       rgb(var(--line));
+  /* Fields: darker inset well; border ink-soft/0.7 = 4.15:1 on paper,
+     3.88:1 on paper-raised (WCAG 1.4.11 ≥ 3:1). */
+  --input-bg:           rgb(0 0 0 / 0.25);
+  --input-border:       rgb(var(--ink-soft) / 0.7);
+  --input-border-hover: rgb(var(--ink) / 0.6);
+  --input-shadow:       inset 0 1px 3px rgb(0 0 0 / 0.45);
+  --input-chevron:      rgb(var(--ink-soft));
   --input-text:         rgb(var(--ink));
   --input-placeholder:  rgb(var(--ink-soft));
   --select-option-bg:   rgb(var(--paper-raised));
@@ -49,6 +59,13 @@
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Cross-document view transitions — the site is a true multi-page static
+     export, so same-origin navigations crossfade. Opt-in only when the user
+     has not asked for reduced motion. */
+  @view-transition {
+    navigation: auto;
   }
 }
 
@@ -67,24 +84,55 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
+p {
+  text-wrap: pretty;
+}
+
 /* ─── Input / Select base styles ─────────────────────────────────────────── */
 input[type="number"],
 input[type="text"],
 input[type="email"],
 textarea,
 select {
-  background: var(--input-bg);
+  background-color: var(--input-bg);
   border: 1px solid var(--input-border);
+  box-shadow: var(--input-shadow);
   color: var(--input-text);
   border-radius: 0;
+  min-height: 44px;
   padding: 0.5rem 0.75rem;
   font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 0.95rem;
+  /* 16px: below this iOS Safari zooms the page on focus */
+  font-size: 1rem;
+  line-height: 1.4;
   outline: none;
   width: 100%;
   transition: border-color 0.2s;
   -webkit-appearance: none;
   appearance: none;
+}
+
+input[type="number"]:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--input-border-hover);
+}
+
+/* appearance:none strips the native arrow — redraw a chevron from two
+   gradient triangles so it follows the theme token. */
+select {
+  cursor: pointer;
+  padding-right: 2.5rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--input-chevron) 50%),
+    linear-gradient(135deg, var(--input-chevron) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) 50%,
+    calc(100% - 0.75rem) 50%;
+  background-size: 0.35rem 0.35rem;
+  background-repeat: no-repeat;
 }
 
 input[type="number"]:focus-visible,
@@ -177,6 +225,41 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+/* ─── Entrance motion (CSS-only, visible by default) ─────────────────────
+   Nothing here hides content before JS runs. Every rule is opt-in behind
+   prefers-reduced-motion: no-preference; without support or with reduced
+   motion, content simply renders in place.
+
+   Hero: the h1 (LCP element) only translates — it is never transparent.
+   The paragraph and CTAs fade in after it; set --hero-delay per element.
+   Total sequence stays under ~600ms. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+  .hero-fade {
+    animation: hero-fade 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) var(--hero-delay, 0ms) backwards;
+  }
+
+  /* Section reveals: scroll-driven, so they cost no JS and finish early in
+     the entry range. Browsers without view() timelines show content as-is.
+     Tune direction per element with --reveal-x / --reveal-y. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@keyframes hero-rise { from { transform: translateY(16px); } }
+@keyframes hero-fade { from { opacity: 0; transform: translateY(10px); } }
+@keyframes reveal { from { opacity: 0; transform: translate(var(--reveal-x, 0px), var(--reveal-y, 16px)); } }
+
+@media print {
+  .hero-rise, .hero-fade, .reveal { animation: none !important; }
+}
+
 
 /* Original defense-in-depth hero animation. */
 .hero-stripe-draw { transform-origin: left center; animation: bs-wipe 1.4s cubic-bezier(.65,0,.35,1) .3s both; }
@@ -207,4 +290,4 @@ input[type="number"]::-webkit-outer-spin-button {
 @keyframes bs-held { 0%, 34% { transform: translateY(0); filter: brightness(1); } 36% { transform: translateY(10px); filter: brightness(1.55); } 41% { transform: translateY(-4px); filter: brightness(1.2); } 46% { transform: translateY(2px); filter: brightness(1.05); } 51%, 100% { transform: translateY(0); filter: brightness(1); } }
 .bs-shake { animation-name: bs-shake; }
 @keyframes bs-shake { 0%, 34.5% { transform: translate(0); } 36.5% { transform: translate(-3px,1px); } 38.5% { transform: translate(3px,-1px); } 40.5% { transform: translate(-2px); } 43% { transform: translate(1px); } 46%, 100% { transform: translate(0); } }
-@media (prefers-reduced-motion: reduce) { .bs-figure, .bs-figure *, .hero-stripe-draw { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .bs-figure, .bs-figure *, .hero-stripe-draw, .hero-rise, .hero-fade, .reveal { animation: none !important; } }

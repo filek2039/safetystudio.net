@@ -1,20 +1,12 @@
-'use client'
-import { motion } from 'framer-motion'
-import Container from './ui/Container'
-import ClauseTag from './ui/ClauseTag'
-import ContactForm from './ContactForm'
+import Container from '@/components/ui/Container'
+import ClauseTag from '@/components/ui/ClauseTag'
+import ContactForm from '@/components/ContactForm'
 
 export default function Contact() {
   return (
     <section id="contact" className="py-16 pb-24 bg-paper">
       <Container>
-        <motion.div
-          className="relative bg-paper-raised border border-line px-12 max-md:px-8 py-16 overflow-hidden"
-          initial={{ opacity: 0, scale: 0.97 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7, ease: "circOut" }}
-        >
+        <div className="reveal relative bg-paper-raised border border-line px-12 max-md:px-8 py-16 overflow-hidden">
           <div className="hazard-stripe absolute top-0 left-0 right-0" />
 
           {/* Watermark */}
@@ -36,7 +28,7 @@ export default function Contact() {
                 </span>{' '}
                 Workplace?
               </h2>
-              <p className="font-body text-ink-soft text-sm leading-relaxed max-w-[400px]">
+              <p className="font-body text-ink-soft text-base leading-[1.7] max-w-[420px]">
                 Let&apos;s discuss your HSE needs and create a tailored plan for your organization.
               </p>
             </div>
@@ -49,7 +41,7 @@ export default function Contact() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   )

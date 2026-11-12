@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout'
+import Container from '@/components/ui/Container'
 
 export const metadata: Metadata = {
   title: 'Stop Blaming the Worker: What Human Performance Improvement Actually Means for Your Site — Safety Studio',
@@ -144,7 +145,7 @@ function Fn({ n }: { n: number }) {
 function NumberedCard({ n, title, body }: { n: string; title: string; body: string }) {
   return (
     <div className="flex gap-5 border-l-2 border-signal/25 pl-5 py-1">
-      <span className="font-display text-signal/50 text-lg font-light leading-none mt-0.5 flex-shrink-0 w-6">
+      <span className="font-head font-bold text-signal/50 text-lg leading-none mt-0.5 flex-shrink-0 w-6">
         {n}
       </span>
       <div>
@@ -168,7 +169,7 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
   return (
     <h2
       id={id}
-      className="font-display font-light text-[1.7rem] text-ink mt-12 mb-2 leading-[1.2]"
+      className="font-head font-bold text-[1.75rem] text-ink mt-12 mb-2 leading-tight"
     >
       {children}
     </h2>
@@ -180,56 +181,60 @@ function SectionHeading({ id, children }: { id: string; children: React.ReactNod
 // ---------------------------------------------------------------------------
 
 const header = (
-  <header className="pt-36 pb-12 px-16 max-md:px-6 border-b border-signal/10">
-    <div className="max-w-2xl">
-      <div className="flex items-center gap-3 mb-6">
-        <a
-          href="/blog/"
-          className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors"
-        >
-          &larr; Blog
-        </a>
-        <span className="text-ink-soft/40 text-xs">&middot;</span>
-        <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
-          Human Factors
-        </span>
-      </div>
+  <header className="pt-36 pb-12 border-b border-signal/10">
+    <Container>
+      <div className="max-w-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <a
+            href="/blog/"
+            className="text-ink-soft/70 text-xs tracking-widest uppercase hover:text-signal transition-colors"
+          >
+            &larr; Blog
+          </a>
+          <span className="text-ink-soft/40 text-xs">&middot;</span>
+          <span className="text-[0.62rem] tracking-[0.15em] uppercase text-signal font-medium border border-signal/30 px-2.5 py-0.5">
+            Human Factors
+          </span>
+        </div>
 
-      <h1 className="font-display font-light text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.15] text-ink mb-5">
-        Stop Blaming the Worker: What Human Performance Improvement Actually Means for Your Site
-      </h1>
+        <h1 className="font-head font-extrabold uppercase tracking-tight text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.0] text-ink mb-5">
+          Stop Blaming the Worker: What Human Performance Improvement Actually Means for Your Site
+        </h1>
 
-      <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
-        <span>Safety Studio</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>April 2026</span>
-        <span className="text-ink-soft/40">&middot;</span>
-        <span>8 min read</span>
+        <div className="flex items-center gap-4 text-ink-soft/70 text-xs tracking-wide">
+          <span>Safety Studio</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>April 2026</span>
+          <span className="text-ink-soft/40">&middot;</span>
+          <span>8 min read</span>
+        </div>
       </div>
-    </div>
+    </Container>
   </header>
 )
 
 const cta = (
-  <div className="px-16 max-md:px-6 pb-24 max-w-2xl">
-    <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
-      <div>
-        <div className="text-ink font-medium text-sm mb-1">
-          Run an HPI-informed safety moment with your team
+  <Container className="pb-24">
+    <div className="max-w-2xl">
+      <div className="border border-signal/15 px-8 py-6 flex flex-wrap items-center justify-between gap-6 bg-paper-raised/40">
+        <div>
+          <div className="text-ink font-medium text-sm mb-1">
+            Run an HPI-informed safety moment with your team
+          </div>
+          <div className="text-ink-soft text-xs font-light">
+            Use our free Safety Moment Library for ready-to-use pre-task topics covering human
+            factors, critical step management, and error traps.
+          </div>
         </div>
-        <div className="text-ink-soft text-xs font-light">
-          Use our free Safety Moment Library for ready-to-use pre-task topics covering human
-          factors, critical step management, and error traps.
-        </div>
+        <a
+          href="/library/#safety-moment-library"
+          className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
+        >
+          Open Library
+        </a>
       </div>
-      <a
-        href="/library/#safety-moment-library"
-        className="text-signal text-[0.75rem] tracking-widest uppercase border border-signal/50 px-5 py-2.5 hover:bg-signal hover:text-paper transition-colors duration-300 whitespace-nowrap"
-      >
-        Open Library
-      </a>
     </div>
-  </div>
+  </Container>
 )
 
 const jsonLd = JSON.stringify({

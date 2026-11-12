@@ -25,7 +25,6 @@ const config: Config = {
         danger: 'rgb(var(--danger) / <alpha-value>)',
       },
       fontFamily: {
-        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
         sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
         head: ['var(--font-big-shoulders)', 'Impact', 'sans-serif'],
         body: ['var(--font-plex-sans)', 'system-ui', 'sans-serif'],

@@ -1,6 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BackToTop from '@/components/ui/BackToTop'
+import Container from '@/components/ui/Container'
 import ReadingProgress from '@/components/blog/ReadingProgress'
 import TableOfContents from '@/components/blog/TableOfContents'
 
@@ -40,12 +41,10 @@ export default function BlogArticleLayout({
         {header}
 
         {/* Article body + sticky ToC sidebar
-            Left ghost spacer mirrors ToC width so the article column sits in the true
-            horizontal centre of the page on xl screens. */}
-        <div className="flex justify-center gap-12 px-8 max-md:px-6">
-
-          {/* Ghost spacer — mirrors ToC, keeps article centred */}
-          <div className="hidden xl:block w-56 flex-shrink-0" aria-hidden="true" />
+            Shares the site column (Container) so the article's left edge lines up with
+            the nav logo and footer; the body keeps a ~672px reading measure and the ToC
+            sits to its right on xl screens. */}
+        <Container className="flex gap-12">
 
           <article className="py-14 w-full max-w-2xl min-w-0 prose-custom">
             <div className="space-y-6 text-ink/90 font-body font-normal leading-[1.85] text-[1.0625rem]">
@@ -60,7 +59,7 @@ export default function BlogArticleLayout({
             </div>
           </aside>
 
-        </div>
+        </Container>
 
         {cta}
 
